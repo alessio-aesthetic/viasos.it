@@ -106,25 +106,34 @@ function Hero() {
     <section className="relative min-h-screen overflow-hidden bg-[#f7fbff] pt-24 lg:flex lg:items-center lg:pt-20">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(37,211,102,0.18),transparent_34%),radial-gradient(circle_at_88%_18%,rgba(255,211,77,0.22),transparent_30%),linear-gradient(180deg,#f8fbff_0%,#eef7ff_100%)]" />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-white to-transparent" />
-      <div className="relative mx-auto grid w-full max-w-7xl gap-10 px-4 py-10 sm:px-6 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[1.04fr_0.96fr] lg:items-center lg:px-8 lg:py-12">
-        <div className="lg:-mt-12">
+      <div className="relative mx-auto grid w-full max-w-[1580px] gap-8 px-4 py-10 sm:px-6 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch lg:px-8 lg:py-12">
+        <div className="flex h-full flex-col justify-center rounded-[2.5rem] border border-white/70 bg-white/45 p-5 shadow-2xl shadow-slate-950/5 backdrop-blur-sm sm:p-8 lg:p-10">
           <p className="inline-flex rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-black uppercase tracking-[0.16em] text-[#075e54] shadow-sm">
             Soccorso stradale in tutta Italia
           </p>
-          <h1 className="mt-7 max-w-5xl text-5xl font-black tracking-tight text-[#07111f] sm:text-6xl lg:text-8xl lg:leading-[0.86]">
+            <h1 className="mt-7 max-w-6xl text-5xl font-black tracking-tight text-[#07111f] sm:text-6xl lg:text-7xl xl:text-[5.5rem] xl:leading-[0.9]">
             Il carroattrezzi piu vicino a te, trovato in pochi secondi
           </h1>
-          <p className="mt-7 max-w-3xl text-xl font-semibold leading-8 text-slate-700 lg:text-2xl lg:leading-9">
-            Invia la tua posizione e ViaSOS cerchera automaticamente il
-            carroattrezzi disponibile piu vicino. Se il primo operatore non puo
-            intervenire, il sistema contattera progressivamente quelli
-            successivi fino a trovare una disponibilita.
+          <div className="mt-8 max-w-4xl space-y-5 text-xl leading-8 text-slate-700 lg:text-[1.38rem] lg:leading-9">
+            <p>
+              <strong className="font-black text-[#07111f]">
+                Invia la tua posizione
+              </strong>{' '}
+              e ViaSOS cerchera automaticamente il carroattrezzi disponibile
+              piu vicino.
+            </p>
+            <p>
+              Se il primo operatore non puo intervenire, il sistema contattera
+              progressivamente quelli successivi fino a trovare una
+              disponibilita.
+            </p>
+          </div>
+          <p className="mt-7 max-w-3xl rounded-3xl border border-[#ffd34d]/60 bg-[#fff7d6] p-5 text-lg leading-7 font-black text-[#07111f] shadow-lg shadow-amber-950/5">
+            Una sola richiesta puo attivare la ricerca tra{' '}
+            <span className="whitespace-nowrap">oltre 15 carroattrezzi</span>{' '}
+            presenti nella zona.
           </p>
-          <p className="mt-6 max-w-2xl rounded-3xl border border-[#ffd34d]/60 bg-[#fff7d6] p-5 text-lg font-black text-[#07111f] shadow-lg shadow-amber-950/5">
-            Una sola richiesta puo attivare la ricerca tra oltre 15
-            carroattrezzi presenti nella zona.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
               href="#assistenza"
               className="inline-flex justify-center rounded-full bg-[#07111f] px-6 py-4 text-base font-black text-white shadow-xl shadow-slate-950/15 transition hover:bg-[#123456]"
@@ -138,39 +147,63 @@ function Hero() {
               Invia la posizione su WhatsApp
             </a>
           </div>
-          <p className="mt-4 text-sm font-semibold text-slate-600">
-            Nessuna app da scaricare. Bastano telefono, veicolo e posizione.
+          <p className="mt-5 text-base leading-7 font-semibold text-slate-600">
+            <strong className="text-[#07111f]">Nessuna app da scaricare.</strong>{' '}
+            Bastano telefono, veicolo e posizione.
           </p>
-          <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            {[
-              [
-                'Ricerca automatica per vicinanza',
-                '/images/micro/trust-nearby.webp',
-              ],
-              ['Risposta tramite WhatsApp', '/images/micro/trust-whatsapp.webp'],
-              [
-                'Centinaia di partner in Italia',
-                '/images/micro/trust-partners.webp',
-              ],
-            ].map(([item, image]) => (
-              <div
-                key={item}
-                className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-sm font-black text-[#07111f] shadow-sm"
-              >
-                <Image
-                  src={image}
-                  alt=""
-                  width={160}
-                  height={160}
-                  className="size-14 object-contain"
-                />
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
         </div>
-        <div className="lg:pl-4">
+        <div className="flex h-full items-stretch">
           <EmergencyForm />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function TrustHighlights() {
+  const trustItems = [
+    {
+      title: 'Ricerca automatica per vicinanza',
+      text: 'ViaSOS parte dalla tua posizione e verifica gli operatori più vicini.',
+      image: '/images/micro/trust-nearby-premium.webp',
+    },
+    {
+      title: 'Risposta tramite WhatsApp',
+      text: 'Invii una sola richiesta e ricevi il riscontro nel canale più comodo.',
+      image: '/images/micro/trust-whatsapp-premium.webp',
+    },
+    {
+      title: 'Centinaia di partner in Italia',
+      text: 'Una rete nazionale pensata per trovare disponibilità nella zona.',
+      image: '/images/micro/trust-partners-premium.webp',
+    },
+  ]
+
+  return (
+    <section className="relative bg-white py-14 sm:py-18">
+      <div className="mx-auto max-w-[1420px] px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-5 sm:grid-cols-3">
+          {trustItems.map((item) => (
+            <div
+              key={item.title}
+              className="group rounded-[2.25rem] border border-slate-200 bg-white p-7 text-center shadow-2xl shadow-slate-950/8 transition hover:-translate-y-1 hover:shadow-slate-950/14"
+            >
+              <Image
+                src={item.image}
+                alt=""
+                width={220}
+                height={220}
+                className="mx-auto size-32 object-contain transition duration-300 group-hover:scale-105 lg:size-36"
+                priority
+              />
+              <h2 className="mx-auto mt-5 max-w-sm text-2xl font-black leading-tight text-[#07111f] lg:text-3xl">
+                {item.title}
+              </h2>
+              <p className="mx-auto mt-4 max-w-sm text-base leading-7 font-semibold text-slate-600">
+                {item.text}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -184,6 +217,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <TrustHighlights />
         <SearchVisualization />
         <ImpactBand />
         <HowItWorks />

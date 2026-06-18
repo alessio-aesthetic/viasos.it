@@ -108,15 +108,19 @@ export function EmergencyForm() {
   return (
     <div
       id="assistenza"
-      className="rounded-[2rem] border border-white/70 bg-white p-5 shadow-2xl shadow-slate-950/15 sm:p-7"
+      className="flex w-full flex-col justify-center rounded-[2.5rem] border border-white/80 bg-white p-6 shadow-2xl shadow-slate-950/15 sm:p-8 lg:p-10"
     >
       <p className="text-sm font-black uppercase tracking-[0.18em] text-[#075e54]">
         richiesta immediata
       </p>
-      <h2 className="mt-3 text-3xl font-black tracking-tight text-[#07111f]">
+      <h2 className="mt-3 text-4xl font-black tracking-tight text-[#07111f]">
         Dove ti trovi? Al resto pensiamo noi.
       </h2>
-      <div className="mt-6 grid gap-4">
+      <p className="mt-3 text-base leading-7 font-semibold text-slate-600">
+        Inserisci pochi dati essenziali: ViaSOS prepara una richiesta ordinata
+        per cercare disponibilita vicino alla tua posizione.
+      </p>
+      <div className="mt-7 grid gap-4">
         <label className="grid gap-2">
           <span className="text-sm font-bold text-slate-800">
             Numero di telefono
@@ -126,7 +130,7 @@ export function EmergencyForm() {
             value={phone}
             onChange={(event) => setPhone(event.target.value)}
             placeholder="Es. 333 123 4567"
-            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-base font-semibold outline-none ring-[#25d366]/30 transition focus:border-[#25d366] focus:ring-4"
+            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base font-bold outline-none ring-[#25d366]/30 transition focus:border-[#25d366] focus:ring-4"
           />
         </label>
         <label className="grid gap-2">
@@ -136,7 +140,7 @@ export function EmergencyForm() {
           <select
             value={vehicle}
             onChange={(event) => setVehicle(event.target.value)}
-            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-base font-semibold outline-none ring-[#25d366]/30 transition focus:border-[#25d366] focus:ring-4"
+            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base font-bold outline-none ring-[#25d366]/30 transition focus:border-[#25d366] focus:ring-4"
           >
             <option value="">Seleziona veicolo</option>
             {vehicleTypes.map((item) => (
@@ -153,7 +157,7 @@ export function EmergencyForm() {
           <select
             value={problem}
             onChange={(event) => setProblem(event.target.value)}
-            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-base font-semibold outline-none ring-[#25d366]/30 transition focus:border-[#25d366] focus:ring-4"
+            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base font-bold outline-none ring-[#25d366]/30 transition focus:border-[#25d366] focus:ring-4"
           >
             <option value="">Seleziona problema</option>
             {vehicleProblems.map((item) => (
@@ -169,7 +173,7 @@ export function EmergencyForm() {
             type="button"
             onClick={useCurrentPosition}
             disabled={status === 'loading'}
-            className="rounded-2xl bg-[#07111f] px-4 py-3.5 text-base font-black text-white transition hover:bg-[#123456] disabled:cursor-wait disabled:opacity-70"
+            className="rounded-2xl bg-[#07111f] px-4 py-4 text-base font-black text-white transition hover:bg-[#123456] disabled:cursor-wait disabled:opacity-70"
           >
             {status === 'loading' ? 'Rilevamento...' : 'Usa la mia posizione'}
           </button>
@@ -177,7 +181,7 @@ export function EmergencyForm() {
             value={manualPosition}
             onChange={(event) => setManualPosition(event.target.value)}
             placeholder="Oppure scrivi strada, uscita, parcheggio o riferimento"
-            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-base font-semibold outline-none ring-[#25d366]/30 transition focus:border-[#25d366] focus:ring-4"
+            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base font-bold outline-none ring-[#25d366]/30 transition focus:border-[#25d366] focus:ring-4"
           />
         </div>
         <label className="flex gap-3 rounded-2xl bg-slate-50 p-4 text-sm leading-6 text-slate-700">
@@ -210,16 +214,17 @@ export function EmergencyForm() {
         <button
           type="button"
           onClick={submitRequest}
-          className="rounded-2xl bg-[#25d366] px-5 py-4 text-base font-black text-[#07111f] shadow-xl shadow-emerald-900/15 transition hover:bg-[#32e878]"
+          className="rounded-2xl bg-[#25d366] px-5 py-5 text-lg font-black text-[#07111f] shadow-xl shadow-emerald-900/15 transition hover:bg-[#32e878]"
         >
           Cerca subito assistenza
         </button>
-        <p className="text-sm leading-6 text-slate-600">
-          La richiesta viene trasmessa agli operatori disponibili piu vicini.
+        <p className="rounded-2xl bg-slate-50 p-4 text-sm leading-6 text-slate-600">
+          <strong className="text-[#07111f]">
+            La richiesta viene trasmessa agli operatori disponibili piu vicini.
+          </strong>{' '}
           Controlla WhatsApp dopo l’invio.
         </p>
       </div>
     </div>
   )
 }
-
