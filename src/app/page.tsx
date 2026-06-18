@@ -112,7 +112,7 @@ function Hero() {
             Soccorso stradale in tutta Italia
           </p>
             <h1 className="mt-7 max-w-6xl text-5xl font-black tracking-tight text-[#07111f] sm:text-6xl lg:text-7xl xl:text-[5.5rem] xl:leading-[0.9]">
-              IL CARROATTREZZI PIU VICINO A TE, TROVATO IN POCHI SECONDI
+              Il carroattrezzi piu vicino a te, trovato in pochi secondi
             </h1>
           <div className="mt-8 max-w-4xl space-y-5 text-xl leading-8 text-slate-700 lg:text-[1.38rem] lg:leading-9">
             <p>
@@ -129,9 +129,9 @@ function Hero() {
             </p>
           </div>
           <p className="mt-7 max-w-3xl rounded-3xl border border-[#ffd34d]/60 bg-[#fff7d6] p-5 text-lg leading-7 font-black text-[#07111f] shadow-lg shadow-amber-950/5">
-            UNA SOLA RICHIESTA PUO ATTIVARE LA RICERCA TRA{' '}
-            <span className="whitespace-nowrap">OLTRE 15 CARROATTREZZI</span>{' '}
-            PRESENTI NELLA ZONA.
+            Una sola richiesta puo attivare la ricerca tra{' '}
+            <span className="whitespace-nowrap">oltre 15 carroattrezzi</span>{' '}
+            presenti nella zona.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a

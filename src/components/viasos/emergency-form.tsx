@@ -15,7 +15,6 @@ export function EmergencyForm() {
   const [phone, setPhone] = useState('')
   const [vehicle, setVehicle] = useState('')
   const [problem, setProblem] = useState('')
-  const [manualPosition, setManualPosition] = useState('')
   const [coordinates, setCoordinates] = useState<Coordinates | null>(null)
   const [privacy, setPrivacy] = useState(false)
   const [status, setStatus] = useState<Status>('idle')
@@ -31,9 +30,7 @@ export function EmergencyForm() {
     if (!hasValidPhone) return 'Inserisci un numero di telefono valido.'
     if (!vehicle) return 'Seleziona il tipo di veicolo.'
     if (!problem) return 'Seleziona il problema del veicolo.'
-    if (!coordinates && !manualPosition.trim()) {
-      return 'Condividi la posizione o scrivi un riferimento manuale.'
-    }
+    if (!coordinates) return 'Condividi la posizione del veicolo.'
     if (!privacy) return 'Accetta la privacy per inviare la richiesta.'
     return ''
   }
@@ -42,7 +39,7 @@ export function EmergencyForm() {
     if (!navigator.geolocation) {
       setStatus('error')
       setMessage(
-        'Il browser non supporta la geolocalizzazione. Scrivi la posizione nel campo manuale.',
+        'Il browser non supporta la geolocalizzazione. Prova da smartphone o chiama direttamente.',
       )
       return
     }
@@ -62,7 +59,7 @@ export function EmergencyForm() {
       () => {
         setStatus('error')
         setMessage(
-          'Posizione non concessa. Puoi scrivere manualmente dove si trova il veicolo.',
+          'Posizione non concessa. Per inviare la richiesta dal sito devi consentire il GPS.',
         )
       },
       { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 },
@@ -86,9 +83,7 @@ export function EmergencyForm() {
       return
     }
 
-    const positionText = coordinates
-      ? `${coordinates.latitude}, ${coordinates.longitude}`
-      : manualPosition.trim()
+    const positionText = `${coordinates?.latitude}, ${coordinates?.longitude}`
 
     const text = [
       'Richiesta ViaSOS',
@@ -108,19 +103,34 @@ export function EmergencyForm() {
   return (
     <div
       id="assistenza"
-      className="flex w-full flex-col justify-center rounded-[2.5rem] border border-white/80 bg-white p-6 shadow-2xl shadow-slate-950/15 sm:p-8 lg:p-10"
+      className="relative flex w-full flex-col justify-center overflow-hidden rounded-[2.75rem] border border-white/80 bg-white p-2 shadow-2xl shadow-slate-950/20"
     >
-      <p className="text-sm font-black uppercase tracking-[0.18em] text-[#075e54]">
-        richiesta immediata
-      </p>
-      <h2 className="mt-3 text-4xl font-black tracking-tight text-[#07111f]">
-        Dove ti trovi? Al resto pensiamo noi.
-      </h2>
-      <p className="mt-3 text-base leading-7 font-semibold text-slate-600">
-        Inserisci pochi dati essenziali: ViaSOS prepara una richiesta ordinata
-        per cercare disponibilita vicino alla tua posizione.
-      </p>
-      <div className="mt-7 grid gap-4">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(37,211,102,0.2),transparent_34%),radial-gradient(circle_at_90%_10%,rgba(255,211,77,0.28),transparent_32%)]" />
+      <div className="relative rounded-[2.35rem] bg-white p-5 sm:p-7 lg:p-8">
+        <div className="rounded-[2rem] bg-[#07111f] p-5 text-white shadow-2xl shadow-slate-950/20">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-[#25d366]">
+            richiesta immediata
+          </p>
+          <h2 className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">
+            Trova assistenza adesso.
+          </h2>
+          <p className="mt-4 text-base leading-7 font-semibold text-slate-300">
+            Inserisci telefono, veicolo e problema. Con la posizione GPS ViaSOS
+            prepara una richiesta chiara per cercare l&apos;operatore disponibile piu
+            vicino.
+          </p>
+          <div className="mt-5 grid grid-cols-3 gap-2 text-center">
+            {['GPS preciso', 'Rete attiva', 'Risposta rapida'].map((item) => (
+              <span
+                key={item}
+                className="rounded-2xl bg-white/10 px-3 py-3 text-xs font-black text-white ring-1 ring-white/10"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="mt-6 grid gap-4">
         <label className="grid gap-2">
           <span className="text-sm font-bold text-slate-800">
             Numero di telefono
@@ -167,22 +177,22 @@ export function EmergencyForm() {
             ))}
           </select>
         </label>
-        <div className="grid gap-3">
-          <span className="text-sm font-bold text-slate-800">Posizione</span>
+        <div className="grid gap-3 rounded-[2rem] border border-emerald-200 bg-emerald-50/70 p-4">
+          <span className="text-sm font-black uppercase tracking-[0.14em] text-[#075e54]">
+            Posizione del veicolo
+          </span>
           <button
             type="button"
             onClick={useCurrentPosition}
             disabled={status === 'loading'}
-            className="rounded-2xl bg-[#07111f] px-4 py-4 text-base font-black text-white transition hover:bg-[#123456] disabled:cursor-wait disabled:opacity-70"
+            className="rounded-2xl bg-[#07111f] px-4 py-5 text-lg font-black text-white shadow-xl shadow-slate-950/20 transition hover:bg-[#123456] disabled:cursor-wait disabled:opacity-70"
           >
             {status === 'loading' ? 'Rilevamento...' : 'Usa la mia posizione'}
           </button>
-          <input
-            value={manualPosition}
-            onChange={(event) => setManualPosition(event.target.value)}
-            placeholder="Oppure scrivi strada, uscita, parcheggio o riferimento"
-            className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-base font-bold outline-none ring-[#25d366]/30 transition focus:border-[#25d366] focus:ring-4"
-          />
+          <p className="text-sm leading-6 font-semibold text-emerald-900">
+            La posizione serve solo per inoltrare una richiesta piu precisa agli
+            operatori presenti nella zona.
+          </p>
         </div>
         <label className="flex gap-3 rounded-2xl bg-slate-50 p-4 text-sm leading-6 text-slate-700">
           <input
@@ -214,7 +224,7 @@ export function EmergencyForm() {
         <button
           type="button"
           onClick={submitRequest}
-          className="rounded-2xl bg-[#25d366] px-5 py-5 text-lg font-black text-[#07111f] shadow-xl shadow-emerald-900/15 transition hover:bg-[#32e878]"
+          className="rounded-2xl bg-[#25d366] px-5 py-5 text-lg font-black text-[#07111f] shadow-xl shadow-emerald-900/20 transition hover:bg-[#32e878]"
         >
           Cerca subito assistenza
         </button>
@@ -224,6 +234,7 @@ export function EmergencyForm() {
           </strong>{' '}
           Controlla WhatsApp dopo l’invio.
         </p>
+        </div>
       </div>
     </div>
   )
