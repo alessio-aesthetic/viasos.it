@@ -103,23 +103,24 @@ function JsonLd() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#f7fbff] pt-28">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,211,102,0.16),transparent_34%),radial-gradient(circle_at_top_right,rgba(255,211,77,0.18),transparent_28%)]" />
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-20 pt-8 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:px-8 lg:pb-28">
-        <div>
+    <section className="relative min-h-screen overflow-hidden bg-[#f7fbff] pt-24 lg:flex lg:items-center lg:pt-20">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(37,211,102,0.18),transparent_34%),radial-gradient(circle_at_88%_18%,rgba(255,211,77,0.22),transparent_30%),linear-gradient(180deg,#f8fbff_0%,#eef7ff_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-white to-transparent" />
+      <div className="relative mx-auto grid w-full max-w-7xl gap-10 px-4 py-10 sm:px-6 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[1.04fr_0.96fr] lg:items-center lg:px-8 lg:py-12">
+        <div className="lg:-mt-12">
           <p className="inline-flex rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-black uppercase tracking-[0.16em] text-[#075e54] shadow-sm">
             Soccorso stradale in tutta Italia
           </p>
-          <h1 className="mt-7 max-w-5xl text-5xl font-black tracking-tight text-[#07111f] sm:text-6xl lg:text-7xl">
+          <h1 className="mt-7 max-w-5xl text-5xl font-black tracking-tight text-[#07111f] sm:text-6xl lg:text-8xl lg:leading-[0.86]">
             Il carroattrezzi piu vicino a te, trovato in pochi secondi
           </h1>
-          <p className="mt-6 max-w-3xl text-xl font-semibold leading-8 text-slate-700">
+          <p className="mt-7 max-w-3xl text-xl font-semibold leading-8 text-slate-700 lg:text-2xl lg:leading-9">
             Invia la tua posizione e ViaSOS cerchera automaticamente il
             carroattrezzi disponibile piu vicino. Se il primo operatore non puo
             intervenire, il sistema contattera progressivamente quelli
             successivi fino a trovare una disponibilita.
           </p>
-          <p className="mt-5 max-w-2xl rounded-2xl border border-[#ffd34d]/60 bg-[#fff7d6] p-4 text-base font-black text-[#07111f]">
+          <p className="mt-6 max-w-2xl rounded-3xl border border-[#ffd34d]/60 bg-[#fff7d6] p-5 text-lg font-black text-[#07111f] shadow-lg shadow-amber-950/5">
             Una sola richiesta puo attivare la ricerca tra oltre 15
             carroattrezzi presenti nella zona.
           </p>
@@ -168,9 +169,8 @@ function Hero() {
             ))}
           </div>
         </div>
-        <div className="grid gap-5">
+        <div className="lg:pl-4">
           <EmergencyForm />
-          <SearchVisualization />
         </div>
       </div>
     </section>
@@ -184,6 +184,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <SearchVisualization />
         <ImpactBand />
         <HowItWorks />
         <Comparison />
