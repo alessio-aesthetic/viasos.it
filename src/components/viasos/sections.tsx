@@ -1,4 +1,5 @@
 import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import Image from 'next/image'
 
 import { faqs, services } from '@/data/site'
 import { FaqAccordion } from './faq-accordion'
@@ -6,18 +7,22 @@ import { FaqAccordion } from './faq-accordion'
 const steps = [
   {
     title: 'Invia la posizione',
+    image: '/images/micro/step-position.webp',
     text: 'Compila il breve modulo e condividi la posizione del veicolo, anche senza conoscere l’indirizzo esatto.',
   },
   {
     title: 'Avviamo la ricerca',
+    image: '/images/micro/step-search.webp',
     text: 'Il sistema individua i partner presenti nei dintorni e parte dall’operatore potenzialmente piu vicino.',
   },
   {
     title: 'Verifichiamo la disponibilita',
+    image: '/images/micro/step-availability.webp',
     text: 'Se il primo carroattrezzi non risponde o non puo intervenire, la richiesta passa automaticamente al successivo.',
   },
   {
     title: 'Ricevi la conferma',
+    image: '/images/micro/step-confirm.webp',
     text: 'Il carroattrezzi disponibile riceve i dati e puo contattarti direttamente tramite telefono o WhatsApp.',
   },
 ]
@@ -70,9 +75,19 @@ export function HowItWorks() {
               key={step.title}
               className="rounded-[2rem] border border-slate-200 bg-slate-50 p-6 shadow-sm"
             >
-              <span className="grid size-11 place-items-center rounded-2xl bg-[#07111f] text-lg font-black text-white">
-                {index + 1}
-              </span>
+              <div className="flex items-start justify-between gap-4">
+                <Image
+                  src={step.image}
+                  alt=""
+                  width={160}
+                  height={160}
+                  className="size-24 object-contain"
+                  loading="lazy"
+                />
+                <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-[#07111f] text-base font-black text-white">
+                  {index + 1}
+                </span>
+              </div>
               <h3 className="mt-6 text-xl font-black text-[#07111f]">
                 {step.title}
               </h3>
@@ -131,14 +146,17 @@ export function ProximityBenefits() {
   const cards = [
     [
       'Meno attesa',
+      '/images/micro/benefit-waiting.webp',
       'Un operatore piu vicino deve percorrere una distanza inferiore per raggiungere il veicolo.',
     ],
     [
       'Meno chilometri',
+      '/images/micro/benefit-km.webp',
       'Ridurre il tragitto del carroattrezzi significa evitare trasferte inutilmente lunghe.',
     ],
     [
       'Maggiore possibilita di intervento',
+      '/images/micro/benefit-continuity.webp',
       'Se un operatore e impegnato, il sistema continua automaticamente con quelli successivi.',
     ],
   ]
@@ -158,11 +176,19 @@ export function ProximityBenefits() {
           </p>
         </div>
         <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {cards.map(([title, text]) => (
+          {cards.map(([title, image, text]) => (
             <div
               key={title}
               className="rounded-[2rem] border border-slate-200 bg-slate-50 p-7"
             >
+              <Image
+                src={image}
+                alt=""
+                width={160}
+                height={160}
+                className="mb-4 size-24 object-contain"
+                loading="lazy"
+              />
               <h3 className="text-2xl font-black text-[#07111f]">{title}</h3>
               <p className="mt-3 leading-7 text-slate-700">{text}</p>
             </div>
@@ -231,9 +257,14 @@ export function Services() {
               key={service.title}
               className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-950/10"
             >
-              <div className="grid size-12 place-items-center rounded-2xl bg-[#e9fff2] text-2xl">
-                🚨
-              </div>
+              <Image
+                src={service.image}
+                alt=""
+                width={160}
+                height={160}
+                className="size-24 object-contain"
+                loading="lazy"
+              />
               <h3 className="mt-5 text-xl font-black text-[#07111f]">
                 {service.title}
               </h3>
@@ -405,4 +436,3 @@ export function FaqSection() {
     </section>
   )
 }
-

@@ -36,46 +36,55 @@ export const vehicleProblems = [
 export const services = [
   {
     title: 'Auto in panne',
+    image: '/images/micro/service-auto-panne.webp',
     description:
       'Richiesta rapida per auto ferme su strada, in parcheggio, in area urbana o in zone extraurbane coperte dalla rete.',
   },
   {
     title: 'Recupero dopo incidente',
+    image: '/images/micro/service-incident.webp',
     description:
       'Invio dei dati principali a operatori compatibili quando il veicolo non puo proseguire dopo un sinistro.',
   },
   {
     title: 'Batteria scarica',
+    image: '/images/micro/service-battery.webp',
     description:
       'Assistenza per veicoli che non si avviano, con posizione precisa e contatto diretto tramite telefono o WhatsApp.',
   },
   {
     title: 'Gomma danneggiata',
+    image: '/images/micro/service-tire.webp',
     description:
       'Supporto in caso di gomma forata, danneggiata o veicolo fermo senza possibilita di ripartenza sicura.',
   },
   {
     title: 'Recupero veicolo bloccato',
+    image: '/images/micro/service-blocked.webp',
     description:
       'Richieste per auto, moto o furgoni bloccati in accessi difficili, cortili, parcheggi o strade secondarie.',
   },
   {
     title: 'Trasporto auto',
+    image: '/images/micro/service-transport.webp',
     description:
       'Trasporto programmato o urgente verso officina, carrozzeria, deposito o destinazione concordata con l’operatore.',
   },
   {
     title: 'Soccorso moto e scooter',
+    image: '/images/micro/service-moto.webp',
     description:
       'Recupero di due ruote ferme, non marcianti o danneggiate, con richiesta inviata agli operatori adatti.',
   },
   {
     title: 'Soccorso furgoni',
+    image: '/images/micro/service-van.webp',
     description:
       'Assistenza per furgoni leggeri in panne, veicoli commerciali bloccati e trasporti verso officine specializzate.',
   },
   {
     title: 'Soccorso camper',
+    image: '/images/micro/service-camper.webp',
     description:
       'Richieste per camper e veicoli ricreazionali, dove compatibilita del mezzo e distanza dell’operatore contano molto.',
   },

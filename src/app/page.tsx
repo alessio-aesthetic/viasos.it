@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 
 import { EmergencyForm } from '@/components/viasos/emergency-form'
 import { Footer } from '@/components/viasos/footer'
@@ -141,15 +142,28 @@ function Hero() {
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             {[
-              'Ricerca automatica per vicinanza',
-              'Risposta tramite WhatsApp',
-              'Centinaia di partner in Italia',
-            ].map((item) => (
+              [
+                'Ricerca automatica per vicinanza',
+                '/images/micro/trust-nearby.webp',
+              ],
+              ['Risposta tramite WhatsApp', '/images/micro/trust-whatsapp.webp'],
+              [
+                'Centinaia di partner in Italia',
+                '/images/micro/trust-partners.webp',
+              ],
+            ].map(([item, image]) => (
               <div
                 key={item}
-                className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-black text-[#07111f] shadow-sm"
+                className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-sm font-black text-[#07111f] shadow-sm"
               >
-                {item}
+                <Image
+                  src={image}
+                  alt=""
+                  width={160}
+                  height={160}
+                  className="size-14 object-contain"
+                />
+                <span>{item}</span>
               </div>
             ))}
           </div>
@@ -217,4 +231,3 @@ export default function Home() {
     </>
   )
 }
-
