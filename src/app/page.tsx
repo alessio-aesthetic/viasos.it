@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 
 import { EmergencyForm } from '@/components/viasos/emergency-form'
 import { Footer } from '@/components/viasos/footer'
 import { Header } from '@/components/viasos/header'
+import { TrustVisual } from '@/components/viasos/trust-visuals'
 import {
   Comparison,
   Coverage,
@@ -112,8 +112,8 @@ function Hero() {
             Soccorso stradale in tutta Italia
           </p>
             <h1 className="mt-7 max-w-6xl text-5xl font-black tracking-tight text-[#07111f] sm:text-6xl lg:text-7xl xl:text-[5.5rem] xl:leading-[0.9]">
-            Il carroattrezzi piu vicino a te, trovato in pochi secondi
-          </h1>
+              IL CARROATTREZZI PIU VICINO A TE, TROVATO IN POCHI SECONDI
+            </h1>
           <div className="mt-8 max-w-4xl space-y-5 text-xl leading-8 text-slate-700 lg:text-[1.38rem] lg:leading-9">
             <p>
               <strong className="font-black text-[#07111f]">
@@ -129,9 +129,9 @@ function Hero() {
             </p>
           </div>
           <p className="mt-7 max-w-3xl rounded-3xl border border-[#ffd34d]/60 bg-[#fff7d6] p-5 text-lg leading-7 font-black text-[#07111f] shadow-lg shadow-amber-950/5">
-            Una sola richiesta puo attivare la ricerca tra{' '}
-            <span className="whitespace-nowrap">oltre 15 carroattrezzi</span>{' '}
-            presenti nella zona.
+            UNA SOLA RICHIESTA PUO ATTIVARE LA RICERCA TRA{' '}
+            <span className="whitespace-nowrap">OLTRE 15 CARROATTREZZI</span>{' '}
+            PRESENTI NELLA ZONA.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
@@ -165,17 +165,17 @@ function TrustHighlights() {
     {
       title: 'Ricerca automatica per vicinanza',
       text: 'ViaSOS parte dalla tua posizione e verifica gli operatori più vicini.',
-      image: '/images/micro/trust-nearby-premium.webp',
+      visual: 'nearby' as const,
     },
     {
       title: 'Risposta tramite WhatsApp',
       text: 'Invii una sola richiesta e ricevi il riscontro nel canale più comodo.',
-      image: '/images/micro/trust-whatsapp-premium.webp',
+      visual: 'whatsapp' as const,
     },
     {
       title: 'Centinaia di partner in Italia',
       text: 'Una rete nazionale pensata per trovare disponibilità nella zona.',
-      image: '/images/micro/trust-partners-premium.webp',
+      visual: 'network' as const,
     },
   ]
 
@@ -188,14 +188,7 @@ function TrustHighlights() {
               key={item.title}
               className="group rounded-[2.25rem] border border-slate-200 bg-white p-7 text-center shadow-2xl shadow-slate-950/8 transition hover:-translate-y-1 hover:shadow-slate-950/14"
             >
-              <Image
-                src={item.image}
-                alt=""
-                width={220}
-                height={220}
-                className="mx-auto size-32 object-contain transition duration-300 group-hover:scale-105 lg:size-36"
-                priority
-              />
+              <TrustVisual type={item.visual} />
               <h2 className="mx-auto mt-5 max-w-sm text-2xl font-black leading-tight text-[#07111f] lg:text-3xl">
                 {item.title}
               </h2>
