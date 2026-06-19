@@ -47,7 +47,7 @@ export function ImpactBand() {
   return (
     <section className="bg-[#07111f] py-14 text-white">
       <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-        <p className="text-3xl font-black tracking-tight sm:text-5xl">
+        <p className="text-2xl font-black tracking-tight sm:text-4xl">
           Non cercare il carroattrezzi. Lascia che sia il carroattrezzi piu
           vicino a trovare te.
         </p>
@@ -62,11 +62,11 @@ export function ImpactBand() {
 export function HowItWorks() {
   return (
     <section id="come-funziona" className="bg-white py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
         <p className="text-sm font-black uppercase tracking-[0.22em] text-[#075e54]">
           come funziona
         </p>
-        <h2 className="mt-3 max-w-4xl text-4xl font-black tracking-tight text-[#07111f] sm:text-5xl">
+        <h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
           Dalla posizione al soccorso in quattro semplici passaggi
         </h2>
         <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -108,7 +108,7 @@ export function Comparison() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm">
-            <h2 className="text-3xl font-black text-[#07111f]">
+          <h2 className="text-2xl font-black text-[#07111f]">
               Il vecchio modo
             </h2>
             <ul className="mt-8 grid gap-4">
@@ -121,7 +121,7 @@ export function Comparison() {
             </ul>
           </div>
           <div className="rounded-[2rem] border border-emerald-200 bg-white p-7 shadow-xl shadow-emerald-950/10">
-            <h2 className="text-3xl font-black text-[#07111f]">
+            <h2 className="text-2xl font-black text-[#07111f]">
               Il modo ViaSOS
             </h2>
             <ul className="mt-8 grid gap-4">
@@ -163,8 +163,8 @@ export function ProximityBenefits() {
   return (
     <section className="bg-white py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl">
-          <h2 className="text-4xl font-black tracking-tight text-[#07111f] sm:text-5xl">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
             Perche il carroattrezzi piu vicino puo farti risparmiare tempo e
             denaro
           </h2>
@@ -189,7 +189,7 @@ export function ProximityBenefits() {
                 className="mb-4 size-24 object-contain"
                 loading="lazy"
               />
-              <h3 className="text-2xl font-black text-[#07111f]">{title}</h3>
+              <h3 className="text-xl font-black text-[#07111f]">{title}</h3>
               <p className="mt-3 leading-7 text-slate-700">{text}</p>
             </div>
           ))}
@@ -207,7 +207,7 @@ export function SpeedSection() {
           <p className="text-sm font-black uppercase tracking-[0.22em] text-[#25d366]">
             ricerca progressiva
           </p>
-          <h2 className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">
+          <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
             Oltre 15 possibilita con una sola richiesta
           </h2>
           <p className="mt-6 text-lg leading-8 text-slate-300">
@@ -247,8 +247,8 @@ export function SpeedSection() {
 export function Services() {
   return (
     <section id="servizi" className="bg-slate-50 py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="max-w-3xl text-4xl font-black tracking-tight text-[#07111f] sm:text-5xl">
+      <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+        <h2 className="mx-auto max-w-3xl text-center text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
           Soccorso stradale per ogni esigenza
         </h2>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -287,7 +287,7 @@ export function WhatsAppFlow() {
           <p className="text-sm font-black uppercase tracking-[0.22em] text-[#075e54]">
             risposta semplice
           </p>
-          <h2 className="mt-3 text-4xl font-black tracking-tight text-[#07111f] sm:text-5xl">
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
             Tutto direttamente su WhatsApp
           </h2>
           <p className="mt-6 text-lg leading-8 text-slate-700">
@@ -330,7 +330,7 @@ export function Coverage() {
     <section id="copertura" className="bg-slate-50 py-24">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:px-8">
         <div>
-          <h2 className="text-4xl font-black tracking-tight text-[#07111f] sm:text-5xl">
+          <h2 className="text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
             Una rete di carroattrezzi in tutta Italia
           </h2>
           <p className="mt-6 text-lg leading-8 text-slate-700">
@@ -378,16 +378,16 @@ export function Reliability() {
   return (
     <section className="bg-white py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-[2.5rem] bg-[#07111f] p-8 text-white sm:p-12">
-          <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
+        <div className="rounded-[2.5rem] bg-[#07111f] p-8 text-center text-white sm:p-12">
+          <h2 className="text-3xl font-black tracking-tight sm:text-4xl">
             Una tecnologia semplice per un momento complicato
           </h2>
-          <p className="mt-6 max-w-4xl text-lg leading-8 text-slate-300">
+          <p className="mx-auto mt-6 max-w-4xl text-lg leading-8 text-slate-300">
             Quando sei fermo per strada non vuoi confrontare decine di siti o
             ripetere il problema a piu operatori. ViaSOS riduce tutto a quattro
             elementi: posizione, richiesta, ricerca automatica e risposta.
           </p>
-          <p className="mt-10 text-3xl font-black text-[#ffd34d] sm:text-5xl">
+          <p className="mt-10 text-2xl font-black text-[#ffd34d] sm:text-4xl">
             La strada piu breve tra te e il soccorso di cui hai bisogno.
           </p>
         </div>
@@ -400,14 +400,14 @@ export function PartnerSection() {
   return (
     <section id="partner" className="bg-slate-50 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-[2.5rem] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-950/5 sm:p-12">
+        <div className="rounded-[2.5rem] border border-slate-200 bg-white p-8 text-center shadow-xl shadow-slate-950/5 sm:p-12">
           <p className="text-sm font-black uppercase tracking-[0.22em] text-[#075e54]">
             rete professionale
           </p>
-          <h2 className="mt-3 max-w-4xl text-4xl font-black tracking-tight text-[#07111f] sm:text-5xl">
+          <h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
             Sei un carroattrezzi? Entra nella rete ViaSOS
           </h2>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-700">
+          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-700">
             Ricevi richieste relative alle zone in cui operi realmente, complete
             di posizione, numero del cliente, tipo di veicolo e problema
             segnalato.
@@ -428,7 +428,7 @@ export function FaqSection() {
   return (
     <section id="faq" className="bg-white py-24">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-black tracking-tight text-[#07111f] sm:text-5xl">
+        <h2 className="text-center text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
           Domande frequenti
         </h2>
         <FaqAccordion items={faqs} />

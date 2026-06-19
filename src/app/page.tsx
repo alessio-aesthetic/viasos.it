@@ -111,7 +111,7 @@ function Hero() {
           <p className="inline-flex rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-black uppercase tracking-[0.16em] text-[#075e54] shadow-sm">
             Soccorso stradale in tutta Italia
           </p>
-            <h1 className="mt-7 max-w-6xl text-5xl font-black tracking-tight text-[#07111f] sm:text-6xl lg:text-7xl xl:text-[5.5rem] xl:leading-[0.9]">
+            <h1 className="mt-7 max-w-6xl text-4xl font-black tracking-tight text-[#07111f] sm:text-5xl lg:text-6xl xl:text-[5rem] xl:leading-[0.95]">
               Il carroattrezzi piu vicino a te, trovato in pochi secondi
             </h1>
           <div className="mt-8 max-w-4xl space-y-5 text-xl leading-8 text-slate-700 lg:text-[1.38rem] lg:leading-9">
@@ -189,7 +189,7 @@ function TrustHighlights() {
               className="group rounded-[2.25rem] border border-slate-200 bg-white p-7 text-center shadow-2xl shadow-slate-950/8 transition hover:-translate-y-1 hover:shadow-slate-950/14"
             >
               <TrustVisual type={item.visual} />
-              <h2 className="mx-auto mt-5 max-w-sm text-2xl font-black leading-tight text-[#07111f] lg:text-3xl">
+              <h2 className="mx-auto mt-5 max-w-sm text-xl font-black leading-tight text-[#07111f] lg:text-2xl">
                 {item.title}
               </h2>
               <p className="mx-auto mt-4 max-w-sm text-base leading-7 font-semibold text-slate-600">
@@ -225,7 +225,7 @@ export default function Home() {
         <FaqSection />
         <section className="bg-[#07111f] py-24 text-white">
           <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-            <h2 className="text-4xl font-black tracking-tight sm:text-6xl">
+            <h2 className="text-3xl font-black tracking-tight sm:text-5xl">
               Sei fermo per strada? Non perdere tempo chiamando un numero dopo
               l’altro.
             </h2>
