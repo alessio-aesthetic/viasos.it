@@ -4,7 +4,7 @@ export function Brand({ className }: { className?: string }) {
   return (
     <div className={clsx('flex items-center', className)}>
       <img
-        src="/images/viasos-logo-header.webp"
+        src="/images/viasos-logo-header-cropped.webp"
         alt="ViaSOS"
         className="h-16 w-auto sm:h-20 lg:h-24"
       />
