@@ -6,7 +6,7 @@ export function Brand({ className }: { className?: string }) {
       <img
         src="/images/viasos-logo-header.webp"
         alt="ViaSOS"
-        className="h-40 w-auto sm:h-48 lg:h-56"
+        className="h-16 w-auto sm:h-20 lg:h-24"
       />
     </div>
   )
