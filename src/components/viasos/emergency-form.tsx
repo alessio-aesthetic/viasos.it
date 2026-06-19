@@ -217,7 +217,7 @@ export function EmergencyForm() {
               {status === 'loading' ? 'Rilevamento...' : 'Usa la mia posizione'}
             </button>
             <p className="text-sm leading-6 font-semibold text-slate-700">
-              La posizione serve per inoltrare una richiesta precisa agli
+              La posizione serve per inoltrare una richiesta precisa ai
               carroattrezzi presenti nella zona.
             </p>
           </div>
