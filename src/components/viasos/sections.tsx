@@ -119,37 +119,34 @@ export function Comparison() {
             chiaro per gli operatori compatibili.
           </p>
         </div>
-        <div className="grid gap-6 lg:grid-cols-[0.88fr_1.12fr]">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="flex h-full flex-col rounded-[2.35rem] border border-slate-200 bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,0.10)] ring-1 ring-white">
             <h3 className="text-2xl font-black text-[#07111f]">
               Il vecchio modo
             </h3>
             <ul className="mt-8 grid gap-4">
               {oldWay.map((item) => (
-                <li key={item} className="flex gap-3 text-slate-700">
-                  <XMarkIcon className="mt-0.5 size-5 shrink-0 text-red-500" />
-                  <span className="font-semibold">{item}</span>
+                <li
+                  key={item}
+                  className="flex gap-4 rounded-2xl bg-slate-50 p-4 text-slate-700 shadow-sm ring-1 ring-slate-100"
+                >
+                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-red-50">
+                    <XMarkIcon className="size-5 text-red-500" />
+                  </span>
+                  <span className="font-bold">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="relative overflow-hidden rounded-[2.35rem] border border-emerald-200 bg-white p-8 shadow-2xl shadow-emerald-950/15">
-            <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-[#25d366] via-[#ffd34d] to-[#25d366]" />
-            <div className="mb-6 inline-flex rounded-full bg-[#e9fff2] px-4 py-2 text-sm font-black uppercase tracking-[0.14em] text-[#075e54]">
-              consigliato
-            </div>
-            <h3 className="text-3xl font-black text-[#07111f]">
+          <div className="flex h-full flex-col rounded-[2.35rem] border border-emerald-200 bg-white p-8 shadow-[0_24px_70px_rgba(6,95,70,0.16)] ring-1 ring-white">
+            <h3 className="text-2xl font-black text-[#07111f]">
               Il modo ViaSOS
             </h3>
-            <p className="mt-3 text-base leading-7 font-semibold text-slate-700">
-              Un percorso più ordinato: meno ripetizioni, meno attesa e più
-              possibilità di ricevere un riscontro rapido da chi può intervenire.
-            </p>
             <ul className="mt-8 grid gap-4">
               {newWay.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-4 rounded-2xl bg-slate-50 p-4 text-slate-800"
+                  className="flex gap-4 rounded-2xl bg-[#f3fff7] p-4 text-slate-800 shadow-sm ring-1 ring-emerald-100"
                 >
                   <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#25d366]">
                     <CheckIcon className="size-5 text-[#07111f]" />

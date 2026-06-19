@@ -108,7 +108,7 @@ export function EmergencyForm() {
       className="relative flex h-full w-full flex-col rounded-[2.75rem] bg-white p-2 shadow-[0_36px_90px_rgba(7,17,31,0.22),0_10px_24px_rgba(37,211,102,0.12)] ring-1 ring-slate-200/80"
     >
       <div className="absolute -inset-1 -z-10 rounded-[3rem] bg-linear-to-br from-white via-slate-100 to-emerald-100/70 blur-sm" />
-      <div className="relative flex h-full flex-col overflow-hidden rounded-[2.35rem] border border-slate-100 bg-linear-to-b from-white to-slate-50 p-5 sm:p-7 lg:p-8">
+      <div className="relative flex h-full flex-col overflow-hidden rounded-[2.35rem] border border-slate-100 bg-linear-to-b from-white to-slate-50 p-5 sm:p-6 lg:p-8">
         <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-[#25d366]/70 to-transparent" />
         <p className="text-xs font-black uppercase tracking-[0.2em] text-[#075e54]">
           richiesta immediata
