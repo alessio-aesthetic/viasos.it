@@ -10,7 +10,7 @@ export default function PrivacyPage() {
         posizione condivisa.
       </p>
       <p>
-        I dati sono usati per consentire il contatto con operatori indipendenti
+        I dati sono usati per consentire il contatto con carroattrezzi indipendenti
         del soccorso stradale compatibili con la richiesta. Per informazioni
         specifiche o aggiornamenti della policy puoi contattare ViaSOS.
       </p>

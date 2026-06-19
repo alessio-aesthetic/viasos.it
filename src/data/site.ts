@@ -44,7 +44,7 @@ export const services = [
     title: 'Recupero dopo incidente',
     image: '/images/micro/service-incident.webp',
     description:
-      'Invio dei dati principali a operatori compatibili quando il veicolo non può proseguire dopo un sinistro.',
+      'Invio dei dati principali a carroattrezzi compatibili quando il veicolo non può proseguire dopo un sinistro.',
   },
   {
     title: 'Batteria scarica',
@@ -68,13 +68,13 @@ export const services = [
     title: 'Trasporto auto',
     image: '/images/micro/service-transport.webp',
     description:
-      'Trasporto programmato o urgente verso officina, carrozzeria, deposito o destinazione concordata con l’operatore.',
+      'Trasporto programmato o urgente verso officina, carrozzeria, deposito o destinazione concordata con il carroattrezzi.',
   },
   {
     title: 'Soccorso moto e scooter',
     image: '/images/micro/service-moto.webp',
     description:
-      'Recupero di due ruote ferme, non marcianti o danneggiate, con richiesta inviata agli operatori adatti.',
+      'Recupero di due ruote ferme, non marcianti o danneggiate, con richiesta inviata ai carroattrezzi adatti.',
   },
   {
     title: 'Soccorso furgoni',
@@ -86,7 +86,7 @@ export const services = [
     title: 'Soccorso camper',
     image: '/images/micro/service-camper.webp',
     description:
-      'Richieste per camper e veicoli ricreazionali, dove compatibilità del mezzo e distanza dell’operatore contano molto.',
+      'Richieste per camper e veicoli ricreazionali, dove compatibilità del mezzo e distanza del carroattrezzi contano molto.',
   },
 ]
 
@@ -94,27 +94,27 @@ export const faqs = [
   {
     question: 'Come posso trovare un carroattrezzi vicino a me?',
     answer:
-      'Compila il modulo, inserisci il telefono, seleziona veicolo e problema e condividi la posizione. ViaSOS prepara una richiesta completa e la indirizza verso gli operatori presenti nelle vicinanze, partendo da quelli potenzialmente più vicini.',
+      'Compila il modulo, inserisci il telefono, seleziona veicolo e problema e condividi la posizione. ViaSOS prepara una richiesta completa e la indirizza verso i carroattrezzi presenti nelle vicinanze, partendo da quelli potenzialmente più vicini.',
   },
   {
     question: 'Quanto tempo serve per ricevere una risposta?',
     answer:
-      'Dipende dalla zona, dal traffico, dal tipo di veicolo e dalla disponibilità degli operatori. Il vantaggio e che non devi chiamare un numero dopo l’altro: la richiesta può essere verificata progressivamente nella rete.',
+      'Dipende dalla zona, dal traffico, dal tipo di veicolo e dalla disponibilità dei carroattrezzi. Il vantaggio e che non devi chiamare un numero dopo l’altro: la richiesta può essere verificata progressivamente nella rete.',
   },
   {
     question: 'ViaSOS contatta un solo carroattrezzi?',
     answer:
-      'No. Il punto di forza della piattaforma e proprio la ricerca progressiva: se un operatore non può intervenire, la richiesta può passare a quello successivo compatibile e più vicino.',
+      'No. Il punto di forza della piattaforma e proprio la ricerca progressiva: se un carroattrezzi non può intervenire, la richiesta può passare a quello successivo compatibile e più vicino.',
   },
   {
     question: 'Come viene scelto il carroattrezzi?',
     answer:
-      'La ricerca parte dalla posizione condivisa e considera gli operatori disponibili e compatibili presenti nella rete al momento della richiesta. L’obiettivo e trovare una disponibilità vicina, non assegnare il lavoro in modo casuale.',
+      'La ricerca parte dalla posizione condivisa e considera i carroattrezzi disponibili e compatibili presenti nella rete al momento della richiesta. L’obiettivo e trovare una disponibilità vicina, non assegnare il lavoro in modo casuale.',
   },
   {
-    question: 'Perché un operatore più vicino può essere più conveniente?',
+    question: 'Perché un carroattrezzi più vicino può essere più conveniente?',
     answer:
-      'Meno distanza può significare meno tempo di arrivo e meno chilometri da percorrere. Il prezzo finale viene comunque comunicato dall’operatore incaricato prima o durante la gestione della richiesta.',
+      'Meno distanza può significare meno tempo di arrivo e meno chilometri da percorrere. Il prezzo finale viene comunque comunicato dal carroattrezzi incaricato prima o durante la gestione della richiesta.',
   },
   {
     question: 'Devo scaricare un’applicazione?',
@@ -129,26 +129,26 @@ export const faqs = [
   {
     question: 'Quali veicoli possono essere recuperati?',
     answer:
-      'La richiesta può riguardare auto, moto, scooter, furgoni, camper e altri veicoli. La compatibilità viene valutata dagli operatori in base al mezzo e al problema indicato.',
+      'La richiesta può riguardare auto, moto, scooter, furgoni, camper e altri veicoli. La compatibilità viene valutata dai carroattrezzi in base al mezzo e al problema indicato.',
   },
   {
     question: 'ViaSOS funziona in tutta Italia?',
     answer:
-      'ViaSOS lavora con una rete nazionale in crescita. La copertura può variare in base alla zona e alla disponibilità effettiva degli operatori nel momento della richiesta.',
+      'ViaSOS lavora con una rete nazionale in crescita. La copertura può variare in base alla zona e alla disponibilità effettiva dei carroattrezzi nel momento della richiesta.',
   },
   {
     question: 'Come conosco il prezzo dell’intervento?',
     answer:
-      'Il preventivo e le condizioni dell’intervento vengono comunicati dall’operatore incaricato. ViaSOS aiuta a inoltrare una richiesta chiara con posizione, veicolo e problema.',
+      'Il preventivo e le condizioni dell’intervento vengono comunicati dal carroattrezzi incaricato. ViaSOS aiuta a inoltrare una richiesta chiara con posizione, veicolo e problema.',
   },
   {
     question: 'Posso richiedere soccorso di notte o nei giorni festivi?',
     answer:
-      'Puoi inviare la richiesta anche in orari serali, notturni o festivi. La risposta dipende dagli operatori disponibili nella zona in quel momento.',
+      'Puoi inviare la richiesta anche in orari serali, notturni o festivi. La risposta dipende dai carroattrezzi disponibili nella zona in quel momento.',
   },
   {
     question: 'Cosa devo fare dopo aver inviato la richiesta?',
     answer:
-      'Controlla WhatsApp e tieni il telefono raggiungibile. L’operatore disponibile potrà contattarti per confermare dettagli, destinazione e condizioni dell’intervento.',
+      'Controlla WhatsApp e tieni il telefono raggiungibile. Il carroattrezzi disponibile potrà contattarti per confermare dettagli, destinazione e condizioni dell’intervento.',
   },
 ]

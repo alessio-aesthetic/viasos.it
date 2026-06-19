@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <Brand className="[&_*]:text-white" />
             <p className="mt-5 max-w-md text-sm leading-7 text-slate-300">
-              ViaSOS collega utenti fermi con il proprio veicolo e operatori
+              ViaSOS collega utenti fermi con il proprio veicolo e carroattrezzi
               indipendenti del soccorso stradale, partendo dalla posizione
               condivisa.
             </p>
@@ -43,11 +43,11 @@ export function Footer() {
           />
         </div>
         <p className="mt-12 border-t border-white/10 pt-8 text-xs leading-6 text-slate-400">
-          ViaSOS è una piattaforma di collegamento tra utenti e operatori
+          ViaSOS è una piattaforma di collegamento tra utenti e carroattrezzi
           indipendenti del soccorso stradale. Disponibilita, tempistiche,
           preventivi e svolgimento dell’intervento sono comunicati e gestiti dal
           professionista incaricato. La vicinanza viene determinata in base alla
-          posizione condivisa e agli operatori disponibili e compatibili
+          posizione condivisa e ai carroattrezzi disponibili e compatibili
           presenti nella rete al momento della richiesta.
         </p>
         <p className="mt-6 text-xs text-slate-500">

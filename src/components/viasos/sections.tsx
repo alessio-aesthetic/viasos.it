@@ -13,7 +13,7 @@ const steps = [
   {
     title: 'Avviamo la ricerca',
     image: '/images/micro/step-search.webp',
-    text: 'Il sistema individua i partner presenti nei dintorni e parte dall’operatore potenzialmente più vicino.',
+    text: 'Il sistema individua i partner presenti nei dintorni e parte dal carroattrezzi potenzialmente più vicino.',
   },
   {
     title: 'Verifichiamo la disponibilità',
@@ -29,7 +29,7 @@ const steps = [
 
 const oldWay = [
   'Cerchi diversi numeri su Google',
-  'Chiami un operatore alla volta',
+  'Chiami un carroattrezzi alla volta',
   'Ripeti ogni volta posizione e problema',
   'Molti non rispondono o sono già impegnati',
   'Non sai quale sia realmente il più vicino',
@@ -38,7 +38,7 @@ const oldWay = [
 const newWay = [
   'Inoltri una sola richiesta',
   'Condividi una volta sola la posizione',
-  'Il sistema parte dagli operatori più vicini',
+  'Il sistema parte dai carroattrezzi più vicini',
   'La ricerca continua fino a trovare disponibilità',
   'Ricevi il riscontro direttamente su WhatsApp',
 ]
@@ -116,7 +116,7 @@ export function Comparison() {
           <p className="mt-5 text-lg leading-8 text-slate-700">
             ViaSOS nasce per ridurre confusione, attesa e tentativi inutili:
             raccoglie i dati essenziali una sola volta e li prepara in modo
-            chiaro per gli operatori compatibili.
+            chiaro per i carroattrezzi compatibili.
           </p>
         </div>
         <div className="grid gap-6 lg:grid-cols-2">
@@ -174,7 +174,7 @@ export function ProximityBenefits() {
     [
       'Meno attesa',
       '/images/micro/benefit-waiting.webp',
-      'Un operatore più vicino deve percorrere una distanza inferiore per raggiungere il veicolo.',
+      'Un carroattrezzi più vicino deve percorrere una distanza inferiore per raggiungere il veicolo.',
     ],
     [
       'Meno chilometri',
@@ -184,7 +184,7 @@ export function ProximityBenefits() {
     [
       'Maggiore possibilità di intervento',
       '/images/micro/benefit-continuity.webp',
-      'Se un operatore è impegnato, il sistema continua automaticamente con quelli successivi.',
+      'Se un carroattrezzi è impegnato, il sistema continua automaticamente con quelli successivi.',
     ],
   ]
   return (
@@ -198,7 +198,7 @@ export function ProximityBenefits() {
           <p className="mt-6 text-lg leading-8 text-slate-700">
             La distanza incide sul tempo necessario per raggiungerti e può
             incidere sul costo di uscita. Per questo ViaSOS non assegna la
-            richiesta casualmente: la ricerca parte dagli operatori più vicini
+            richiesta casualmente: la ricerca parte dai carroattrezzi più vicini
             alla posizione condivisa.
           </p>
         </div>
@@ -240,7 +240,7 @@ export function SpeedSection() {
           <p className="mt-6 text-lg leading-8 text-slate-300">
             La velocità di ViaSOS non dipende dalla risposta di un solo
             carroattrezzi. In base alla copertura della zona, il sistema può
-            verificare progressivamente la disponibilità di oltre 15 operatori,
+            verificare progressivamente la disponibilità di oltre 15 carroattrezzi,
             partendo da quelli più vicini.
           </p>
           <p className="mt-6 rounded-2xl bg-white/10 p-5 text-xl font-black">
@@ -253,7 +253,7 @@ export function SpeedSection() {
               key={index}
               className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3"
             >
-              <span className="font-bold">Operatore {index + 1}</span>
+              <span className="font-bold">Carroattrezzi {index + 1}</span>
               <span
                 className={
                   index === 5
@@ -321,7 +321,7 @@ export function WhatsAppFlow() {
             Nessuna applicazione da scaricare e nessuna registrazione
             complicata. Tramite WhatsApp puoi condividere la posizione, ricevere
             la conferma, inviare fotografie e parlare direttamente con
-            l’operatore.
+            il carroattrezzi.
           </p>
           <a
             href="#assistenza"
@@ -334,9 +334,9 @@ export function WhatsAppFlow() {
           <div className="rounded-[1.5rem] bg-white p-5 shadow-xl">
             {[
               'Posizione ricevuta',
-              'Ricerca degli operatori più vicini avviata',
+              'Ricerca dei carroattrezzi più vicini avviata',
               'Carroattrezzi disponibile trovato',
-              'L’operatore ti contatterà a breve',
+              'Il carroattrezzi ti contatterà a breve',
             ].map((message) => (
               <div
                 key={message}
@@ -411,7 +411,7 @@ export function Reliability() {
           </h2>
           <p className="mx-auto mt-6 max-w-4xl text-lg leading-8 text-slate-300">
             Quando sei fermo per strada non vuoi confrontare decine di siti o
-            ripetere il problema a più operatori. ViaSOS riduce tutto a quattro
+            ripetere il problema a più carroattrezzi. ViaSOS riduce tutto a quattro
             elementi: posizione, richiesta, ricerca automatica e risposta.
           </p>
           <p className="mt-10 text-2xl font-black text-[#ffd34d] sm:text-4xl">

@@ -123,7 +123,7 @@ function Hero() {
               più vicino.
             </p>
             <p>
-              Se il primo operatore non può intervenire, il sistema contatterà
+              Se il primo carroattrezzi non può intervenire, il sistema contatterà
               progressivamente quelli successivi fino a trovare una
               disponibilità.
             </p>
@@ -164,7 +164,7 @@ function TrustHighlights() {
   const trustItems = [
     {
       title: 'Ricerca automatica per vicinanza',
-      text: 'ViaSOS parte dalla tua posizione e verifica gli operatori più vicini.',
+      text: 'ViaSOS parte dalla tua posizione e verifica i carroattrezzi più vicini.',
       visual: 'nearby' as const,
     },
     {
@@ -230,12 +230,12 @@ export default function Home() {
               l’altro.
             </h2>
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-              Invia la posizione. ViaSOS cercherà automaticamente gli operatori
+              Invia la posizione. ViaSOS cercherà automaticamente i carroattrezzi
               presenti nelle vicinanze, partendo da quelli più vicini e
               continuando fino a trovare una disponibilità.
             </p>
             <p className="mt-8 rounded-[2rem] bg-white/10 p-5 text-2xl font-black text-[#ffd34d]">
-              Una richiesta. Oltre 15 possibili operatori. Il carroattrezzi
+              Una richiesta. Oltre 15 possibili carroattrezzi. Il carroattrezzi
               disponibile più vicino.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
