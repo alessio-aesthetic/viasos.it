@@ -117,15 +117,12 @@ export function EmergencyForm() {
         <p className="relative text-[11px] font-black uppercase tracking-[0.2em] text-[#075e54]">
           richiesta immediata
         </p>
-        <h2 className="relative mt-2 text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
-          Trova assistenza adesso.
-        </h2>
-        <p className="relative mt-3 rounded-3xl border border-[#25d366]/25 bg-white/85 p-4 text-base leading-7 font-black text-[#07111f] shadow-[0_18px_46px_rgba(15,23,42,0.08)] sm:text-lg">
+        <h2 className="relative mt-3 rounded-3xl border border-[#25d366]/25 bg-white/85 p-4 text-2xl font-black leading-tight tracking-tight text-[#07111f] shadow-[0_18px_46px_rgba(15,23,42,0.08)] sm:text-3xl lg:text-4xl">
           Trova assistenza adesso completando il form.{' '}
           <span className="text-[#075e54]">
             Verrai ricontattato in meno di 40 secondi.
           </span>
-        </p>
+        </h2>
 
         <div className="relative mt-4 grid flex-1 gap-3 sm:gap-4">
           <label className="grid gap-2">
