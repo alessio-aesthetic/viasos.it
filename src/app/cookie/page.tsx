@@ -4,12 +4,12 @@ export default function CookiePage() {
   return (
     <LegalPage title="Cookie policy">
       <p>
-        ViaSOS pu? utilizzare cookie tecnici necessari al funzionamento del sito
+        ViaSOS può utilizzare cookie tecnici necessari al funzionamento del sito
         e strumenti di misurazione solo se configurati dal titolare del sito.
       </p>
       <p>
         Le impostazioni definitive dipendono dagli strumenti attivati in
-        produzione. La pagina pu? essere aggiornata quando vengono aggiunti
+        produzione. La pagina può essere aggiornata quando vengono aggiunti
         servizi di analytics, advertising o tracciamento.
       </p>
     </LegalPage>

@@ -12,7 +12,7 @@ export default function PrivacyPage() {
       <p>
         I dati sono usati per consentire il contatto con operatori indipendenti
         del soccorso stradale compatibili con la richiesta. Per informazioni
-        specifiche o aggiornamenti della policy pu?i contattare ViaSOS.
+        specifiche o aggiornamenti della policy puoi contattare ViaSOS.
       </p>
     </LegalPage>
   )

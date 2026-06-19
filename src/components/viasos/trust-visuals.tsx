@@ -40,7 +40,7 @@ export function TrustVisual({ type }: { type: 'nearby' | 'whatsapp' | 'network' 
         speed="1"
         loop
         autoplay
-        className="h-32 w-32 max-w-full sm:h-36 sm:w-36"
+        style={{ width: '9rem', height: '9rem', maxWidth: '100%' }}
       />
     </div>
   )

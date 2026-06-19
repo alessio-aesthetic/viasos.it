@@ -43,7 +43,7 @@ export function Footer() {
           />
         </div>
         <p className="mt-12 border-t border-white/10 pt-8 text-xs leading-6 text-slate-400">
-          ViaSOS ? una piattaforma di collegamento tra utenti e operatori
+          ViaSOS è una piattaforma di collegamento tra utenti e operatori
           indipendenti del soccorso stradale. Disponibilita, tempistiche,
           preventivi e svolgimento dell’intervento sono comunicati e gestiti dal
           professionista incaricato. La vicinanza viene determinata in base alla

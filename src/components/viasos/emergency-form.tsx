@@ -94,7 +94,7 @@ export function EmergencyForm() {
       `Autostrada: ${highway}`,
       `Posizione: ${positionText}`,
       mapsLink ? `Google Maps: ${mapsLink}` : '',
-      'Vorrei trovare il carroattrezzi disponibile pi? vicino.',
+      'Vorrei trovare il carroattrezzi disponibile più vicino.',
     ]
       .filter(Boolean)
       .join('\n')
@@ -181,7 +181,7 @@ export function EmergencyForm() {
               Ti trovi in autostrada?
             </legend>
             <div className="mt-3 grid grid-cols-2 gap-3">
-              {['S?', 'No'].map((item) => (
+              {['Sì', 'No'].map((item) => (
                 <label
                   key={item}
                   className={`cursor-pointer rounded-2xl border px-4 py-3 text-center text-sm font-black transition ${
