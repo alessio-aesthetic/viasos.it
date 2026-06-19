@@ -13,17 +13,17 @@ const steps = [
   {
     title: 'Avviamo la ricerca',
     image: '/images/micro/step-search.webp',
-    text: 'Il sistema individua i partner presenti nei dintorni e parte dall’operatore potenzialmente piu vicino.',
+    text: 'Il sistema individua i partner presenti nei dintorni e parte dall’operatore potenzialmente pi? vicino.',
   },
   {
-    title: 'Verifichiamo la disponibilita',
+    title: 'Verifichiamo la disponibilit?',
     image: '/images/micro/step-availability.webp',
-    text: 'Se il primo carroattrezzi non risponde o non puo intervenire, la richiesta passa automaticamente al successivo.',
+    text: 'Se il primo carroattrezzi non risponde o non pu? intervenire, la richiesta passa automaticamente al successivo.',
   },
   {
     title: 'Ricevi la conferma',
     image: '/images/micro/step-confirm.webp',
-    text: 'Il carroattrezzi disponibile riceve i dati e puo contattarti direttamente tramite telefono o WhatsApp.',
+    text: 'Il carroattrezzi disponibile riceve i dati e pu? contattarti direttamente tramite telefono o WhatsApp.',
   },
 ]
 
@@ -31,15 +31,15 @@ const oldWay = [
   'Cerchi diversi numeri su Google',
   'Chiami un operatore alla volta',
   'Ripeti ogni volta posizione e problema',
-  'Molti non rispondono o sono gia impegnati',
-  'Non sai quale sia realmente il piu vicino',
+  'Molti non rispondono o sono gi? impegnati',
+  'Non sai quale sia realmente il pi? vicino',
 ]
 
 const newWay = [
   'Inoltri una sola richiesta',
   'Condividi una volta sola la posizione',
-  'Il sistema parte dagli operatori piu vicini',
-  'La ricerca continua fino a trovare disponibilita',
+  'Il sistema parte dagli operatori pi? vicini',
+  'La ricerca continua fino a trovare disponibilit?',
   'Ricevi il riscontro direttamente su WhatsApp',
 ]
 
@@ -48,7 +48,7 @@ export function ImpactBand() {
     <section className="bg-[#07111f] py-14 text-white">
       <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
         <p className="text-2xl font-black tracking-tight sm:text-4xl">
-          Non cercare il carroattrezzi. Lascia che sia il carroattrezzi piu
+          Non cercare il carroattrezzi. Lascia che sia il carroattrezzi pi?
           vicino a trovare te.
         </p>
         <p className="mt-5 text-lg font-semibold text-slate-300">
@@ -104,7 +104,7 @@ export function HowItWorks() {
 
 export function Comparison() {
   return (
-    <section id="perche-viasos" className="bg-slate-50 py-24">
+    <section id="perch?-viasos" className="bg-slate-50 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-10 max-w-4xl text-center">
           <p className="text-sm font-black uppercase tracking-[0.22em] text-[#075e54]">
@@ -120,7 +120,9 @@ export function Comparison() {
           </p>
         </div>
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="flex h-full flex-col rounded-[2.35rem] border border-slate-200 bg-white p-8 shadow-[0_24px_70px_rgba(15,23,42,0.10)] ring-1 ring-white">
+          <div className="relative flex h-full flex-col rounded-[2.5rem] border border-white bg-white p-8 shadow-[0_34px_90px_rgba(15,23,42,0.14),inset_0_1px_0_rgba(255,255,255,1)] ring-1 ring-slate-200/70">
+            <div className="absolute inset-x-8 -bottom-5 -z-10 h-10 rounded-full bg-slate-950/12 blur-2xl" />
+            <div className="absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-slate-300 to-transparent" />
             <h3 className="text-2xl font-black text-[#07111f]">
               Il vecchio modo
             </h3>
@@ -128,7 +130,7 @@ export function Comparison() {
               {oldWay.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-4 rounded-2xl bg-slate-50 p-4 text-slate-700 shadow-sm ring-1 ring-slate-100"
+                  className="flex gap-4 rounded-2xl bg-slate-50 p-4 text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.06)] ring-1 ring-slate-100"
                 >
                   <span className="grid size-8 shrink-0 place-items-center rounded-full bg-red-50">
                     <XMarkIcon className="size-5 text-red-500" />
@@ -138,7 +140,9 @@ export function Comparison() {
               ))}
             </ul>
           </div>
-          <div className="flex h-full flex-col rounded-[2.35rem] border border-emerald-200 bg-white p-8 shadow-[0_24px_70px_rgba(6,95,70,0.16)] ring-1 ring-white">
+          <div className="relative flex h-full flex-col rounded-[2.5rem] border border-white bg-white p-8 shadow-[0_34px_90px_rgba(6,95,70,0.18),inset_0_1px_0_rgba(255,255,255,1)] ring-1 ring-emerald-200/80">
+            <div className="absolute inset-x-8 -bottom-5 -z-10 h-10 rounded-full bg-emerald-950/16 blur-2xl" />
+            <div className="absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-[#25d366]/70 to-transparent" />
             <h3 className="text-2xl font-black text-[#07111f]">
               Il modo ViaSOS
             </h3>
@@ -146,7 +150,7 @@ export function Comparison() {
               {newWay.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-4 rounded-2xl bg-[#f3fff7] p-4 text-slate-800 shadow-sm ring-1 ring-emerald-100"
+                  className="flex gap-4 rounded-2xl bg-[#f3fff7] p-4 text-slate-800 shadow-[0_10px_24px_rgba(6,95,70,0.08)] ring-1 ring-emerald-100"
                 >
                   <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#25d366]">
                     <CheckIcon className="size-5 text-[#07111f]" />
@@ -158,7 +162,7 @@ export function Comparison() {
           </div>
         </div>
         <p className="mt-8 rounded-[2rem] bg-[#fff7d6] p-6 text-center text-2xl font-black text-[#07111f]">
-          Una sola richiesta puo sostituire numerose telefonate.
+          Una sola richiesta pu? sostituire numerose telefonate.
         </p>
       </div>
     </section>
@@ -170,7 +174,7 @@ export function ProximityBenefits() {
     [
       'Meno attesa',
       '/images/micro/benefit-waiting.webp',
-      'Un operatore piu vicino deve percorrere una distanza inferiore per raggiungere il veicolo.',
+      'Un operatore pi? vicino deve percorrere una distanza inferiore per raggiungere il veicolo.',
     ],
     [
       'Meno chilometri',
@@ -178,9 +182,9 @@ export function ProximityBenefits() {
       'Ridurre il tragitto del carroattrezzi significa evitare trasferte inutilmente lunghe.',
     ],
     [
-      'Maggiore possibilita di intervento',
+      'Maggiore possibilit? di intervento',
       '/images/micro/benefit-continuity.webp',
-      'Se un operatore e impegnato, il sistema continua automaticamente con quelli successivi.',
+      'Se un operatore ? impegnato, il sistema continua automaticamente con quelli successivi.',
     ],
   ]
   return (
@@ -188,13 +192,13 @@ export function ProximityBenefits() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
-            Perche il carroattrezzi piu vicino puo farti risparmiare tempo e
+            Perch? il carroattrezzi pi? vicino pu? farti risparmiare tempo e
             denaro
           </h2>
           <p className="mt-6 text-lg leading-8 text-slate-700">
-            La distanza incide sul tempo necessario per raggiungerti e puo
+            La distanza incide sul tempo necessario per raggiungerti e pu?
             incidere sul costo di uscita. Per questo ViaSOS non assegna la
-            richiesta casualmente: la ricerca parte dagli operatori piu vicini
+            richiesta casualmente: la ricerca parte dagli operatori pi? vicini
             alla posizione condivisa.
           </p>
         </div>
@@ -231,13 +235,13 @@ export function SpeedSection() {
             ricerca progressiva
           </p>
           <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
-            Oltre 15 possibilita con una sola richiesta
+            Oltre 15 possibilit? con una sola richiesta
           </h2>
           <p className="mt-6 text-lg leading-8 text-slate-300">
-            La velocita di ViaSOS non dipende dalla risposta di un solo
-            carroattrezzi. In base alla copertura della zona, il sistema puo
-            verificare progressivamente la disponibilita di oltre 15 operatori,
-            partendo da quelli piu vicini.
+            La velocit? di ViaSOS non dipende dalla risposta di un solo
+            carroattrezzi. In base alla copertura della zona, il sistema pu?
+            verificare progressivamente la disponibilit? di oltre 15 operatori,
+            partendo da quelli pi? vicini.
           </p>
           <p className="mt-6 rounded-2xl bg-white/10 p-5 text-xl font-black">
             Tu invii la posizione una sola volta. Il sistema continua a cercare.
@@ -315,7 +319,7 @@ export function WhatsAppFlow() {
           </h2>
           <p className="mt-6 text-lg leading-8 text-slate-700">
             Nessuna applicazione da scaricare e nessuna registrazione
-            complicata. Tramite WhatsApp puoi condividere la posizione, ricevere
+            complicata. Tramite WhatsApp pu?i condividere la posizione, ricevere
             la conferma, inviare fotografie e parlare direttamente con
             l’operatore.
           </p>
@@ -330,9 +334,9 @@ export function WhatsAppFlow() {
           <div className="rounded-[1.5rem] bg-white p-5 shadow-xl">
             {[
               'Posizione ricevuta',
-              'Ricerca degli operatori piu vicini avviata',
+              'Ricerca degli operatori pi? vicini avviata',
               'Carroattrezzi disponibile trovato',
-              'L’operatore ti contattera a breve',
+              'L’operatore ti contatter? a breve',
             ].map((message) => (
               <div
                 key={message}
@@ -360,7 +364,7 @@ export function Coverage() {
             ViaSOS collabora con una rete in continua crescita composta da
             centinaia di partner distribuiti sul territorio nazionale. La
             ricerca viene effettuata partendo dalla posizione reale del veicolo,
-            nelle grandi citta, nei comuni e nelle aree extraurbane coperte.
+            nelle grandi citt?, nei comuni e nelle aree extraurbane coperte.
           </p>
           <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {['Nord Italia', 'Centro Italia', 'Sud Italia', 'Isole'].map(
@@ -407,11 +411,11 @@ export function Reliability() {
           </h2>
           <p className="mx-auto mt-6 max-w-4xl text-lg leading-8 text-slate-300">
             Quando sei fermo per strada non vuoi confrontare decine di siti o
-            ripetere il problema a piu operatori. ViaSOS riduce tutto a quattro
+            ripetere il problema a pi? operatori. ViaSOS riduce tutto a quattro
             elementi: posizione, richiesta, ricerca automatica e risposta.
           </p>
           <p className="mt-10 text-2xl font-black text-[#ffd34d] sm:text-4xl">
-            La strada piu breve tra te e il soccorso di cui hai bisogno.
+            La strada pi? breve tra te e il soccorso di cui hai bisogno.
           </p>
         </div>
       </div>

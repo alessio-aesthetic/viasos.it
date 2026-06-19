@@ -1,7 +1,7 @@
 const operators = [
   {
     label: 'Operatore 1',
-    status: 'verifica disponibilita',
+    status: 'verifica disponibilit?',
     state: 'checking',
   },
   {
@@ -62,8 +62,8 @@ export function SearchVisualization() {
               La richiesta non si ferma al primo numero.
             </h2>
             <p className="mt-6 text-lg leading-8 text-slate-300">
-              ViaSOS parte dalla tua posizione, verifica gli operatori piu
-              vicini e continua la ricerca finche trova una disponibilita
+              ViaSOS parte dalla tua posizione, verifica gli operatori pi?
+              vicini e continua la ricerca finche trova una disponibilit?
               compatibile con veicolo, problema e zona.
             </p>
             <div className="mt-8 grid gap-3">

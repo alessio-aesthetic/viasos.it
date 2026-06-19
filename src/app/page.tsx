@@ -112,24 +112,24 @@ function Hero() {
             Soccorso stradale in tutta Italia
           </p>
             <h1 className="mt-7 max-w-6xl text-4xl font-black tracking-tight text-[#07111f] sm:text-5xl lg:text-6xl xl:text-[5rem] xl:leading-[0.95]">
-              Il carroattrezzi piu vicino a te, trovato in pochi secondi
+              Il carroattrezzi pi? vicino a te, trovato in pochi secondi
             </h1>
           <div className="mt-8 max-w-4xl space-y-5 text-xl leading-8 text-slate-700 lg:text-[1.38rem] lg:leading-9">
             <p>
               <strong className="font-black text-[#07111f]">
                 Invia la tua posizione
               </strong>{' '}
-              e ViaSOS cerchera automaticamente il carroattrezzi disponibile
-              piu vicino.
+              e ViaSOS cercher? automaticamente il carroattrezzi disponibile
+              pi? vicino.
             </p>
             <p>
-              Se il primo operatore non puo intervenire, il sistema contattera
+              Se il primo operatore non pu? intervenire, il sistema contatter?
               progressivamente quelli successivi fino a trovare una
-              disponibilita.
+              disponibilit?.
             </p>
           </div>
           <p className="mt-7 max-w-3xl rounded-3xl border border-[#ffd34d]/60 bg-[#fff7d6] p-5 text-lg leading-7 font-black text-[#07111f] shadow-lg shadow-amber-950/5">
-            Una sola richiesta puo attivare la ricerca tra{' '}
+            Una sola richiesta pu? attivare la ricerca tra{' '}
             <span className="whitespace-nowrap">oltre 15 carroattrezzi</span>{' '}
             presenti nella zona.
           </p>
@@ -138,7 +138,7 @@ function Hero() {
               href="#assistenza"
               className="inline-flex justify-center rounded-full bg-[#07111f] px-6 py-4 text-base font-black text-white shadow-xl shadow-slate-950/15 transition hover:bg-[#123456]"
             >
-              Trova il carroattrezzi piu vicino
+              Trova il carroattrezzi pi? vicino
             </a>
             <a
               href="#assistenza"
@@ -230,13 +230,13 @@ export default function Home() {
               l’altro.
             </h2>
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-              Invia la posizione. ViaSOS cerchera automaticamente gli operatori
-              presenti nelle vicinanze, partendo da quelli piu vicini e
-              continuando fino a trovare una disponibilita.
+              Invia la posizione. ViaSOS cercher? automaticamente gli operatori
+              presenti nelle vicinanze, partendo da quelli pi? vicini e
+              continuando fino a trovare una disponibilit?.
             </p>
             <p className="mt-8 rounded-[2rem] bg-white/10 p-5 text-2xl font-black text-[#ffd34d]">
               Una richiesta. Oltre 15 possibili operatori. Il carroattrezzi
-              disponibile piu vicino.
+              disponibile pi? vicino.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <a
