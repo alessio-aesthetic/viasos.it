@@ -1,17 +1,21 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import type React from 'react'
+import Script from 'next/script'
 
 declare global {
-  interface Window {
-    lottie?: {
-      loadAnimation: (options: {
-        container: Element
-        renderer: 'svg'
-        loop: boolean
-        autoplay: boolean
-        path: string
-      }) => { destroy: () => void }
+  namespace JSX {
+    interface IntrinsicElements {
+      'dotlottie-player': React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & {
+        src?: string
+        background?: string
+        speed?: string
+        loop?: boolean
+        autoplay?: boolean
+      }
     }
   }
 }
@@ -33,54 +37,6 @@ const towTrucks = [
     state: 'available',
   },
 ]
-
-function LargeLottie() {
-  const containerRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    let animation: { destroy: () => void } | null = null
-    let cancelled = false
-
-    function mountAnimation() {
-      if (cancelled || !containerRef.current || !window.lottie) return
-      animation = window.lottie.loadAnimation({
-        container: containerRef.current,
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: '/lottie/search-flow-large.json',
-      })
-    }
-
-    const existingScript = document.getElementById('lottie-web-runtime')
-    if (window.lottie) {
-      mountAnimation()
-    } else if (existingScript) {
-      existingScript.addEventListener('load', mountAnimation, { once: true })
-    } else {
-      const script = document.createElement('script')
-      script.id = 'lottie-web-runtime'
-      script.src =
-        'https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js'
-      script.async = true
-      script.onload = mountAnimation
-      document.head.appendChild(script)
-    }
-
-    return () => {
-      cancelled = true
-      animation?.destroy()
-    }
-  }, [])
-
-  return (
-    <div
-      ref={containerRef}
-      className="relative z-10 h-[360px] w-full max-w-[620px] sm:h-[500px]"
-      aria-hidden="true"
-    />
-  )
-}
 
 export function SearchVisualization() {
   return (
@@ -137,9 +93,27 @@ export function SearchVisualization() {
 
           <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.05] p-4 shadow-2xl shadow-black/30 backdrop-blur sm:p-6">
             <div className="relative grid min-h-[520px] place-items-center overflow-hidden rounded-[2rem] bg-[#0b1728] p-6 sm:min-h-[620px]">
+              <Script
+                src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+                type="module"
+                strategy="afterInteractive"
+              />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,211,102,0.18),transparent_40%),linear-gradient(180deg,#0b1728_0%,#07111f_100%)]" />
               <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:56px_56px]" />
-              <LargeLottie />
+              <dotlottie-player
+                src="/lottie/search-flow-large.lottie"
+                background="transparent"
+                speed="1"
+                loop
+                autoplay
+                style={{
+                  position: 'relative',
+                  zIndex: 10,
+                  width: 'min(100%, 620px)',
+                  height: 'min(76vw, 560px)',
+                  maxHeight: '560px',
+                }}
+              />
             </div>
           </div>
         </div>
