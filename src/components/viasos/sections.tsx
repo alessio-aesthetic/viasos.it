@@ -106,11 +106,24 @@ export function Comparison() {
   return (
     <section id="perche-viasos" className="bg-slate-50 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="mx-auto mb-10 max-w-4xl text-center">
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#075e54]">
+            perché funziona meglio
+          </p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
+            Una richiesta fatta bene vale più di dieci telefonate a vuoto
+          </h2>
+          <p className="mt-5 text-lg leading-8 text-slate-700">
+            ViaSOS nasce per ridurre confusione, attesa e tentativi inutili:
+            raccoglie i dati essenziali una sola volta e li prepara in modo
+            chiaro per gli operatori compatibili.
+          </p>
+        </div>
+        <div className="grid gap-6 lg:grid-cols-[0.88fr_1.12fr]">
           <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm">
-          <h2 className="text-2xl font-black text-[#07111f]">
+            <h3 className="text-2xl font-black text-[#07111f]">
               Il vecchio modo
-            </h2>
+            </h3>
             <ul className="mt-8 grid gap-4">
               {oldWay.map((item) => (
                 <li key={item} className="flex gap-3 text-slate-700">
@@ -120,15 +133,28 @@ export function Comparison() {
               ))}
             </ul>
           </div>
-          <div className="rounded-[2rem] border border-emerald-200 bg-white p-7 shadow-xl shadow-emerald-950/10">
-            <h2 className="text-2xl font-black text-[#07111f]">
+          <div className="relative overflow-hidden rounded-[2.35rem] border border-emerald-200 bg-white p-8 shadow-2xl shadow-emerald-950/15">
+            <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-[#25d366] via-[#ffd34d] to-[#25d366]" />
+            <div className="mb-6 inline-flex rounded-full bg-[#e9fff2] px-4 py-2 text-sm font-black uppercase tracking-[0.14em] text-[#075e54]">
+              consigliato
+            </div>
+            <h3 className="text-3xl font-black text-[#07111f]">
               Il modo ViaSOS
-            </h2>
+            </h3>
+            <p className="mt-3 text-base leading-7 font-semibold text-slate-700">
+              Un percorso più ordinato: meno ripetizioni, meno attesa e più
+              possibilità di ricevere un riscontro rapido da chi può intervenire.
+            </p>
             <ul className="mt-8 grid gap-4">
               {newWay.map((item) => (
-                <li key={item} className="flex gap-3 text-slate-700">
-                  <CheckIcon className="mt-0.5 size-5 shrink-0 text-[#25d366]" />
-                  <span className="font-semibold">{item}</span>
+                <li
+                  key={item}
+                  className="flex gap-4 rounded-2xl bg-slate-50 p-4 text-slate-800"
+                >
+                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#25d366]">
+                    <CheckIcon className="size-5 text-[#07111f]" />
+                  </span>
+                  <span className="font-black">{item}</span>
                 </li>
               ))}
             </ul>

@@ -28,7 +28,7 @@ const visualByType = {
 
 export function TrustVisual({ type }: { type: 'nearby' | 'whatsapp' | 'network' }) {
   return (
-    <div className="relative mx-auto grid h-56 w-full place-items-center sm:h-64">
+    <div className="relative mx-auto grid h-32 w-full place-items-center sm:h-36">
       <Script
         src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
         type="module"
@@ -40,7 +40,7 @@ export function TrustVisual({ type }: { type: 'nearby' | 'whatsapp' | 'network' 
         speed="1"
         loop
         autoplay
-        className="h-52 w-52 sm:h-60 sm:w-60"
+        className="h-32 w-32 sm:h-36 sm:w-36"
       />
     </div>
   )

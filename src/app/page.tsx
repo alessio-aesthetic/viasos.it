@@ -107,7 +107,7 @@ function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(37,211,102,0.18),transparent_34%),radial-gradient(circle_at_88%_18%,rgba(255,211,77,0.22),transparent_30%),linear-gradient(180deg,#f8fbff_0%,#eef7ff_100%)]" />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-white to-transparent" />
       <div className="relative mx-auto grid w-full max-w-[1580px] gap-8 px-4 py-10 sm:px-6 lg:min-h-[calc(100vh-5rem)] lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch lg:px-8 lg:py-12">
-        <div className="flex h-full flex-col justify-center rounded-[2.5rem] border border-white/70 bg-white/45 p-5 shadow-2xl shadow-slate-950/5 backdrop-blur-sm sm:p-8 lg:p-10">
+        <div className="flex h-full flex-col justify-start rounded-[2.5rem] border border-white/70 bg-white/45 p-5 pt-7 shadow-2xl shadow-slate-950/5 backdrop-blur-sm sm:p-8 lg:p-10">
           <p className="inline-flex rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-black uppercase tracking-[0.16em] text-[#075e54] shadow-sm">
             Soccorso stradale in tutta Italia
           </p>
@@ -186,10 +186,10 @@ function TrustHighlights() {
           {trustItems.map((item) => (
             <div
               key={item.title}
-              className="group rounded-[2.25rem] border border-slate-200 bg-white p-7 text-center shadow-2xl shadow-slate-950/8 transition hover:-translate-y-1 hover:shadow-slate-950/14"
+              className="group rounded-[2.25rem] border border-slate-200 bg-white p-6 text-center shadow-2xl shadow-slate-950/8 transition hover:-translate-y-1 hover:shadow-slate-950/14"
             >
               <TrustVisual type={item.visual} />
-              <h2 className="mx-auto mt-5 max-w-sm text-xl font-black leading-tight text-[#07111f] lg:text-2xl">
+              <h2 className="mx-auto mt-3 max-w-sm text-xl font-black leading-tight text-[#07111f] lg:text-2xl">
                 {item.title}
               </h2>
               <p className="mx-auto mt-4 max-w-sm text-base leading-7 font-semibold text-slate-600">
