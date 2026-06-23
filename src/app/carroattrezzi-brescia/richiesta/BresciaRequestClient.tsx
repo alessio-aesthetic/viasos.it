@@ -75,17 +75,17 @@ const vehicles = ['Auto', 'Moto o scooter', 'Furgone', 'SUV o 4x4', 'Camper', 'A
 const fuels = ['Benzina', 'Diesel', 'GPL', 'Metano', 'Elettrica', 'Ibrida', 'Non lo so']
 
 const assistantMessages = [
-  'Scegli il problema: preparo il percorso più rapido.',
-  'Aggiungi mezzo e carburante: evitiamo domande inutili.',
-  'Con il GPS il carroattrezzi capisce subito dove sei.',
-  'Lascia il telefono: inviamo una richiesta completa e chiara.',
+  'Scegli cosa è successo al veicolo. Il form si completa in pochi secondi e riceverai una chiamata immediata.',
+  'Dimmi che mezzo dobbiamo assistere. Così il carroattrezzi riceve subito una richiesta chiara e completa.',
+  'Condividi la posizione GPS. In questo modo possiamo contattare il carroattrezzi più vicino senza perdere tempo.',
+  'Lascia il numero: inviamo tutto alla centrale e vieni richiamato in modo rapido e diretto.',
 ]
 
 const stepCopy = [
-  { eyebrow: 'diagnosi iniziale', title: 'Cosa è successo al veicolo?' },
-  { eyebrow: 'mezzo', title: 'Che veicolo dobbiamo recuperare?' },
-  { eyebrow: 'posizione', title: 'Rileviamo la posizione.' },
-  { eyebrow: 'contatto', title: 'Dove ti richiamiamo?' },
+  { eyebrow: 'problema', title: 'Scegli il problema principale' },
+  { eyebrow: 'veicolo', title: 'Aggiungi mezzo e carburante' },
+  { eyebrow: 'posizione', title: 'Invia la posizione precisa' },
+  { eyebrow: 'telefono', title: 'Ricevi la chiamata' },
 ] as const
 
 function emptyTracking(): TrackingData {
@@ -142,7 +142,6 @@ export function BresciaRequestClient() {
   const [status, setStatus] = useState<Status>('idle')
   const [message, setMessage] = useState('')
   const [tracking, setTracking] = useState<TrackingData>(emptyTracking)
-  const [assistantIndex, setAssistantIndex] = useState(0)
   const [typedAssistant, setTypedAssistant] = useState('')
 
   const cleanPhone = useMemo(
@@ -154,15 +153,7 @@ export function BresciaRequestClient() {
     : ''
 
   useEffect(() => {
-    const interval = window.setInterval(() => {
-      setAssistantIndex((current) => (current + 1) % assistantMessages.length)
-    }, 4200)
-
-    return () => window.clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
-    const fullText = assistantMessages[assistantIndex]
+    const fullText = assistantMessages[step]
     setTypedAssistant('')
     let index = 0
     const interval = window.setInterval(() => {
@@ -172,7 +163,7 @@ export function BresciaRequestClient() {
     }, 24)
 
     return () => window.clearInterval(interval)
-  }, [assistantIndex])
+  }, [step])
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -322,29 +313,22 @@ export function BresciaRequestClient() {
           <aside className="relative overflow-hidden bg-[#07111f] p-2 text-white sm:p-6 lg:p-10">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(45,212,191,0.32),transparent_32%),radial-gradient(circle_at_100%_22%,rgba(255,204,0,0.20),transparent_28%)]" />
             <div className="relative flex h-full flex-col">
-              <a
-                href="/carroattrezzi-brescia"
-                className="text-xl font-black tracking-tight sm:text-3xl"
-              >
-                Via<span className="text-[#2dd4bf]">SOS</span>
-              </a>
-
-              <div className="mt-2 rounded-[1rem] border border-white/15 bg-white/10 p-2 shadow-2xl shadow-black/20 sm:mt-8 sm:rounded-[1.6rem] sm:p-5">
-                <div className="flex items-center gap-2 sm:items-start sm:gap-4">
-                  <div className="grid size-14 shrink-0 place-items-center rounded-xl bg-white/8 sm:size-28 sm:rounded-2xl lg:size-36">
-                    <LottieAsset
-                      src="/lottie/brescia-request/uomo-sopra.json"
-                      className="h-14 w-14 sm:h-28 sm:w-28 lg:h-36 lg:w-36"
-                    />
-                  </div>
-                  <div>
-                    <p className="min-h-10 text-[13px] font-black leading-tight text-white sm:min-h-20 sm:text-xl">
-                      <span className="typing-text">
-                        {typedAssistant}
-                      </span>
-                    </p>
-                  </div>
-                </div>
+              <div className="flex items-center justify-between gap-3">
+                <a href="/carroattrezzi-brescia" className="block">
+                  <img
+                    src="/images/viasos-logo-header-cropped.webp"
+                    alt="ViaSOS"
+                    className="h-10 w-auto sm:h-14"
+                  />
+                </a>
+                <a
+                  href={`tel:${tel}`}
+                  onClick={trackCall}
+                  className="rounded-xl bg-[#facc15] px-3 py-2 text-[11px] font-black leading-tight text-[#07111f] shadow-[0_14px_34px_rgba(250,204,21,0.25)] sm:px-4 sm:py-3 sm:text-sm"
+                >
+                  <span className="sm:hidden">Chiama ora</span>
+                  <span className="hidden sm:inline">Chiama Ora - Risposta Immediata</span>
+                </a>
               </div>
 
               <div className="mt-2 sm:mt-6">
@@ -378,30 +362,31 @@ export function BresciaRequestClient() {
                 </div>
               </div>
 
-              <div className="mt-auto hidden pt-8 sm:block">
-                <p className="text-sm font-semibold leading-6 text-slate-300">
-                  Se preferisci parlare subito con una persona, chiama la
-                  centrale Brescia.
-                </p>
-                <a
-                  href={`tel:${tel}`}
-                  onClick={trackCall}
-                  className="mt-4 inline-flex w-full justify-center rounded-2xl bg-[#facc15] px-5 py-4 text-base font-black text-[#07111f] shadow-[0_20px_50px_rgba(250,204,21,0.26)]"
-                >
-                  Chiama ora {phone}
-                </a>
-              </div>
+              <div className="mt-auto hidden pt-8 sm:block" />
             </div>
           </aside>
 
           <div className="p-2 sm:p-7 lg:flex lg:min-h-full lg:flex-col lg:p-10">
-            <div className="mx-auto max-w-4xl">
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#0f766e] sm:text-sm">
-                {stepCopy[step].eyebrow}
-              </p>
-              <h1 className="mt-1 text-xl font-black tracking-tight text-[#07111f] sm:mt-3 sm:text-5xl">
-                {stepCopy[step].title}
-              </h1>
+            <div className="mx-auto w-full max-w-5xl rounded-[1.3rem] border border-slate-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.10)] sm:rounded-[1.8rem] sm:p-5">
+              <div className="flex items-center gap-3 sm:gap-5">
+                <div className="grid size-20 shrink-0 place-items-center rounded-2xl border border-teal-100 bg-teal-50 shadow-inner sm:size-28">
+                  <LottieAsset
+                    src="/lottie/brescia-request/uomo-sopra.json"
+                    className="h-20 w-20 sm:h-28 sm:w-28"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#0f766e] sm:text-xs">
+                    {stepCopy[step].eyebrow}
+                  </p>
+                  <h1 className="mt-1 text-base font-black tracking-tight text-[#07111f] sm:text-2xl">
+                    {stepCopy[step].title}
+                  </h1>
+                  <p className="mt-2 min-h-12 text-sm font-extrabold leading-snug text-slate-700 sm:min-h-14 sm:text-lg">
+                    <span className="typing-text">{typedAssistant}</span>
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="mt-2 lg:flex-1 sm:mt-8">
@@ -412,21 +397,18 @@ export function BresciaRequestClient() {
                       key={item.value}
                       type="button"
                       onClick={() => selectProblem(item.value)}
-                      className="group relative min-h-28 overflow-hidden rounded-[0.9rem] border border-slate-200 bg-white p-1.5 text-left shadow-[0_14px_34px_rgba(15,23,42,0.10)] transition hover:-translate-y-1 hover:border-[#0f766e] hover:shadow-[0_28px_76px_rgba(15,118,110,0.18)] sm:min-h-64 sm:rounded-[1.6rem] sm:p-4"
+                      className="group relative min-h-32 overflow-hidden rounded-[1rem] border-2 border-slate-200 bg-white p-2 text-left shadow-[0_14px_34px_rgba(15,23,42,0.12)] transition hover:-translate-y-1 hover:border-[#0f766e] hover:shadow-[0_28px_76px_rgba(15,118,110,0.18)] sm:min-h-64 sm:rounded-[1.6rem] sm:p-4"
                     >
                       <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-teal-50 to-transparent" />
-                      <div className="relative flex h-14 items-center justify-center rounded-[0.7rem] bg-[#f8fafc] sm:h-32 sm:rounded-[1.2rem]">
+                      <div className="relative flex h-20 items-center justify-center rounded-[0.8rem] border border-slate-100 bg-[#f8fafc] sm:h-36 sm:rounded-[1.2rem]">
                         <LottieAsset
                           src={item.lottie}
-                          className="h-14 w-14 sm:h-32 sm:w-32"
+                          className="h-20 w-20 sm:h-36 sm:w-36"
                         />
                       </div>
-                      <h2 className="relative mt-1 text-xs font-black leading-tight text-[#07111f] sm:mt-4 sm:text-xl">
+                      <h2 className="relative mt-2 text-xs font-black leading-tight text-[#07111f] sm:mt-4 sm:text-xl">
                         {item.title}
                       </h2>
-                      <span className="relative mt-1 inline-flex text-[10px] font-black text-[#0f766e] sm:mt-4 sm:text-sm">
-                        Continua
-                      </span>
                     </button>
                   ))}
                 </div>
@@ -446,33 +428,27 @@ export function BresciaRequestClient() {
                     onChange={setFuel}
                     options={fuels}
                   />
-                  <div className="rounded-[1.2rem] border border-teal-100 bg-teal-50 p-4 text-sm font-bold leading-6 text-[#134e4a] sm:rounded-[1.4rem] sm:p-5">
-                    Problema selezionato: <strong>{problem}</strong>. Questi
-                    dettagli aiutano a evitare telefonate lunghe e indicazioni
-                    ripetute.
-                  </div>
                 </div>
               )}
 
               {step === 2 && (
                 <div className="mx-auto max-w-4xl">
-                  <div className="rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-[0_24px_70px_rgba(15,23,42,0.10)] sm:rounded-[1.8rem] sm:p-7">
-                    <div className="grid gap-4 sm:grid-cols-[0.9fr_1.1fr] sm:items-center">
-                      <div>
-                        <p className="text-xs font-black uppercase tracking-[0.16em] text-[#0f766e] sm:text-sm">
-                          GPS preciso
-                        </p>
-                        <h2 className="mt-2 text-2xl font-black text-[#07111f] sm:mt-3 sm:text-3xl">
-                          Condividi la posizione del veicolo.
-                        </h2>
+                  <div className="rounded-[1.4rem] border-2 border-slate-200 bg-white p-4 shadow-[0_24px_70px_rgba(15,23,42,0.10)] sm:rounded-[1.8rem] sm:p-7">
+                    <div className="grid gap-4 sm:grid-cols-[0.72fr_1fr] sm:items-center">
+                      <div className="grid h-32 place-items-center rounded-[1.2rem] border border-teal-100 bg-teal-50 sm:h-48">
+                        <LottieAsset
+                          src="/lottie/brescia-request/gps.json"
+                          className="h-28 w-28 sm:h-44 sm:w-44"
+                        />
                       </div>
-                      <div className="rounded-[1.2rem] bg-[#07111f] p-2 text-white shadow-2xl shadow-slate-950/20 sm:rounded-[1.4rem] sm:p-4">
-                        <div className="grid h-28 place-items-center rounded-[1rem] border border-white/10 bg-white/5 sm:h-44">
-                          <LottieAsset
-                            src="/lottie/brescia-request/gps.json"
-                            className="h-28 w-28 sm:h-44 sm:w-44"
-                          />
-                        </div>
+                      <div>
+                        <h2 className="text-xl font-black text-[#07111f] sm:text-3xl">
+                          Condividi la posizione GPS.
+                        </h2>
+                        <p className="mt-2 text-sm font-bold leading-6 text-slate-600 sm:text-base">
+                          Il punto preciso ci permette di trovare il mezzo più
+                          vicino e farti richiamare senza spiegazioni lunghe.
+                        </p>
                       </div>
                     </div>
                     <button
@@ -493,8 +469,8 @@ export function BresciaRequestClient() {
                     )}
                   </div>
 
-                  <fieldset className="mt-4 rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:mt-5 sm:rounded-[1.8rem] sm:p-5">
-                    <legend className="px-2 text-sm font-black uppercase tracking-[0.12em] text-[#0f766e]">
+                  <fieldset className="mt-4 rounded-[1.4rem] border-2 border-slate-200 bg-white p-4 shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:mt-5 sm:rounded-[1.8rem] sm:p-5">
+                    <legend className="rounded-full bg-white px-3 text-sm font-black uppercase tracking-[0.12em] text-[#0f766e]">
                       Ti trovi in autostrada?
                     </legend>
                     <div className="mt-3 grid grid-cols-2 gap-3">
@@ -589,12 +565,12 @@ export function BresciaRequestClient() {
                 )}
                 {step === 1 && (
                   <PrimaryButton onClick={continueFromVehicle}>
-                    Continua
+                    Vai alla posizione
                   </PrimaryButton>
                 )}
                 {step === 2 && (
                   <PrimaryButton onClick={continueFromLocation}>
-                    Continua
+                    Conferma posizione
                   </PrimaryButton>
                 )}
                 {step === 3 && (
@@ -612,14 +588,6 @@ export function BresciaRequestClient() {
           </div>
         </section>
       </div>
-
-      <a
-        href={`tel:${tel}`}
-        onClick={trackCall}
-        className="fixed inset-x-3 bottom-3 z-50 rounded-2xl bg-[#facc15] px-4 py-4 text-center text-base font-black text-[#07111f] shadow-[0_20px_60px_rgba(0,0,0,0.36)] md:hidden"
-      >
-        Chiama Ora - Risposta Immediata
-      </a>
 
       <style jsx global>{`
         @keyframes fadeMessage {
