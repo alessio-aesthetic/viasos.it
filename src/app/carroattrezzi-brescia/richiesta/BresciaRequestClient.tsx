@@ -1,6 +1,6 @@
 'use client'
 
-import { createElement, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 
 const phone = '030 204 1794'
@@ -85,14 +85,34 @@ function LottieAsset({
   src: string
   className?: string
 }) {
-  return createElement('lottie-player', {
-    src,
-    background: 'transparent',
-    speed: '1',
-    loop: true,
-    autoplay: true,
-    class: className,
-  })
+  const containerRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    let animation: { destroy: () => void } | null = null
+    let active = true
+
+    async function loadAnimation() {
+      const lottie = (await import('lottie-web')).default
+      if (!active || !containerRef.current) return
+
+      animation = lottie.loadAnimation({
+        container: containerRef.current,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: src,
+      })
+    }
+
+    loadAnimation()
+
+    return () => {
+      active = false
+      animation?.destroy()
+    }
+  }, [src])
+
+  return <div ref={containerRef} className={className} />
 }
 
 export function BresciaRequestClient() {
@@ -149,18 +169,6 @@ export function BresciaRequestClient() {
       text: 'Invia la richiesta completa. Tieni il telefono libero: il contatto avviene rapidamente.',
     },
   ] as const
-
-  useEffect(() => {
-    const scriptId = 'lottie-player-script'
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement('script')
-      script.id = scriptId
-      script.src =
-        'https://unpkg.com/@lottiefiles/lottie-player@2.0.12/dist/lottie-player.js'
-      script.async = true
-      document.body.appendChild(script)
-    }
-  }, [])
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -313,52 +321,56 @@ export function BresciaRequestClient() {
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_16%_18%,rgba(45,212,191,0.22),transparent_30%),radial-gradient(circle_at_84%_12%,rgba(245,158,11,0.20),transparent_28%),linear-gradient(135deg,#07111f_0%,#0f2742_44%,#042f2e_100%)]" />
       <div className="fixed inset-x-0 top-0 h-64 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),transparent)]" />
 
-      <div className="relative mx-auto flex min-h-screen max-w-6xl items-center px-4 py-6 sm:px-6 lg:px-8">
-        <section className="mx-auto grid w-full overflow-hidden rounded-[2rem] border border-white/25 bg-white/92 shadow-[0_34px_120px_rgba(0,0,0,0.46),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl lg:grid-cols-[0.38fr_0.62fr]">
-          <aside className="relative overflow-hidden bg-[#07111f] p-6 text-white sm:p-8 lg:p-10">
+      <div className="relative mx-auto flex min-h-screen w-full max-w-[1800px] items-stretch px-2 py-2 sm:px-4 sm:py-4 lg:px-6 lg:py-6">
+        <section className="mx-auto grid min-h-[calc(100vh-1rem)] w-full overflow-hidden rounded-[1.4rem] border border-white/25 bg-white/94 shadow-[0_34px_120px_rgba(0,0,0,0.46),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl sm:rounded-[2rem] lg:min-h-[calc(100vh-3rem)] lg:grid-cols-[0.34fr_0.66fr]">
+          <aside className="relative overflow-hidden bg-[#07111f] p-4 text-white sm:p-6 lg:p-10">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(45,212,191,0.32),transparent_32%),radial-gradient(circle_at_100%_22%,rgba(255,204,0,0.20),transparent_28%)]" />
             <div className="relative flex h-full flex-col">
               <a
                 href="/carroattrezzi-brescia"
-                className="text-3xl font-black tracking-tight"
+                className="text-2xl font-black tracking-tight sm:text-3xl"
               >
                 Via<span className="text-[#2dd4bf]">SOS</span>
               </a>
 
-              <div className="mt-10 rounded-[1.6rem] border border-white/15 bg-white/10 p-5 shadow-2xl shadow-black/20">
-                <p className="text-xs font-black uppercase tracking-[0.2em] text-[#facc15]">
-                  assistente richiesta
-                </p>
-                <div className="mt-4 flex gap-4">
-                  <div className="relative flex size-14 shrink-0 items-center justify-center rounded-2xl bg-[#2dd4bf] text-2xl font-black text-[#07111f] shadow-[0_18px_42px_rgba(45,212,191,0.28)]">
-                    AI
-                    <span className="absolute -right-1 -top-1 size-4 rounded-full bg-[#facc15]" />
+              <div className="mt-4 rounded-[1.25rem] border border-white/15 bg-white/10 p-3 shadow-2xl shadow-black/20 sm:mt-8 sm:rounded-[1.6rem] sm:p-5">
+                <div className="flex items-center gap-3 sm:items-start sm:gap-4">
+                  <div className="grid size-20 shrink-0 place-items-center rounded-2xl bg-white/8 sm:size-28 lg:size-36">
+                    <LottieAsset
+                      src="/lottie/brescia-request/uomo-sopra.json"
+                      className="h-20 w-20 sm:h-28 sm:w-28 lg:h-36 lg:w-36"
+                    />
                   </div>
-                  <p className="min-h-20 text-xl font-black leading-tight text-white">
-                    <span className="inline-block animate-[fadeMessage_3.2s_ease-in-out_infinite]">
-                      {assistantMessages[assistantIndex]}
-                    </span>
-                  </p>
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#facc15] sm:text-xs">
+                      assistente richiesta
+                    </p>
+                    <p className="mt-2 min-h-12 text-base font-black leading-tight text-white sm:min-h-20 sm:text-xl">
+                      <span className="typing-text">
+                        {assistantMessages[assistantIndex]}
+                      </span>
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-8">
+              <div className="mt-4 sm:mt-8">
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-teal-100">
                   avanzamento
                 </p>
-                <div className="mt-4 space-y-3">
+                <div className="mt-3 grid grid-cols-4 gap-2 sm:mt-4 sm:block sm:space-y-3">
                   {['Problema', 'Veicolo', 'Posizione', 'Telefono'].map(
                     (item, index) => (
                       <div
                         key={item}
-                        className={`flex items-center gap-3 rounded-2xl border p-3 transition ${
+                        className={`flex flex-col items-center gap-1 rounded-2xl border p-2 text-center transition sm:flex-row sm:gap-3 sm:p-3 sm:text-left ${
                           index <= step
                             ? 'border-[#2dd4bf]/50 bg-[#2dd4bf]/12'
                             : 'border-white/10 bg-white/[0.04]'
                         }`}
                       >
                         <span
-                          className={`flex size-8 items-center justify-center rounded-xl text-sm font-black ${
+                          className={`flex size-7 items-center justify-center rounded-xl text-xs font-black sm:size-8 sm:text-sm ${
                             index <= step
                               ? 'bg-[#2dd4bf] text-[#07111f]'
                               : 'bg-white/10 text-white/60'
@@ -366,14 +378,14 @@ export function BresciaRequestClient() {
                         >
                           {index + 1}
                         </span>
-                        <span className="font-bold">{item}</span>
+                        <span className="text-[11px] font-bold leading-tight sm:text-base">{item}</span>
                       </div>
                     ),
                   )}
                 </div>
               </div>
 
-              <div className="mt-auto pt-8">
+              <div className="mt-auto hidden pt-8 sm:block">
                 <p className="text-sm font-semibold leading-6 text-slate-300">
                   Se preferisci parlare subito con una persona, chiama la
                   centrale Brescia.
@@ -389,43 +401,43 @@ export function BresciaRequestClient() {
             </div>
           </aside>
 
-          <div className="p-5 sm:p-8 lg:p-10">
+          <div className="p-4 sm:p-7 lg:flex lg:min-h-full lg:flex-col lg:p-10">
             <div className="mx-auto max-w-4xl">
-              <p className="text-sm font-black uppercase tracking-[0.18em] text-[#0f766e]">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#0f766e] sm:text-sm">
                 {stepCopy[step].eyebrow}
               </p>
-              <h1 className="mt-3 text-3xl font-black tracking-tight text-[#07111f] sm:text-5xl">
+              <h1 className="mt-2 text-2xl font-black tracking-tight text-[#07111f] sm:mt-3 sm:text-5xl">
                 {stepCopy[step].title}
               </h1>
-              <p className="mt-4 max-w-3xl text-lg font-semibold leading-8 text-slate-600">
+              <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-600 sm:mt-4 sm:text-lg sm:leading-8">
                 {stepCopy[step].text}
               </p>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-4 lg:flex-1 sm:mt-8">
               {step === 0 && (
-                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                <div className="grid grid-cols-2 gap-2 sm:gap-4 xl:grid-cols-3">
                   {problems.map((item) => (
                     <button
                       key={item.value}
                       type="button"
                       onClick={() => selectProblem(item.value)}
-                      className="group relative min-h-64 overflow-hidden rounded-[1.6rem] border border-slate-200 bg-white p-4 text-left shadow-[0_20px_56px_rgba(15,23,42,0.10)] transition hover:-translate-y-1 hover:border-[#0f766e] hover:shadow-[0_28px_76px_rgba(15,118,110,0.18)]"
+                      className="group relative min-h-40 overflow-hidden rounded-[1.1rem] border border-slate-200 bg-white p-2 text-left shadow-[0_14px_34px_rgba(15,23,42,0.10)] transition hover:-translate-y-1 hover:border-[#0f766e] hover:shadow-[0_28px_76px_rgba(15,118,110,0.18)] sm:min-h-64 sm:rounded-[1.6rem] sm:p-4"
                     >
                       <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-teal-50 to-transparent" />
-                      <div className="relative flex h-32 items-center justify-center rounded-[1.2rem] bg-[#f8fafc]">
+                      <div className="relative flex h-20 items-center justify-center rounded-[0.9rem] bg-[#f8fafc] sm:h-32 sm:rounded-[1.2rem]">
                         <LottieAsset
                           src={item.lottie}
-                          className="h-32 w-32"
+                          className="h-20 w-20 sm:h-32 sm:w-32"
                         />
                       </div>
-                      <h2 className="relative mt-4 text-xl font-black text-[#07111f]">
+                      <h2 className="relative mt-2 text-sm font-black leading-tight text-[#07111f] sm:mt-4 sm:text-xl">
                         {item.title}
                       </h2>
-                      <p className="relative mt-2 text-sm font-semibold leading-6 text-slate-600">
+                      <p className="relative mt-1 hidden text-sm font-semibold leading-6 text-slate-600 sm:block">
                         {item.text}
                       </p>
-                      <span className="relative mt-4 inline-flex text-sm font-black text-[#0f766e]">
+                      <span className="relative mt-2 inline-flex text-xs font-black text-[#0f766e] sm:mt-4 sm:text-sm">
                         Seleziona e continua
                       </span>
                     </button>
@@ -447,7 +459,7 @@ export function BresciaRequestClient() {
                     onChange={setFuel}
                     options={fuels}
                   />
-                  <div className="rounded-[1.4rem] border border-teal-100 bg-teal-50 p-5 text-sm font-bold leading-6 text-[#134e4a]">
+                  <div className="rounded-[1.2rem] border border-teal-100 bg-teal-50 p-4 text-sm font-bold leading-6 text-[#134e4a] sm:rounded-[1.4rem] sm:p-5">
                     Problema selezionato: <strong>{problem}</strong>. Questi
                     dettagli aiutano a evitare telefonate lunghe e indicazioni
                     ripetute.
@@ -457,22 +469,22 @@ export function BresciaRequestClient() {
 
               {step === 2 && (
                 <div className="mx-auto max-w-4xl">
-                  <div className="rounded-[1.8rem] border border-slate-200 bg-white p-5 shadow-[0_24px_70px_rgba(15,23,42,0.10)] sm:p-7">
+                  <div className="rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-[0_24px_70px_rgba(15,23,42,0.10)] sm:rounded-[1.8rem] sm:p-7">
                     <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
                       <div>
                         <p className="text-sm font-black uppercase tracking-[0.16em] text-[#0f766e]">
                           GPS preciso
                         </p>
-                        <h2 className="mt-3 text-3xl font-black text-[#07111f]">
+                        <h2 className="mt-2 text-2xl font-black text-[#07111f] sm:mt-3 sm:text-3xl">
                           Condividi la posizione del veicolo.
                         </h2>
-                        <p className="mt-3 font-semibold leading-7 text-slate-600">
+                        <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 sm:mt-3 sm:text-base sm:leading-7">
                           Non serve sapere l&apos;indirizzo esatto. Il link Google
                           Maps viene generato automaticamente e inviato con la
                           richiesta.
                         </p>
                       </div>
-                      <div className="rounded-[1.4rem] bg-[#07111f] p-4 text-white shadow-2xl shadow-slate-950/20">
+                      <div className="hidden rounded-[1.4rem] bg-[#07111f] p-4 text-white shadow-2xl shadow-slate-950/20 sm:block">
                         <div className="grid place-items-center rounded-[1rem] border border-white/10 bg-white/5 p-6">
                           <div className="relative size-32 rounded-full border border-teal-300/40 bg-teal-300/10">
                             <span className="absolute inset-6 rounded-full border border-teal-200/60" />
@@ -485,7 +497,7 @@ export function BresciaRequestClient() {
                       type="button"
                       onClick={detectPosition}
                       disabled={status === 'loading'}
-                      className="mt-6 w-full rounded-2xl bg-[#0f766e] px-5 py-5 text-lg font-black text-white shadow-[0_22px_54px_rgba(15,118,110,0.30)] transition hover:-translate-y-0.5 hover:bg-[#115e59] disabled:opacity-70"
+                      className="mt-4 w-full rounded-2xl bg-[#0f766e] px-5 py-4 text-base font-black text-white shadow-[0_22px_54px_rgba(15,118,110,0.30)] transition hover:-translate-y-0.5 hover:bg-[#115e59] disabled:opacity-70 sm:mt-6 sm:py-5 sm:text-lg"
                     >
                       {status === 'loading'
                         ? 'Rilevamento in corso...'
@@ -499,7 +511,7 @@ export function BresciaRequestClient() {
                     )}
                   </div>
 
-                  <fieldset className="mt-5 rounded-[1.8rem] border border-slate-200 bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
+                  <fieldset className="mt-4 rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:mt-5 sm:rounded-[1.8rem] sm:p-5">
                     <legend className="px-2 text-sm font-black uppercase tracking-[0.12em] text-[#0f766e]">
                       Ti trovi in autostrada?
                     </legend>
@@ -543,7 +555,7 @@ export function BresciaRequestClient() {
                       onChange={(event) => setCustomerPhone(event.target.value)}
                       inputMode="tel"
                       placeholder="Es. 333 123 4567"
-                      className="h-16 rounded-2xl border-2 border-slate-300 bg-white px-5 text-lg font-black shadow-[0_18px_42px_rgba(15,23,42,0.12)] outline-none focus:border-[#0f766e] focus:ring-4 focus:ring-teal-100"
+                      className="h-14 rounded-2xl border-2 border-slate-300 bg-white px-5 text-base font-black shadow-[0_18px_42px_rgba(15,23,42,0.12)] outline-none focus:border-[#0f766e] focus:ring-4 focus:ring-teal-100 sm:h-16 sm:text-lg"
                     />
                   </label>
                   <label className="grid gap-2">
@@ -554,7 +566,7 @@ export function BresciaRequestClient() {
                       value={notes}
                       onChange={(event) => setNotes(event.target.value)}
                       placeholder="Esempio: parcheggio supermercato, uscita autostrada, destinazione preferita..."
-                      className="min-h-28 rounded-2xl border-2 border-slate-300 bg-white px-5 py-4 text-base font-bold shadow-[0_18px_42px_rgba(15,23,42,0.12)] outline-none focus:border-[#0f766e] focus:ring-4 focus:ring-teal-100"
+                      className="min-h-20 rounded-2xl border-2 border-slate-300 bg-white px-5 py-3 text-sm font-bold shadow-[0_18px_42px_rgba(15,23,42,0.12)] outline-none focus:border-[#0f766e] focus:ring-4 focus:ring-teal-100 sm:min-h-28 sm:py-4 sm:text-base"
                     />
                   </label>
                   <div className="rounded-[1.6rem] bg-[#07111f] p-5 text-white">
@@ -640,6 +652,24 @@ export function BresciaRequestClient() {
             transform: translateY(0);
           }
         }
+        .typing-text {
+          display: inline-block;
+          overflow: hidden;
+          border-right: 0.16em solid rgba(250, 204, 21, 0.95);
+          animation:
+            fadeMessage 3.2s ease-in-out infinite,
+            caretBlink 0.8s steps(1) infinite;
+        }
+        @keyframes caretBlink {
+          0%,
+          49% {
+            border-color: rgba(250, 204, 21, 0.95);
+          }
+          50%,
+          100% {
+            border-color: transparent;
+          }
+        }
       `}</style>
     </main>
   )
@@ -664,7 +694,7 @@ function PremiumSelect({
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="h-16 rounded-2xl border-2 border-slate-300 bg-white px-5 text-lg font-black shadow-[0_18px_42px_rgba(15,23,42,0.12)] outline-none focus:border-[#0f766e] focus:ring-4 focus:ring-teal-100"
+        className="h-14 rounded-2xl border-2 border-slate-300 bg-white px-5 text-base font-black shadow-[0_18px_42px_rgba(15,23,42,0.12)] outline-none focus:border-[#0f766e] focus:ring-4 focus:ring-teal-100 sm:h-16 sm:text-lg"
       >
         <option value="">Seleziona</option>
         {options.map((item) => (
