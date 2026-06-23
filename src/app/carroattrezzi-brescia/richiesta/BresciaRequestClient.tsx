@@ -94,9 +94,10 @@ function LottieAsset({
   className?: string
 }) {
   return (
-    <span
-      className={`block ${className}`}
-      data-lottie-src={src}
+    <iframe
+      src={`/lottie-player.html?src=${encodeURIComponent(src)}`}
+      className={`block border-0 ${className}`}
+      title=""
       aria-hidden="true"
     />
   )
