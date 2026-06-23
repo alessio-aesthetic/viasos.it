@@ -1,7 +1,7 @@
 ﻿'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
-import type { ReactNode } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import type { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react'
 
 const phone = '030 204 1794'
 const tel = '+390302041794'
@@ -21,67 +21,21 @@ type TrackingData = Record<TrackingKey, string>
 type Step = 0 | 1 | 2 | 3
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
-type LottiePlayer = {
-  loadAnimation: (options: {
-    container: Element
-    renderer: 'svg'
-    loop: boolean
-    autoplay: boolean
-    path: string
-  }) => { destroy: () => void }
-}
-
 declare global {
-  interface Window {
-    lottie?: LottiePlayer
-  }
-}
-
-let lottieLoader: Promise<LottiePlayer> | null = null
-
-function loadLottie() {
-  if (typeof window === 'undefined') {
-    return Promise.reject(new Error('Lottie disponibile solo nel browser'))
-  }
-
-  if (window.lottie) return Promise.resolve(window.lottie)
-
-  if (!lottieLoader) {
-    lottieLoader = new Promise<LottiePlayer>((resolve, reject) => {
-      const existing = document.querySelector<HTMLScriptElement>(
-        'script[data-viasos-lottie]',
-      )
-
-      const complete = () => {
-        if (window.lottie) {
-          resolve(window.lottie)
-        } else {
-          reject(new Error('Player Lottie non inizializzato'))
-        }
+  namespace JSX {
+    interface IntrinsicElements {
+      'lottie-player': DetailedHTMLProps<
+        HTMLAttributes<HTMLElement>,
+        HTMLElement
+      > & {
+        src?: string
+        background?: string
+        speed?: string
+        loop?: boolean
+        autoplay?: boolean
       }
-
-      if (existing) {
-        existing.addEventListener('load', complete, { once: true })
-        existing.addEventListener('error', () => reject(new Error('Errore Lottie')), {
-          once: true,
-        })
-        if (window.lottie) complete()
-        return
-      }
-
-      const script = document.createElement('script')
-      script.src = '/vendor/lottie.min.js'
-      script.async = true
-      script.dataset.viasosLottie = 'true'
-      script.addEventListener('load', complete, { once: true })
-      script.addEventListener('error', () => reject(new Error('Errore Lottie')), {
-        once: true,
-      })
-      document.head.appendChild(script)
-    })
+    }
   }
-
-  return lottieLoader
 }
 
 const problems = [
@@ -156,35 +110,21 @@ function LottieAsset({
   src: string
   className?: string
 }) {
-  const containerRef = useRef<HTMLDivElement>(null)
-
   useEffect(() => {
-    let active = true
-    let animation: { destroy: () => void } | null = null
+    void import('@lottiefiles/lottie-player')
+  }, [])
 
-    loadLottie()
-      .then((player) => {
-        if (!active || !containerRef.current) return
-        containerRef.current.innerHTML = ''
-        animation = player.loadAnimation({
-          container: containerRef.current,
-          renderer: 'svg',
-          loop: true,
-          autoplay: true,
-          path: src,
-        })
-      })
-      .catch(() => {
-        if (containerRef.current) containerRef.current.dataset.lottieError = 'true'
-      })
-
-    return () => {
-      active = false
-      animation?.destroy()
-    }
-  }, [src])
-
-  return <div ref={containerRef} className={`block ${className}`} aria-hidden="true" />
+  return (
+    <lottie-player
+      src={src}
+      background="transparent"
+      speed="1"
+      loop
+      autoplay
+      className={`block ${className}`}
+      aria-hidden="true"
+    />
+  )
 }
 
 export function BresciaRequestClient() {
