@@ -20,7 +20,6 @@ export default function RichiestaCarroattrezziBresciaPage() {
     <>
       <script
         src="/vendor/lottie.min.js"
-        async
       />
       <script
         dangerouslySetInnerHTML={{
