@@ -24,7 +24,7 @@ type Status = 'idle' | 'loading' | 'success' | 'error'
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      'dotlottie-player': DetailedHTMLProps<
+      'lottie-player': DetailedHTMLProps<
         HTMLAttributes<HTMLElement>,
         HTMLElement
       > & {
@@ -42,32 +42,32 @@ const problems = [
   {
     value: 'Batteria scarica',
     title: 'Batteria scarica',
-    lottie: '/lottie/brescia-request/batteria.lottie',
+    lottie: '/lottie/brescia-request/batteria.json',
   },
   {
     value: 'Gomma forata',
     title: 'Gomma danneggiata',
-    lottie: '/lottie/brescia-request/gomme.lottie',
+    lottie: '/lottie/brescia-request/gomme.json',
   },
   {
     value: 'Guasto meccanico',
     title: 'Auto in panne',
-    lottie: '/lottie/brescia-request/auto-rotta.lottie',
+    lottie: '/lottie/brescia-request/auto-rotta.json',
   },
   {
     value: 'Incidente',
     title: 'Incidente',
-    lottie: '/lottie/brescia-request/incidente.lottie',
+    lottie: '/lottie/brescia-request/incidente.json',
   },
   {
     value: 'Veicolo bloccato',
     title: 'Auto bloccata',
-    lottie: '/lottie/brescia-request/auto-bloccata.lottie',
+    lottie: '/lottie/brescia-request/auto-bloccata.json',
   },
   {
     value: 'Carburante esaurito',
     title: 'Senza benzina',
-    lottie: '/lottie/brescia-request/senza-benzina.lottie',
+    lottie: '/lottie/brescia-request/senza-benzina.json',
   },
 ]
 
@@ -111,11 +111,11 @@ function LottieAsset({
   className?: string
 }) {
   useEffect(() => {
-    void import('@dotlottie/player-component')
+    void import('@lottiefiles/lottie-player')
   }, [])
 
   return (
-    <dotlottie-player
+    <lottie-player
       src={src}
       background="transparent"
       speed="1"
@@ -333,7 +333,7 @@ export function BresciaRequestClient() {
                 <div className="flex items-center gap-2 sm:items-start sm:gap-4">
                   <div className="grid size-14 shrink-0 place-items-center rounded-xl bg-white/8 sm:size-28 sm:rounded-2xl lg:size-36">
                     <LottieAsset
-                      src="/lottie/brescia-request/uomo-sopra.lottie"
+                      src="/lottie/brescia-request/uomo-sopra.json"
                       className="h-14 w-14 sm:h-28 sm:w-28 lg:h-36 lg:w-36"
                     />
                   </div>
@@ -469,7 +469,7 @@ export function BresciaRequestClient() {
                       <div className="rounded-[1.2rem] bg-[#07111f] p-2 text-white shadow-2xl shadow-slate-950/20 sm:rounded-[1.4rem] sm:p-4">
                         <div className="grid h-28 place-items-center rounded-[1rem] border border-white/10 bg-white/5 sm:h-44">
                           <LottieAsset
-                            src="/lottie/brescia-request/gps.lottie"
+                            src="/lottie/brescia-request/gps.json"
                             className="h-28 w-28 sm:h-44 sm:w-44"
                           />
                         </div>
