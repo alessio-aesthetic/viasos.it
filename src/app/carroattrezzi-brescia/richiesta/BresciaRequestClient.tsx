@@ -1,6 +1,6 @@
 ﻿'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 
 const phone = '030 204 1794'
@@ -93,38 +93,14 @@ function LottieAsset({
   src: string
   className?: string
 }) {
-  const containerRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    let animation: { destroy: () => void } | null = null
-    let active = true
-
-    async function loadAnimation() {
-      const lottie = (await import('lottie-web')).default
-      if (!active || !containerRef.current) return
-      const response = await fetch(src)
-      const animationData = await response.json()
-      if (!active || !containerRef.current) return
-      containerRef.current.innerHTML = ''
-
-      animation = lottie.loadAnimation({
-        container: containerRef.current,
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        animationData,
-      })
-    }
-
-    loadAnimation()
-
-    return () => {
-      active = false
-      animation?.destroy()
-    }
-  }, [src])
-
-  return <div ref={containerRef} className={className} />
+  return (
+    <span
+      className={`block ${className}`}
+      dangerouslySetInnerHTML={{
+        __html: `<lottie-player src="${src}" background="transparent" speed="1" loop autoplay style="width:100%;height:100%;display:block"></lottie-player>`,
+      }}
+    />
+  )
 }
 
 export function BresciaRequestClient() {

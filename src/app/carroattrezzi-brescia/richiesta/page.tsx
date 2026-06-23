@@ -16,5 +16,13 @@ export const metadata: Metadata = {
 }
 
 export default function RichiestaCarroattrezziBresciaPage() {
-  return <BresciaRequestClient />
+  return (
+    <>
+      <script
+        src="https://unpkg.com/@lottiefiles/lottie-player@2.0.12/dist/lottie-player.js"
+        async
+      />
+      <BresciaRequestClient />
+    </>
+  )
 }
