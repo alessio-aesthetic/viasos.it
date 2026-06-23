@@ -1,6 +1,6 @@
 ﻿'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 
 const phone = '030 204 1794'
@@ -20,6 +20,44 @@ type TrackingKey = (typeof trackingKeys)[number]
 type TrackingData = Record<TrackingKey, string>
 type Step = 0 | 1 | 2 | 3
 type Status = 'idle' | 'loading' | 'success' | 'error'
+
+type LottiePlayer = {
+  loadAnimation: (options: {
+    container: Element
+    renderer: 'svg'
+    loop: boolean
+    autoplay: boolean
+    path: string
+  }) => { destroy: () => void }
+}
+
+declare global {
+  interface Window {
+    lottie?: LottiePlayer
+  }
+}
+
+let lottieLoader: Promise<LottiePlayer> | null = null
+
+function loadLottie() {
+  if (typeof window === 'undefined') {
+    return Promise.reject(new Error('Lottie disponibile solo nel browser'))
+  }
+
+  if (window.lottie) return Promise.resolve(window.lottie)
+
+  if (!lottieLoader) {
+    lottieLoader = fetch('/vendor/lottie.min.js')
+      .then((response) => response.text())
+      .then((code) => {
+        new Function(code).call(window)
+        if (!window.lottie) throw new Error('Player Lottie non inizializzato')
+        return window.lottie
+      })
+  }
+
+  return lottieLoader
+}
 
 const problems = [
   {
@@ -93,14 +131,35 @@ function LottieAsset({
   src: string
   className?: string
 }) {
-  return (
-    <iframe
-      src={`/lottie-player.html?src=${encodeURIComponent(src)}`}
-      className={`block border-0 ${className}`}
-      title=""
-      aria-hidden="true"
-    />
-  )
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    let active = true
+    let animation: { destroy: () => void } | null = null
+
+    loadLottie()
+      .then((player) => {
+        if (!active || !containerRef.current) return
+        containerRef.current.innerHTML = ''
+        animation = player.loadAnimation({
+          container: containerRef.current,
+          renderer: 'svg',
+          loop: true,
+          autoplay: true,
+          path: src,
+        })
+      })
+      .catch(() => {
+        if (containerRef.current) containerRef.current.dataset.lottieError = 'true'
+      })
+
+    return () => {
+      active = false
+      animation?.destroy()
+    }
+  }, [src])
+
+  return <div ref={containerRef} className={`block ${className}`} aria-hidden="true" />
 }
 
 export function BresciaRequestClient() {
