@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 
 import { BresciaRequestClient } from './BresciaRequestClient'
 
@@ -18,10 +19,13 @@ export const metadata: Metadata = {
 export default function RichiestaCarroattrezziBresciaPage() {
   return (
     <>
-      <script
+      <Script
         src="/vendor/lottie.min.js"
+        strategy="beforeInteractive"
       />
-      <script
+      <Script
+        id="viasos-lottie-init"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             (function initViaSOSLotties(){
