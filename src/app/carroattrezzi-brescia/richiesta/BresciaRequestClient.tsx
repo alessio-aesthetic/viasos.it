@@ -47,8 +47,19 @@ function loadLottie() {
   if (window.lottie) return Promise.resolve(window.lottie)
 
   if (!lottieLoader) {
-    lottieLoader = fetch('/vendor/lottie.min.js')
-      .then((response) => response.text())
+    lottieLoader = new Promise<string>((resolve, reject) => {
+      const request = new XMLHttpRequest()
+      request.open('GET', '/vendor/lottie.min.js', true)
+      request.onload = () => {
+        if (request.status >= 200 && request.status < 300) {
+          resolve(request.responseText)
+        } else {
+          reject(new Error(`Lottie non caricato: ${request.status}`))
+        }
+      }
+      request.onerror = () => reject(new Error('Errore caricamento Lottie'))
+      request.send()
+    })
       .then((code) => {
         new Function(code).call(window)
         if (!window.lottie) throw new Error('Player Lottie non inizializzato')
