@@ -10,9 +10,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@dotlottie/player-component": "^2.7.12",
     "@headlessui/react": "^2.1.1",
     "@heroicons/react": "^2.1.4",
-    "@lottiefiles/lottie-player": "^2.0.12",
     "clsx": "^2.1.1",
     "next": "14.2.11",
     "react": "^18",
