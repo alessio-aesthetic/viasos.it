@@ -96,9 +96,8 @@ function LottieAsset({
   return (
     <span
       className={`block ${className}`}
-      dangerouslySetInnerHTML={{
-        __html: `<lottie-player src="${src}" background="transparent" speed="1" loop autoplay style="width:100%;height:100%;display:block"></lottie-player>`,
-      }}
+      data-lottie-src={src}
+      aria-hidden="true"
     />
   )
 }
