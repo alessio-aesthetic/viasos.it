@@ -47,24 +47,38 @@ function loadLottie() {
   if (window.lottie) return Promise.resolve(window.lottie)
 
   if (!lottieLoader) {
-    lottieLoader = new Promise<string>((resolve, reject) => {
-      const request = new XMLHttpRequest()
-      request.open('GET', '/vendor/lottie.min.js', true)
-      request.onload = () => {
-        if (request.status >= 200 && request.status < 300) {
-          resolve(request.responseText)
+    lottieLoader = new Promise<LottiePlayer>((resolve, reject) => {
+      const existing = document.querySelector<HTMLScriptElement>(
+        'script[data-viasos-lottie]',
+      )
+
+      const complete = () => {
+        if (window.lottie) {
+          resolve(window.lottie)
         } else {
-          reject(new Error(`Lottie non caricato: ${request.status}`))
+          reject(new Error('Player Lottie non inizializzato'))
         }
       }
-      request.onerror = () => reject(new Error('Errore caricamento Lottie'))
-      request.send()
-    })
-      .then((code) => {
-        new Function(code).call(window)
-        if (!window.lottie) throw new Error('Player Lottie non inizializzato')
-        return window.lottie
+
+      if (existing) {
+        existing.addEventListener('load', complete, { once: true })
+        existing.addEventListener('error', () => reject(new Error('Errore Lottie')), {
+          once: true,
+        })
+        if (window.lottie) complete()
+        return
+      }
+
+      const script = document.createElement('script')
+      script.src = '/vendor/lottie.min.js'
+      script.async = true
+      script.dataset.viasosLottie = 'true'
+      script.addEventListener('load', complete, { once: true })
+      script.addEventListener('error', () => reject(new Error('Errore Lottie')), {
+        once: true,
       })
+      document.head.appendChild(script)
+    })
   }
 
   return lottieLoader
