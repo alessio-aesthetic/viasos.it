@@ -19,7 +19,7 @@ export default function RichiestaCarroattrezziBresciaPage() {
   return (
     <>
       <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"
+        src="/vendor/lottie.min.js"
         async
       />
       <script
@@ -34,17 +34,13 @@ export default function RichiestaCarroattrezziBresciaPage() {
                 document.querySelectorAll('[data-lottie-src]').forEach(function(el){
                   if (el.getAttribute('data-lottie-ready') === '1') return;
                   el.setAttribute('data-lottie-ready', '1');
-                  fetch(el.getAttribute('data-lottie-src'))
-                    .then(function(response){ return response.json(); })
-                    .then(function(animationData){
-                      window.lottie.loadAnimation({
-                        container: el,
-                        renderer: 'svg',
-                        loop: true,
-                        autoplay: true,
-                        animationData: animationData
-                      });
-                    });
+                  window.lottie.loadAnimation({
+                    container: el,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: el.getAttribute('data-lottie-src')
+                  });
                 });
               }
               if (document.readyState === 'loading') {
