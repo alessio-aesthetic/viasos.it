@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
@@ -26,42 +26,50 @@ const problems = [
     value: 'Batteria scarica',
     title: 'Batteria scarica',
     lottie: '/lottie/brescia-request/batteria.json',
-    text: 'Il veicolo non si avvia o il quadro resta spento.',
   },
   {
     value: 'Gomma forata',
     title: 'Gomma danneggiata',
     lottie: '/lottie/brescia-request/gomme.json',
-    text: 'Pneumatico forato, ruota a terra o guida non sicura.',
   },
   {
     value: 'Guasto meccanico',
     title: 'Auto in panne',
     lottie: '/lottie/brescia-request/auto-rotta.json',
-    text: 'Motore fermo, spie accese, perdita o rumore improvviso.',
   },
   {
     value: 'Incidente',
     title: 'Incidente',
     lottie: '/lottie/brescia-request/incidente.json',
-    text: 'Veicolo danneggiato o non più sicuro da spostare.',
   },
   {
     value: 'Veicolo bloccato',
     title: 'Auto bloccata',
     lottie: '/lottie/brescia-request/auto-bloccata.json',
-    text: 'Mezzo fermo in parcheggio, cortile, accesso stretto o strada.',
   },
   {
     value: 'Carburante esaurito',
     title: 'Senza benzina',
     lottie: '/lottie/brescia-request/senza-benzina.json',
-    text: 'Serbatoio vuoto o errore di rifornimento.',
   },
 ]
 
 const vehicles = ['Auto', 'Moto o scooter', 'Furgone', 'SUV o 4x4', 'Camper', 'Altro']
 const fuels = ['Benzina', 'Diesel', 'GPL', 'Metano', 'Elettrica', 'Ibrida', 'Non lo so']
+
+const assistantMessages = [
+  'Scegli il problema: preparo il percorso più rapido.',
+  'Aggiungi mezzo e carburante: evitiamo domande inutili.',
+  'Con il GPS il carroattrezzi capisce subito dove sei.',
+  'Lascia il telefono: inviamo una richiesta completa e chiara.',
+]
+
+const stepCopy = [
+  { eyebrow: 'diagnosi iniziale', title: 'Cosa è successo al veicolo?' },
+  { eyebrow: 'mezzo', title: 'Che veicolo dobbiamo recuperare?' },
+  { eyebrow: 'posizione', title: 'Rileviamo la posizione.' },
+  { eyebrow: 'contatto', title: 'Dove ti richiamiamo?' },
+] as const
 
 function emptyTracking(): TrackingData {
   return trackingKeys.reduce((acc, key) => {
@@ -94,13 +102,17 @@ function LottieAsset({
     async function loadAnimation() {
       const lottie = (await import('lottie-web')).default
       if (!active || !containerRef.current) return
+      const response = await fetch(src)
+      const animationData = await response.json()
+      if (!active || !containerRef.current) return
+      containerRef.current.innerHTML = ''
 
       animation = lottie.loadAnimation({
         container: containerRef.current,
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: src,
+        animationData,
       })
     }
 
@@ -131,6 +143,7 @@ export function BresciaRequestClient() {
   const [message, setMessage] = useState('')
   const [tracking, setTracking] = useState<TrackingData>(emptyTracking)
   const [assistantIndex, setAssistantIndex] = useState(0)
+  const [typedAssistant, setTypedAssistant] = useState('')
 
   const cleanPhone = useMemo(
     () => customerPhone.replace(/[^\d+]/g, ''),
@@ -140,43 +153,26 @@ export function BresciaRequestClient() {
     ? `https://www.google.com/maps?q=${coordinates.latitude},${coordinates.longitude}`
     : ''
 
-  const assistantMessages = [
-    'Prima scegli il problema: preparo il percorso più rapido.',
-    'Poi mi servono mezzo e carburante per evitare domande inutili.',
-    'Con la posizione GPS il carroattrezzi capisce subito dove sei.',
-    'Alla fine lasci il telefono: la richiesta arriva completa e chiara.',
-  ]
-
-  const stepCopy = [
-    {
-      eyebrow: 'diagnosi iniziale',
-      title: 'Cosa è successo al veicolo?',
-      text: 'Tocca la situazione più vicina alla tua: in pochi secondi preparo una richiesta più precisa per il carroattrezzi.',
-    },
-    {
-      eyebrow: 'mezzo e dettagli',
-      title: 'Dimmi che veicolo dobbiamo recuperare.',
-      text: 'Queste informazioni aiutano a capire quale mezzo di soccorso inviare e come organizzare il carico.',
-    },
-    {
-      eyebrow: 'posizione precisa',
-      title: 'Ora localizziamo il veicolo.',
-      text: 'La posizione GPS riduce spiegazioni, errori di indirizzo e tempi persi in strada.',
-    },
-    {
-      eyebrow: 'contatto finale',
-      title: 'Ultimo passaggio: dove ti richiamiamo?',
-      text: 'Invia la richiesta completa. Tieni il telefono libero: il contatto avviene rapidamente.',
-    },
-  ] as const
-
   useEffect(() => {
     const interval = window.setInterval(() => {
       setAssistantIndex((current) => (current + 1) % assistantMessages.length)
-    }, 3200)
+    }, 4200)
 
     return () => window.clearInterval(interval)
-  }, [assistantMessages.length])
+  }, [])
+
+  useEffect(() => {
+    const fullText = assistantMessages[assistantIndex]
+    setTypedAssistant('')
+    let index = 0
+    const interval = window.setInterval(() => {
+      index += 1
+      setTypedAssistant(fullText.slice(0, index))
+      if (index >= fullText.length) window.clearInterval(interval)
+    }, 24)
+
+    return () => window.clearInterval(interval)
+  }, [assistantIndex])
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -323,54 +319,51 @@ export function BresciaRequestClient() {
 
       <div className="relative mx-auto flex min-h-screen w-full max-w-[1800px] items-stretch px-2 py-2 sm:px-4 sm:py-4 lg:px-6 lg:py-6">
         <section className="mx-auto grid min-h-[calc(100vh-1rem)] w-full overflow-hidden rounded-[1.4rem] border border-white/25 bg-white/94 shadow-[0_34px_120px_rgba(0,0,0,0.46),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl sm:rounded-[2rem] lg:min-h-[calc(100vh-3rem)] lg:grid-cols-[0.34fr_0.66fr]">
-          <aside className="relative overflow-hidden bg-[#07111f] p-4 text-white sm:p-6 lg:p-10">
+          <aside className="relative overflow-hidden bg-[#07111f] p-2 text-white sm:p-6 lg:p-10">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(45,212,191,0.32),transparent_32%),radial-gradient(circle_at_100%_22%,rgba(255,204,0,0.20),transparent_28%)]" />
             <div className="relative flex h-full flex-col">
               <a
                 href="/carroattrezzi-brescia"
-                className="text-2xl font-black tracking-tight sm:text-3xl"
+                className="text-xl font-black tracking-tight sm:text-3xl"
               >
                 Via<span className="text-[#2dd4bf]">SOS</span>
               </a>
 
-              <div className="mt-4 rounded-[1.25rem] border border-white/15 bg-white/10 p-3 shadow-2xl shadow-black/20 sm:mt-8 sm:rounded-[1.6rem] sm:p-5">
-                <div className="flex items-center gap-3 sm:items-start sm:gap-4">
-                  <div className="grid size-20 shrink-0 place-items-center rounded-2xl bg-white/8 sm:size-28 lg:size-36">
+              <div className="mt-2 rounded-[1rem] border border-white/15 bg-white/10 p-2 shadow-2xl shadow-black/20 sm:mt-8 sm:rounded-[1.6rem] sm:p-5">
+                <div className="flex items-center gap-2 sm:items-start sm:gap-4">
+                  <div className="grid size-14 shrink-0 place-items-center rounded-xl bg-white/8 sm:size-28 sm:rounded-2xl lg:size-36">
                     <LottieAsset
                       src="/lottie/brescia-request/uomo-sopra.json"
-                      className="h-20 w-20 sm:h-28 sm:w-28 lg:h-36 lg:w-36"
+                      className="h-14 w-14 sm:h-28 sm:w-28 lg:h-36 lg:w-36"
                     />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#facc15] sm:text-xs">
-                      assistente richiesta
-                    </p>
-                    <p className="mt-2 min-h-12 text-base font-black leading-tight text-white sm:min-h-20 sm:text-xl">
+                    <p className="min-h-10 text-[13px] font-black leading-tight text-white sm:min-h-20 sm:text-xl">
                       <span className="typing-text">
-                        {assistantMessages[assistantIndex]}
+                        {typedAssistant}
                       </span>
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-4 sm:mt-8">
-                <p className="text-xs font-black uppercase tracking-[0.2em] text-teal-100">
+              <div className="mt-2 sm:mt-6">
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-teal-100 sm:text-xs">
                   avanzamento
                 </p>
-                <div className="mt-3 grid grid-cols-4 gap-2 sm:mt-4 sm:block sm:space-y-3">
+                <div className="mt-2 grid grid-cols-4 gap-1.5 sm:mt-3 sm:block sm:space-y-2">
                   {['Problema', 'Veicolo', 'Posizione', 'Telefono'].map(
                     (item, index) => (
                       <div
                         key={item}
-                        className={`flex flex-col items-center gap-1 rounded-2xl border p-2 text-center transition sm:flex-row sm:gap-3 sm:p-3 sm:text-left ${
+                        className={`flex flex-col items-center gap-1 rounded-xl border p-1.5 text-center transition sm:flex-row sm:gap-2 sm:p-2 sm:text-left ${
                           index <= step
                             ? 'border-[#2dd4bf]/50 bg-[#2dd4bf]/12'
                             : 'border-white/10 bg-white/[0.04]'
                         }`}
                       >
                         <span
-                          className={`flex size-7 items-center justify-center rounded-xl text-xs font-black sm:size-8 sm:text-sm ${
+                          className={`flex size-6 items-center justify-center rounded-lg text-[11px] font-black sm:size-7 sm:text-xs ${
                             index <= step
                               ? 'bg-[#2dd4bf] text-[#07111f]'
                               : 'bg-white/10 text-white/60'
@@ -378,7 +371,7 @@ export function BresciaRequestClient() {
                         >
                           {index + 1}
                         </span>
-                        <span className="text-[11px] font-bold leading-tight sm:text-base">{item}</span>
+                        <span className="text-[10px] font-bold leading-tight sm:text-sm">{item}</span>
                       </div>
                     ),
                   )}
@@ -401,20 +394,17 @@ export function BresciaRequestClient() {
             </div>
           </aside>
 
-          <div className="p-4 sm:p-7 lg:flex lg:min-h-full lg:flex-col lg:p-10">
+          <div className="p-2 sm:p-7 lg:flex lg:min-h-full lg:flex-col lg:p-10">
             <div className="mx-auto max-w-4xl">
               <p className="text-xs font-black uppercase tracking-[0.18em] text-[#0f766e] sm:text-sm">
                 {stepCopy[step].eyebrow}
               </p>
-              <h1 className="mt-2 text-2xl font-black tracking-tight text-[#07111f] sm:mt-3 sm:text-5xl">
+              <h1 className="mt-1 text-xl font-black tracking-tight text-[#07111f] sm:mt-3 sm:text-5xl">
                 {stepCopy[step].title}
               </h1>
-              <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-600 sm:mt-4 sm:text-lg sm:leading-8">
-                {stepCopy[step].text}
-              </p>
             </div>
 
-            <div className="mt-4 lg:flex-1 sm:mt-8">
+            <div className="mt-2 lg:flex-1 sm:mt-8">
               {step === 0 && (
                 <div className="grid grid-cols-2 gap-2 sm:gap-4 xl:grid-cols-3">
                   {problems.map((item) => (
@@ -422,23 +412,20 @@ export function BresciaRequestClient() {
                       key={item.value}
                       type="button"
                       onClick={() => selectProblem(item.value)}
-                      className="group relative min-h-40 overflow-hidden rounded-[1.1rem] border border-slate-200 bg-white p-2 text-left shadow-[0_14px_34px_rgba(15,23,42,0.10)] transition hover:-translate-y-1 hover:border-[#0f766e] hover:shadow-[0_28px_76px_rgba(15,118,110,0.18)] sm:min-h-64 sm:rounded-[1.6rem] sm:p-4"
+                      className="group relative min-h-28 overflow-hidden rounded-[0.9rem] border border-slate-200 bg-white p-1.5 text-left shadow-[0_14px_34px_rgba(15,23,42,0.10)] transition hover:-translate-y-1 hover:border-[#0f766e] hover:shadow-[0_28px_76px_rgba(15,118,110,0.18)] sm:min-h-64 sm:rounded-[1.6rem] sm:p-4"
                     >
                       <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-teal-50 to-transparent" />
-                      <div className="relative flex h-20 items-center justify-center rounded-[0.9rem] bg-[#f8fafc] sm:h-32 sm:rounded-[1.2rem]">
+                      <div className="relative flex h-14 items-center justify-center rounded-[0.7rem] bg-[#f8fafc] sm:h-32 sm:rounded-[1.2rem]">
                         <LottieAsset
                           src={item.lottie}
-                          className="h-20 w-20 sm:h-32 sm:w-32"
+                          className="h-14 w-14 sm:h-32 sm:w-32"
                         />
                       </div>
-                      <h2 className="relative mt-2 text-sm font-black leading-tight text-[#07111f] sm:mt-4 sm:text-xl">
+                      <h2 className="relative mt-1 text-xs font-black leading-tight text-[#07111f] sm:mt-4 sm:text-xl">
                         {item.title}
                       </h2>
-                      <p className="relative mt-1 hidden text-sm font-semibold leading-6 text-slate-600 sm:block">
-                        {item.text}
-                      </p>
-                      <span className="relative mt-2 inline-flex text-xs font-black text-[#0f766e] sm:mt-4 sm:text-sm">
-                        Seleziona e continua
+                      <span className="relative mt-1 inline-flex text-[10px] font-black text-[#0f766e] sm:mt-4 sm:text-sm">
+                        Continua
                       </span>
                     </button>
                   ))}
@@ -470,26 +457,21 @@ export function BresciaRequestClient() {
               {step === 2 && (
                 <div className="mx-auto max-w-4xl">
                   <div className="rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-[0_24px_70px_rgba(15,23,42,0.10)] sm:rounded-[1.8rem] sm:p-7">
-                    <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+                    <div className="grid gap-4 sm:grid-cols-[0.9fr_1.1fr] sm:items-center">
                       <div>
-                        <p className="text-sm font-black uppercase tracking-[0.16em] text-[#0f766e]">
+                        <p className="text-xs font-black uppercase tracking-[0.16em] text-[#0f766e] sm:text-sm">
                           GPS preciso
                         </p>
                         <h2 className="mt-2 text-2xl font-black text-[#07111f] sm:mt-3 sm:text-3xl">
                           Condividi la posizione del veicolo.
                         </h2>
-                        <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 sm:mt-3 sm:text-base sm:leading-7">
-                          Non serve sapere l&apos;indirizzo esatto. Il link Google
-                          Maps viene generato automaticamente e inviato con la
-                          richiesta.
-                        </p>
                       </div>
-                      <div className="hidden rounded-[1.4rem] bg-[#07111f] p-4 text-white shadow-2xl shadow-slate-950/20 sm:block">
-                        <div className="grid place-items-center rounded-[1rem] border border-white/10 bg-white/5 p-6">
-                          <div className="relative size-32 rounded-full border border-teal-300/40 bg-teal-300/10">
-                            <span className="absolute inset-6 rounded-full border border-teal-200/60" />
-                            <span className="absolute inset-12 rounded-full bg-[#2dd4bf] shadow-[0_0_40px_rgba(45,212,191,0.55)]" />
-                          </div>
+                      <div className="rounded-[1.2rem] bg-[#07111f] p-2 text-white shadow-2xl shadow-slate-950/20 sm:rounded-[1.4rem] sm:p-4">
+                        <div className="grid h-28 place-items-center rounded-[1rem] border border-white/10 bg-white/5 sm:h-44">
+                          <LottieAsset
+                            src="/lottie/brescia-request/gps.json"
+                            className="h-28 w-28 sm:h-44 sm:w-44"
+                          />
                         </div>
                       </div>
                     </div>
@@ -727,3 +709,5 @@ function PrimaryButton({
     </button>
   )
 }
+
+
