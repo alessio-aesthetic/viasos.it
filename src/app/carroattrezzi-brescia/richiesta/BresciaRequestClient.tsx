@@ -69,6 +69,12 @@ const problems = [
     title: 'Senza benzina',
     lottie: '/lottie/brescia-request/senza-benzina.json',
   },
+  {
+    value: 'Nessuno tra questi',
+    title: 'Nessuno tra questi',
+    lottie: '/lottie/brescia-request/nessuno-tra-questi.json',
+    wide: true,
+  },
 ]
 
 const vehicles = ['Auto', 'Moto o scooter', 'Furgone', 'SUV o 4x4', 'Camper', 'Altro']
@@ -421,16 +427,32 @@ export function BresciaRequestClient() {
                       key={item.value}
                       type="button"
                       onClick={() => selectProblem(item.value)}
-                      className="group relative min-h-32 overflow-hidden rounded-[1rem] border-2 border-slate-200 bg-white p-2 text-center shadow-[0_14px_34px_rgba(15,23,42,0.12)] transition hover:-translate-y-1 hover:border-[#0f766e] hover:shadow-[0_28px_76px_rgba(15,118,110,0.18)] sm:min-h-64 sm:rounded-[1.6rem] sm:p-4"
+                      className={`group relative overflow-hidden rounded-[1rem] border-2 border-slate-200 bg-white p-2 text-center shadow-[0_14px_34px_rgba(15,23,42,0.12)] transition hover:-translate-y-1 hover:border-[#0f766e] hover:shadow-[0_28px_76px_rgba(15,118,110,0.18)] sm:rounded-[1.6rem] sm:p-4 ${
+                        item.wide
+                          ? 'col-span-2 min-h-28 xl:col-span-3 sm:min-h-48'
+                          : 'min-h-32 sm:min-h-64'
+                      }`}
                     >
                       <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-teal-50 to-transparent" />
-                      <div className="relative flex h-20 items-center justify-center rounded-[0.8rem] border border-slate-100 bg-[#f8fafc] sm:h-36 sm:rounded-[1.2rem]">
+                      <div
+                        className={`relative flex items-center justify-center rounded-[0.8rem] border border-slate-100 bg-[#f8fafc] sm:rounded-[1.2rem] ${
+                          item.wide ? 'h-16 sm:h-28' : 'h-20 sm:h-36'
+                        }`}
+                      >
                         <LottieAsset
                           src={item.lottie}
-                          className="h-20 w-20 sm:h-36 sm:w-36"
+                          className={
+                            item.wide
+                              ? 'h-16 w-full max-w-[260px] sm:h-28 sm:max-w-[420px]'
+                              : 'h-20 w-20 sm:h-36 sm:w-36'
+                          }
                         />
                       </div>
-                      <h2 className="relative mt-2 text-center text-sm font-black leading-tight tracking-tight text-[#07111f] sm:mt-4 sm:text-2xl">
+                      <h2
+                        className={`relative mt-2 text-center font-black leading-tight tracking-tight text-[#07111f] sm:mt-4 ${
+                          item.wide ? 'text-base sm:text-3xl' : 'text-sm sm:text-2xl'
+                        }`}
+                      >
                         {item.title}
                       </h2>
                     </button>
