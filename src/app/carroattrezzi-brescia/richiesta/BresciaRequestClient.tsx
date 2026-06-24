@@ -75,7 +75,7 @@ const vehicles = ['Auto', 'Moto o scooter', 'Furgone', 'SUV o 4x4', 'Camper', 'A
 const fuels = ['Benzina', 'Diesel', 'GPL', 'Metano', 'Elettrica', 'Ibrida', 'Non lo so']
 
 const assistantMessages = [
-  'Il form si completa in pochi secondi e prepara una richiesta precisa per ricevere una chiamata immediata.',
+  'Riceverai una chiamata istantanea dopo l’invio del form, risparmiando tempo nel dire a voce la posizione, veicolo ed il resto.',
   'Il carroattrezzi riceve subito mezzo, problema e dettagli essenziali, senza domande inutili.',
   'Possiamo contattare il carroattrezzi più vicino senza perdere tempo, grazie alla posizione esatta.',
   'La centrale riceve una richiesta completa e può richiamarti in modo rapido e diretto.',
@@ -400,7 +400,13 @@ export function BresciaRequestClient() {
                   <h1 className="mt-1 text-base font-black tracking-tight text-[#07111f] sm:text-2xl">
                     {stepCopy[step].title}
                   </h1>
-                  <p className="mt-2 min-h-12 text-sm font-extrabold leading-snug text-slate-700 sm:min-h-14 sm:text-lg">
+                  <p
+                    className={`mt-2 min-h-12 text-sm font-extrabold leading-snug sm:min-h-14 sm:text-lg ${
+                      step === 0
+                        ? 'rounded-2xl border border-[#facc15]/45 bg-[#fffbeb] px-3 py-2 text-[#92400e] shadow-[0_14px_40px_rgba(250,204,21,0.18)]'
+                        : 'text-slate-700'
+                    }`}
+                  >
                     <span className="typing-text">{typedAssistant}</span>
                   </p>
                 </div>
