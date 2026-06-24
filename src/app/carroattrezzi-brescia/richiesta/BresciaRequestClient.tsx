@@ -314,7 +314,10 @@ export function BresciaRequestClient() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(45,212,191,0.32),transparent_32%),radial-gradient(circle_at_100%_22%,rgba(255,204,0,0.20),transparent_28%)]" />
             <div className="relative flex h-full flex-col">
               <div className="flex items-center justify-between gap-3">
-                <a href="/carroattrezzi-brescia" className="block">
+                <a
+                  href="/carroattrezzi-brescia"
+                  className="block rounded-2xl border border-white/55 bg-white/95 px-3 py-2 shadow-[0_18px_48px_rgba(0,0,0,0.28),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur"
+                >
                   <img
                     src="/images/viasos-logo-header-cropped.webp"
                     alt="ViaSOS"
@@ -324,17 +327,21 @@ export function BresciaRequestClient() {
                 <a
                   href={`tel:${tel}`}
                   onClick={trackCall}
-                  className="rounded-xl bg-[#facc15] px-3 py-2 text-[11px] font-black leading-tight text-[#07111f] shadow-[0_14px_34px_rgba(250,204,21,0.25)] sm:px-4 sm:py-3 sm:text-sm"
+                  className="rounded-xl bg-[#facc15] px-3 py-2 text-[10px] font-black leading-tight text-[#07111f] shadow-[0_14px_34px_rgba(250,204,21,0.25)] sm:px-4 sm:py-3 sm:text-sm"
                 >
-                  <span className="sm:hidden">Chiama ora</span>
-                  <span className="hidden sm:inline">Chiama Ora - Risposta Immediata</span>
+                  Chiama Ora - Risposta Immediata
                 </a>
               </div>
 
               <div className="mt-2 sm:mt-6">
-                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-teal-100 sm:text-xs">
-                  avanzamento
-                </p>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-teal-100 sm:text-xs">
+                    avanzamento
+                  </p>
+                  <p className="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.08em] text-[#facc15] sm:text-[10px]">
+                    Tempo di completamento: 13 secondi
+                  </p>
+                </div>
                 <div className="mt-2 grid grid-cols-4 gap-1.5 sm:mt-3 sm:block sm:space-y-2">
                   {['Problema', 'Veicolo', 'Posizione', 'Telefono'].map(
                     (item, index) => (
@@ -369,7 +376,7 @@ export function BresciaRequestClient() {
           <div className="p-2 sm:p-7 lg:flex lg:min-h-full lg:flex-col lg:p-10">
             <div className="mx-auto w-full max-w-5xl rounded-[1.3rem] border border-slate-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.10)] sm:rounded-[1.8rem] sm:p-5">
               <div className="flex items-center gap-3 sm:gap-5">
-                <div className="grid size-20 shrink-0 place-items-center rounded-2xl border border-teal-100 bg-teal-50 shadow-inner sm:size-28">
+                <div className="grid size-20 shrink-0 place-items-center rounded-2xl border border-slate-200 bg-white shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_14px_34px_rgba(15,23,42,0.08)] sm:size-28">
                   <LottieAsset
                     src="/lottie/brescia-request/uomo-sopra.json"
                     className="h-20 w-20 sm:h-28 sm:w-28"
@@ -435,7 +442,7 @@ export function BresciaRequestClient() {
                 <div className="mx-auto max-w-4xl">
                   <div className="rounded-[1.4rem] border-2 border-slate-200 bg-white p-4 shadow-[0_24px_70px_rgba(15,23,42,0.10)] sm:rounded-[1.8rem] sm:p-7">
                     <div className="grid gap-4 sm:grid-cols-[0.72fr_1fr] sm:items-center">
-                      <div className="grid h-32 place-items-center rounded-[1.2rem] border border-teal-100 bg-teal-50 sm:h-48">
+                      <div className="grid h-32 place-items-center rounded-[1.2rem] border border-slate-200 bg-white shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_14px_34px_rgba(15,23,42,0.08)] sm:h-48">
                         <LottieAsset
                           src="/lottie/brescia-request/gps.json"
                           className="h-28 w-28 sm:h-44 sm:w-44"
@@ -445,17 +452,13 @@ export function BresciaRequestClient() {
                         <h2 className="text-xl font-black text-[#07111f] sm:text-3xl">
                           Condividi la posizione GPS.
                         </h2>
-                        <p className="mt-2 text-sm font-bold leading-6 text-slate-600 sm:text-base">
-                          Il punto preciso ci permette di trovare il mezzo più
-                          vicino e farti richiamare senza spiegazioni lunghe.
-                        </p>
                       </div>
                     </div>
                     <button
                       type="button"
                       onClick={detectPosition}
                       disabled={status === 'loading'}
-                      className="mt-4 w-full rounded-2xl bg-[#0f766e] px-5 py-4 text-base font-black text-white shadow-[0_22px_54px_rgba(15,118,110,0.30)] transition hover:-translate-y-0.5 hover:bg-[#115e59] disabled:opacity-70 sm:mt-6 sm:py-5 sm:text-lg"
+                      className="relative z-20 mt-4 w-full touch-manipulation rounded-2xl bg-[#0f766e] px-5 py-5 text-base font-black text-white shadow-[0_22px_54px_rgba(15,118,110,0.30)] transition hover:-translate-y-0.5 hover:bg-[#115e59] disabled:opacity-70 sm:mt-6 sm:py-5 sm:text-lg"
                     >
                       {status === 'loading'
                         ? 'Rilevamento in corso...'
@@ -469,10 +472,10 @@ export function BresciaRequestClient() {
                     )}
                   </div>
 
-                  <fieldset className="mt-4 rounded-[1.4rem] border-2 border-slate-200 bg-white p-4 shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:mt-5 sm:rounded-[1.8rem] sm:p-5">
-                    <legend className="rounded-full bg-white px-3 text-sm font-black uppercase tracking-[0.12em] text-[#0f766e]">
+                  <div className="mt-4 rounded-[1.4rem] border-2 border-slate-200 bg-white p-4 shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:mt-5 sm:rounded-[1.8rem] sm:p-5">
+                    <h3 className="text-sm font-black uppercase tracking-[0.12em] text-[#0f766e]">
                       Ti trovi in autostrada?
-                    </legend>
+                    </h3>
                     <div className="mt-3 grid grid-cols-2 gap-3">
                       {[
                         ['No', 'No'],
@@ -498,7 +501,7 @@ export function BresciaRequestClient() {
                         </label>
                       ))}
                     </div>
-                  </fieldset>
+                  </div>
                 </div>
               )}
 
@@ -580,7 +583,7 @@ export function BresciaRequestClient() {
                   >
                     {status === 'loading'
                       ? 'Invio in corso...'
-                      : 'Invia richiesta completa'}
+                      : 'Invia e fatti richiamare in pochi secondi dal carroattrezzi più vicino'}
                   </PrimaryButton>
                 )}
               </div>
