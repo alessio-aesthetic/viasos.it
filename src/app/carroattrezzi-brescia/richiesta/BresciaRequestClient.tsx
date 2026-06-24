@@ -75,10 +75,10 @@ const vehicles = ['Auto', 'Moto o scooter', 'Furgone', 'SUV o 4x4', 'Camper', 'A
 const fuels = ['Benzina', 'Diesel', 'GPL', 'Metano', 'Elettrica', 'Ibrida', 'Non lo so']
 
 const assistantMessages = [
-  'Scegli cosa è successo al veicolo. Il form si completa in pochi secondi e riceverai una chiamata immediata.',
-  'Dimmi che mezzo dobbiamo assistere. Così il carroattrezzi riceve subito una richiesta chiara e completa.',
-  'Condividi la posizione GPS. In questo modo possiamo contattare il carroattrezzi più vicino senza perdere tempo.',
-  'Lascia il numero: inviamo tutto alla centrale e vieni richiamato in modo rapido e diretto.',
+  'Il form si completa in pochi secondi e prepara una richiesta precisa per ricevere una chiamata immediata.',
+  'Il carroattrezzi riceve subito mezzo, problema e dettagli essenziali, senza domande inutili.',
+  'Possiamo contattare il carroattrezzi più vicino senza perdere tempo, grazie alla posizione esatta.',
+  'La centrale riceve una richiesta completa e può richiamarti in modo rapido e diretto.',
 ]
 
 const stepCopy = [
@@ -327,9 +327,10 @@ export function BresciaRequestClient() {
                 <a
                   href={`tel:${tel}`}
                   onClick={trackCall}
-                  className="rounded-xl bg-[#facc15] px-3 py-2 text-[10px] font-black leading-tight text-[#07111f] shadow-[0_14px_34px_rgba(250,204,21,0.25)] sm:px-4 sm:py-3 sm:text-sm"
+                  className="max-w-[11rem] rounded-xl border border-[#facc15]/40 bg-white/10 px-3 py-2 text-[9px] font-black leading-tight text-[#facc15] shadow-[0_14px_34px_rgba(0,0,0,0.16)] backdrop-blur sm:max-w-[18rem] sm:px-4 sm:py-3 sm:text-xs"
                 >
-                  Chiama Ora - Risposta Immediata
+                  Il form invia posizione, problema e veicolo: meno attesa,
+                  meno passaggi, più controllo sui costi.
                 </a>
               </div>
 
