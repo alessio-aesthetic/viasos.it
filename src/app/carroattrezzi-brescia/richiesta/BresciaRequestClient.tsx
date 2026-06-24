@@ -401,9 +401,9 @@ export function BresciaRequestClient() {
                     {stepCopy[step].title}
                   </h1>
                   <p
-                    className={`mt-2 min-h-12 text-sm font-extrabold leading-snug sm:min-h-14 sm:text-lg ${
+                    className={`mt-2 min-h-12 text-sm font-extrabold uppercase leading-snug tracking-[0.02em] sm:min-h-14 sm:text-lg ${
                       step === 0
-                        ? 'rounded-2xl border border-[#facc15]/60 bg-[#fffbeb] px-3 py-2 text-[#7c2d12] shadow-[0_18px_50px_rgba(250,204,21,0.24),inset_0_1px_0_rgba(255,255,255,0.95)]'
+                        ? 'text-[#b45309]'
                         : 'text-slate-700'
                     }`}
                   >
