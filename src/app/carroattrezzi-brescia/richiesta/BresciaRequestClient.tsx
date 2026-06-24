@@ -334,14 +334,9 @@ export function BresciaRequestClient() {
               </div>
 
               <div className="mt-2 sm:mt-6">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-teal-100 sm:text-xs">
-                    avanzamento
-                  </p>
-                  <p className="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.08em] text-[#facc15] sm:text-[10px]">
-                    Tempo di completamento: 13 secondi
-                  </p>
-                </div>
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-teal-100 sm:text-xs">
+                  avanzamento
+                </p>
                 <div className="mt-2 grid grid-cols-4 gap-1.5 sm:mt-3 sm:block sm:space-y-2">
                   {['Problema', 'Veicolo', 'Posizione', 'Telefono'].map(
                     (item, index) => (
@@ -367,6 +362,9 @@ export function BresciaRequestClient() {
                     ),
                   )}
                 </div>
+                <p className="mt-2 rounded-2xl border border-[#facc15]/35 bg-[#facc15]/16 px-3 py-2 text-center text-[11px] font-black uppercase leading-tight tracking-[0.08em] text-[#facc15] shadow-[0_14px_34px_rgba(250,204,21,0.10)] sm:mt-4 sm:px-4 sm:py-3 sm:text-sm">
+                  Tempo di completamento stimato: 13 secondi
+                </p>
               </div>
 
               <div className="mt-auto hidden pt-8 sm:block" />
@@ -441,11 +439,11 @@ export function BresciaRequestClient() {
               {step === 2 && (
                 <div className="mx-auto max-w-4xl">
                   <div className="rounded-[1.4rem] border-2 border-slate-200 bg-white p-4 shadow-[0_24px_70px_rgba(15,23,42,0.10)] sm:rounded-[1.8rem] sm:p-7">
-                    <div className="grid gap-4 sm:grid-cols-[0.72fr_1fr] sm:items-center">
-                      <div className="grid h-32 place-items-center rounded-[1.2rem] border border-slate-200 bg-white shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_14px_34px_rgba(15,23,42,0.08)] sm:h-48">
+                    <div className="grid gap-4 sm:grid-cols-[0.58fr_1fr] sm:items-center">
+                      <div className="pointer-events-none mx-auto grid h-24 w-24 place-items-center overflow-hidden rounded-[1.2rem] border border-slate-200 bg-white shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_14px_34px_rgba(15,23,42,0.08)] sm:h-40 sm:w-40">
                         <LottieAsset
                           src="/lottie/brescia-request/gps.json"
-                          className="h-28 w-28 sm:h-44 sm:w-44"
+                          className="h-20 w-20 sm:h-36 sm:w-36"
                         />
                       </div>
                       <div>
@@ -530,17 +528,6 @@ export function BresciaRequestClient() {
                       className="min-h-20 rounded-2xl border-2 border-slate-300 bg-white px-5 py-3 text-sm font-bold shadow-[0_18px_42px_rgba(15,23,42,0.12)] outline-none focus:border-[#0f766e] focus:ring-4 focus:ring-teal-100 sm:min-h-28 sm:py-4 sm:text-base"
                     />
                   </label>
-                  <div className="rounded-[1.6rem] bg-[#07111f] p-5 text-white">
-                    <p className="text-sm font-black uppercase tracking-[0.16em] text-[#facc15]">
-                      riepilogo richiesta
-                    </p>
-                    <div className="mt-4 grid gap-2 text-sm font-semibold text-slate-200 sm:grid-cols-2">
-                      <span>Problema: {problem || '-'}</span>
-                      <span>Mezzo: {vehicle || '-'}</span>
-                      <span>Carburante: {fuel || '-'}</span>
-                      <span>Autostrada: {highway || '-'}</span>
-                    </div>
-                  </div>
                 </div>
               )}
 
@@ -556,7 +543,19 @@ export function BresciaRequestClient() {
                 </p>
               )}
 
-              <div className="mx-auto mt-7 flex max-w-4xl gap-3">
+              {step === 3 && (
+                <div className="mx-auto mt-6 max-w-4xl rounded-[1.4rem] border-2 border-[#facc15]/45 bg-[#fffbeb] p-4 text-center shadow-[0_22px_70px_rgba(250,204,21,0.20),inset_0_1px_0_rgba(255,255,255,0.9)] sm:p-5">
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-[#b45309]">
+                    risposta immediata
+                  </p>
+                  <p className="mt-2 text-base font-black leading-snug text-[#07111f] sm:text-xl">
+                    Dopo l’invio ti richiamerà il nostro carroattrezzi più
+                    vicino in pochi secondi.
+                  </p>
+                </div>
+              )}
+
+              <div className="mx-auto mt-5 flex max-w-4xl gap-3">
                 {step > 0 && (
                   <button
                     type="button"
@@ -583,7 +582,7 @@ export function BresciaRequestClient() {
                   >
                     {status === 'loading'
                       ? 'Invio in corso...'
-                      : 'Invia e fatti richiamare in pochi secondi dal carroattrezzi più vicino'}
+                      : 'Invia richiesta'}
                   </PrimaryButton>
                 )}
               </div>
@@ -674,7 +673,7 @@ function PrimaryButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="flex-1 rounded-2xl bg-[#0f766e] px-6 py-4 text-lg font-black text-white shadow-[0_22px_54px_rgba(15,118,110,0.28),inset_0_1px_0_rgba(255,255,255,0.28),inset_0_-8px_18px_rgba(19,78,74,0.25)] transition hover:-translate-y-0.5 hover:bg-[#115e59] disabled:opacity-70"
+      className="flex-1 rounded-2xl border border-[#115e59]/20 bg-[#0f766e] px-6 py-4 text-lg font-black text-white shadow-[0_20px_48px_rgba(15,118,110,0.28),inset_0_1px_0_rgba(255,255,255,0.35),inset_0_-10px_20px_rgba(19,78,74,0.24)] transition hover:-translate-y-0.5 hover:bg-[#115e59] disabled:opacity-70"
     >
       {children}
     </button>
