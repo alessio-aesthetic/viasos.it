@@ -429,7 +429,7 @@ export function BresciaRequestClient() {
                       onClick={() => selectProblem(item.value)}
                       className={`group relative overflow-hidden rounded-[1rem] border-2 border-slate-200 bg-white p-2 text-center shadow-[0_14px_34px_rgba(15,23,42,0.12)] transition hover:-translate-y-1 hover:border-[#0f766e] hover:shadow-[0_28px_76px_rgba(15,118,110,0.18)] sm:rounded-[1.6rem] sm:p-4 ${
                         item.wide
-                          ? 'col-span-2 min-h-16 xl:col-span-3 sm:min-h-20'
+                          ? 'col-span-2 min-h-11 xl:col-span-3 sm:min-h-20'
                           : 'min-h-32 sm:min-h-64'
                       }`}
                     >
@@ -445,7 +445,7 @@ export function BresciaRequestClient() {
                       <h2
                         className={`relative mt-2 text-center font-black leading-tight tracking-tight text-[#07111f] sm:mt-4 ${
                           item.wide
-                            ? 'mt-0 flex min-h-12 items-center justify-center text-base sm:min-h-16 sm:text-2xl'
+                            ? 'mt-0 flex min-h-7 items-center justify-center text-sm sm:min-h-16 sm:text-2xl'
                             : 'text-sm sm:text-2xl'
                         }`}
                       >
