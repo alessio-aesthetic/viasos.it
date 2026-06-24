@@ -401,7 +401,7 @@ export function BresciaRequestClient() {
                     {stepCopy[step].title}
                   </h1>
                   <p
-                    className={`mt-2 min-h-12 text-sm font-extrabold uppercase leading-snug tracking-[0.02em] sm:min-h-14 sm:text-lg ${
+                    className={`mt-2 min-h-12 text-sm font-extrabold leading-snug tracking-[0.02em] sm:min-h-14 sm:text-lg ${
                       step === 0
                         ? 'text-[#b45309]'
                         : 'text-slate-700'
