@@ -330,14 +330,6 @@ export function BresciaRequestClient() {
                     className="h-7 w-auto sm:h-14"
                   />
                 </a>
-                <a
-                  href={`tel:${tel}`}
-                  onClick={trackCall}
-                  className="max-w-[11rem] rounded-xl border border-[#facc15]/40 bg-white/10 px-3 py-2 text-[9px] font-black leading-tight text-[#facc15] shadow-[0_14px_34px_rgba(0,0,0,0.16)] backdrop-blur sm:max-w-[18rem] sm:px-4 sm:py-3 sm:text-xs"
-                >
-                  Il form invia posizione, problema e veicolo: meno attesa,
-                  meno passaggi, più controllo sui costi.
-                </a>
               </div>
 
               <div className="mt-2 sm:mt-6">
