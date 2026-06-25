@@ -152,6 +152,7 @@ export function BresciaRequestClient() {
   const [message, setMessage] = useState('')
   const [tracking, setTracking] = useState<TrackingData>(emptyTracking)
   const [typedAssistant, setTypedAssistant] = useState('')
+  const [showGpsInfo, setShowGpsInfo] = useState(false)
 
   const cleanPhone = useMemo(
     () => customerPhone.replace(/[^\d+]/g, ''),
@@ -371,13 +372,22 @@ export function BresciaRequestClient() {
                   <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/70">
                     Oppure
                   </p>
-                  <a
-                    href={`tel:${tel}`}
-                    onClick={trackCall}
-                    className="mt-2 inline-flex w-full justify-center rounded-2xl bg-[#facc15] px-3 py-3 text-center text-xs font-black text-[#07111f] shadow-[0_16px_42px_rgba(250,204,21,0.24)] sm:px-4 sm:py-4 sm:text-sm"
-                  >
-                    Chiama Ora - Risposta Immediata
-                  </a>
+                  <div className="mt-2 grid grid-cols-2 gap-2">
+                    <a
+                      href={`tel:${tel}`}
+                      onClick={trackCall}
+                      className="inline-flex min-h-14 items-center justify-center rounded-2xl border border-white/20 bg-white px-2.5 text-center text-[11px] font-black leading-tight text-[#07111f] shadow-[0_14px_34px_rgba(0,0,0,0.22),inset_0_1px_0_rgba(255,255,255,0.9)] transition hover:-translate-y-0.5 sm:min-h-16 sm:px-4 sm:text-sm"
+                    >
+                      Chiama ora - Senza GPS
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => setShowGpsInfo(true)}
+                      className="call-premium inline-flex min-h-14 items-center justify-center rounded-2xl border border-[#fff4b8] bg-[#facc15] px-2.5 text-center text-[11px] font-black leading-tight text-[#07111f] shadow-[0_18px_48px_rgba(250,204,21,0.32),inset_0_1px_0_rgba(255,255,255,0.75),inset_0_-8px_18px_rgba(180,83,9,0.20)] sm:min-h-16 sm:px-4 sm:text-sm"
+                    >
+                      Chiama Ora - Con Invio GPS
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -627,6 +637,40 @@ export function BresciaRequestClient() {
         </section>
       </div>
 
+      {showGpsInfo && (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-[#07111f]/72 px-4 backdrop-blur-md">
+          <div className="w-full max-w-md rounded-[1.6rem] border border-white/70 bg-white p-5 text-center shadow-[0_34px_110px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.95)] sm:p-7">
+            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#0f766e]">
+              Invio GPS consigliato
+            </p>
+            <h2 className="mt-2 text-2xl font-black leading-tight text-[#07111f] sm:text-3xl">
+              Ti richiama il carroattrezzi più vicino possibile.
+            </h2>
+            <p className="mt-4 text-sm font-bold leading-relaxed text-slate-700 sm:text-base">
+              Con la posizione esatta possiamo individuare il mezzo disponibile
+              più vicino a te, riducendo tempi di attesa, tragitto e costi
+              dell’intervento.
+            </p>
+            <div className="mt-5 grid gap-2">
+              <button
+                type="button"
+                onClick={() => setShowGpsInfo(false)}
+                className="rounded-2xl bg-[#0f766e] px-5 py-4 text-base font-black text-white shadow-[0_20px_54px_rgba(15,118,110,0.28)]"
+              >
+                Ok, compilo il form
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowGpsInfo(false)}
+                className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-600"
+              >
+                Chiudi
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <style jsx global>{`
         @keyframes fadeMessage {
           0%,
@@ -647,6 +691,47 @@ export function BresciaRequestClient() {
           animation:
             fadeMessage 3.2s ease-in-out infinite,
             caretBlink 0.8s steps(1) infinite;
+        }
+        .call-premium {
+          position: relative;
+          isolation: isolate;
+          overflow: hidden;
+          transform: translateZ(0);
+        }
+        .call-premium::before {
+          content: '';
+          position: absolute;
+          inset: 1px;
+          z-index: -1;
+          border-radius: inherit;
+          background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.62), transparent 34%),
+            radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.55), transparent 42%);
+          opacity: 0.9;
+        }
+        .call-premium::after {
+          content: '';
+          position: absolute;
+          inset: -60% auto -60% -45%;
+          width: 42%;
+          transform: rotate(18deg);
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.62), transparent);
+          animation: executiveSweep 3.2s ease-in-out infinite;
+        }
+        @keyframes executiveSweep {
+          0%,
+          42% {
+            left: -55%;
+            opacity: 0;
+          }
+          52% {
+            opacity: 0.9;
+          }
+          72%,
+          100% {
+            left: 112%;
+            opacity: 0;
+          }
         }
         @keyframes caretBlink {
           0%,
