@@ -48,6 +48,7 @@ const problems = [
     value: 'Gomma forata',
     title: 'Gomma danneggiata',
     lottie: '/lottie/brescia-request/gomme.json',
+    zoom: true,
   },
   {
     value: 'Guasto meccanico',
@@ -58,11 +59,13 @@ const problems = [
     value: 'Incidente',
     title: 'Incidente',
     lottie: '/lottie/brescia-request/incidente.json',
+    zoom: true,
   },
   {
     value: 'Veicolo bloccato',
     title: 'Auto bloccata',
     lottie: '/lottie/brescia-request/auto-bloccata.json',
+    zoom: true,
   },
   {
     value: 'Carburante esaurito',
@@ -430,7 +433,9 @@ export function BresciaRequestClient() {
                         <div className="relative flex h-20 items-center justify-center rounded-[0.8rem] border border-slate-100 bg-[#f8fafc] sm:h-36 sm:rounded-[1.2rem]">
                           <LottieAsset
                             src={item.lottie}
-                            className="h-20 w-20 sm:h-36 sm:w-36"
+                            className={`h-20 w-20 sm:h-36 sm:w-36 ${
+                              item.zoom ? 'scale-[1.15]' : ''
+                            }`}
                           />
                         </div>
                       )}
