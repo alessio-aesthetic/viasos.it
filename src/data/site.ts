@@ -2,6 +2,7 @@ export const site = {
   name: 'ViaSOS',
   domain: 'viasos.it',
   url: 'https://viasos.it',
+  vatNumber: '02606820690',
   title: 'ViaSOS | Carroattrezzi e Soccorso Stradale Vicino in Tutta Italia',
   description:
     'Invia la tua posizione e ViaSOS cerca automaticamente il carroattrezzi disponibile più vicino. Una sola richiesta, risposta tramite WhatsApp e rete di partner in tutta Italia.',
