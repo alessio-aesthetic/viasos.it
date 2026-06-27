@@ -3,9 +3,17 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react'
 
-const phone = '030 204 1794'
-const tel = '+390302041794'
-const webhookFallback =
+type RequestClientProps = {
+  city?: string
+  phone?: string
+  tel?: string
+  pagePath?: string
+  backHref?: string
+  webhookUrl?: string
+  premiumLogo?: boolean
+}
+
+const defaultWebhook =
   'https://alessiothrasos.app.n8n.cloud/webhook/viasos-brescia'
 
 const trackingKeys = [
@@ -104,12 +112,12 @@ function emptyTracking(): TrackingData {
   }, {} as TrackingData)
 }
 
-function trackCall() {
-  console.log('conversione_click_telefono_brescia_richiesta')
+function trackCall(city: string) {
+  console.log(`conversione_click_telefono_${city.toLowerCase()}_richiesta`)
 }
 
-function trackLead() {
-  console.log('conversione_invio_richiesta_brescia')
+function trackLead(city: string) {
+  console.log(`conversione_invio_richiesta_${city.toLowerCase()}`)
 }
 
 function LottieAsset({
@@ -136,7 +144,15 @@ function LottieAsset({
   )
 }
 
-export function BresciaRequestClient() {
+export function BresciaRequestClient({
+  city = 'Brescia',
+  phone = '030 204 1794',
+  tel = '+390302041794',
+  pagePath = '/carroattrezzi-brescia/richiesta',
+  backHref = '/carroattrezzi-brescia',
+  webhookUrl = defaultWebhook,
+  premiumLogo = false,
+}: RequestClientProps = {}) {
   const [step, setStep] = useState<Step>(0)
   const [problem, setProblem] = useState('')
   const [vehicle, setVehicle] = useState('')
@@ -291,21 +307,21 @@ export function BresciaRequestClient() {
       latitudine: coordinates.latitude,
       longitudine: coordinates.longitude,
       google_maps_link: popupMapsLink,
-      citta: 'Brescia',
+      citta: city,
       sorgente: 'google_ads_gps_call_popup',
-      pagina: '/carroattrezzi-brescia/richiesta',
+      pagina: pagePath,
       timestamp: new Date().toISOString(),
       ...tracking,
     }
 
     try {
-      const webhook = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || webhookFallback
+      const webhook = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || webhookUrl
       await fetch(webhook, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
-      trackLead()
+      trackLead(city)
       setGpsCallStatus('sent')
       setGpsCallPhone('')
       setStatus('success')
@@ -358,27 +374,27 @@ export function BresciaRequestClient() {
       latitudine: coordinates.latitude,
       longitudine: coordinates.longitude,
       google_maps_link: mapsLink,
-      citta: 'Brescia',
+      citta: city,
       mezzo: vehicle,
       carburante: fuel,
       problema: problem,
       autostrada: highway,
       note: notes,
       sorgente: 'google_ads_landing_step_form',
-      pagina: '/carroattrezzi-brescia/richiesta',
+      pagina: pagePath,
       timestamp: new Date().toISOString(),
       ...tracking,
     }
 
     try {
-      const webhook = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || webhookFallback
+      const webhook = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || webhookUrl
       await fetch(webhook, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
 
-      trackLead()
+      trackLead(city)
       setStatus('success')
       setMessage(
         'Richiesta inviata. Tieni il telefono libero: ti ricontatteremo rapidamente.',
@@ -401,8 +417,12 @@ export function BresciaRequestClient() {
             <div className="relative flex h-full flex-col">
               <div className="flex items-center justify-center">
                 <a
-                  href="/carroattrezzi-brescia"
-                  className="block"
+                  href={backHref}
+                  className={
+                    premiumLogo
+                      ? 'block rounded-2xl border border-white/70 bg-white/95 px-4 py-2 shadow-[0_18px_48px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-sm'
+                      : 'block'
+                  }
                 >
                   <img
                     src="/images/viasos-logo-header-cropped.webp"
@@ -432,7 +452,7 @@ export function BresciaRequestClient() {
                   </button>
                   <a
                     href={`tel:${tel}`}
-                    onClick={trackCall}
+                    onClick={() => trackCall(city)}
                     className="inline-flex min-h-12 w-full items-center justify-center rounded-2xl border border-white/20 bg-white/92 px-4 text-center text-[12px] font-black leading-tight text-[#07111f] shadow-[0_14px_34px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.9)] transition hover:-translate-y-0.5 sm:min-h-14 sm:text-sm"
                   >
                     Chiama ora - Senza GPS
