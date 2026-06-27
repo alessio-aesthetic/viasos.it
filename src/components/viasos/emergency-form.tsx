@@ -231,7 +231,7 @@ export function EmergencyForm() {
             />
             <span>
               Accetto il trattamento dei dati secondo la{' '}
-              <a href="/privacy/" className="font-bold text-[#075e54] underline">
+              <a href="/privacy" className="font-bold text-[#075e54] underline">
                 privacy policy
               </a>
               .

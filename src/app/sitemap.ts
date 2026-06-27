@@ -7,9 +7,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/',
     '/carroattrezzi-brescia',
     '/carroattrezzi-brescia/richiesta',
-    '/privacy/',
-    '/cookie/',
-    '/termini/',
+    '/privacy',
+    '/cookie',
+    '/termini',
   ].map((path) => ({
     url: `${site.url}${path}`,
     lastModified: new Date(),

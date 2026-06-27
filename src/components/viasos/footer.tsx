@@ -31,8 +31,8 @@ export function Footer() {
             links={[
               ['Diventa partner', '#partner'],
               ['Contatti', 'mailto:info@viasos.it'],
-              ['Privacy policy', '/privacy/'],
-              ['Cookie policy', '/cookie/'],
+              ['Privacy policy', '/privacy'],
+              ['Cookie policy', '/cookie'],
             ]}
           />
           <FooterGroup
@@ -41,7 +41,7 @@ export function Footer() {
               ['Soccorso auto', '#servizi'],
               ['Soccorso moto', '#servizi'],
               ['Soccorso furgoni', '#servizi'],
-              ['Termini e condizioni', '/termini/'],
+              ['Termini e condizioni', '/termini'],
             ]}
           />
         </div>
