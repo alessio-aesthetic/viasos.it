@@ -337,7 +337,7 @@ export function BresciaRequestClient({
         <section className="mx-auto grid min-h-[calc(100vh-1rem)] w-full overflow-hidden rounded-[1.4rem] border border-white/25 bg-white/94 shadow-[0_34px_120px_rgba(0,0,0,0.46),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl sm:rounded-[2rem] lg:min-h-[calc(100vh-3rem)] lg:grid-cols-[0.34fr_0.66fr]">
           <aside className="relative min-h-[calc(100svh-1rem)] overflow-hidden bg-[#07111f] p-3 text-white sm:min-h-0 sm:p-6 lg:p-10">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(45,212,191,0.32),transparent_32%),radial-gradient(circle_at_100%_22%,rgba(255,204,0,0.20),transparent_28%)]" />
-            <div className="relative flex h-full flex-col">
+            <div className="relative flex min-h-[calc(100svh-2.5rem)] flex-col sm:min-h-0 sm:h-full">
               <div className="flex items-center justify-center">
                 <a
                   href={backHref}
@@ -350,18 +350,18 @@ export function BresciaRequestClient({
                   <img
                     src="/images/viasos-logo-header-cropped.webp"
                     alt="ViaSOS"
-                    className="h-auto w-[min(64vw,230px)] object-contain sm:w-[210px]"
+                    className="h-auto w-[min(48vw,170px)] object-contain sm:w-[210px]"
                   />
                 </a>
               </div>
 
-              <div className="mt-3 text-center sm:flex sm:flex-1 sm:flex-col sm:justify-center">
+              <div className="mt-2 flex flex-1 flex-col justify-evenly text-center sm:mt-3 sm:justify-center">
                 <h2 className="mx-auto max-w-xl text-[1.55rem] font-black leading-[1.02] tracking-tight text-white sm:text-4xl">
                   <span className="block">Chiama con</span>
                   <span className="block text-[#facc15]">RISPOSTA IMMEDIATA</span>
                   <span className="block">del nostro soccorso stradale</span>
                 </h2>
-                <div className="mx-auto mt-4 max-w-md rounded-[1.35rem] border border-white/15 bg-white/10 px-4 py-3 text-center shadow-[0_20px_54px_rgba(0,0,0,0.22),inset_0_1px_0_rgba(255,255,255,0.14)] backdrop-blur-md">
+                <div className="mx-auto max-w-md rounded-[1.35rem] border border-white/15 bg-white/10 px-4 py-3 text-center shadow-[0_20px_54px_rgba(0,0,0,0.22),inset_0_1px_0_rgba(255,255,255,0.14)] backdrop-blur-md sm:mt-4">
                   <p className="text-sm font-black leading-relaxed text-white sm:text-base">
                     Ti richiamiamo in pochi secondi. Nessuna attesa.
                     <span className="mt-1 block text-[#facc15]">
@@ -370,20 +370,20 @@ export function BresciaRequestClient({
                   </p>
                 </div>
 
-                <div className="mx-auto mt-5 grid w-full max-w-md sm:mt-7">
+                <div className="mx-auto grid w-full max-w-md sm:mt-7">
                   <a
                     href={`tel:${tel}`}
                     onClick={() => trackCall(city)}
-                    className="call-premium inline-flex min-h-16 w-full flex-col items-center justify-center gap-1 rounded-[1.35rem] border border-[#fff4b8] bg-[#facc15] px-4 text-center text-[15px] font-black leading-tight text-[#07111f] shadow-[0_24px_62px_rgba(250,204,21,0.42),inset_0_1px_0_rgba(255,255,255,0.82),inset_0_-10px_22px_rgba(180,83,9,0.22)] sm:min-h-20 sm:text-lg"
+                    className="call-premium inline-flex min-h-16 w-full flex-col items-center justify-center gap-1 rounded-[1.35rem] border border-[#fff4b8] bg-[#facc15] px-4 text-center text-lg font-black leading-tight text-[#07111f] shadow-[0_24px_62px_rgba(250,204,21,0.42),inset_0_1px_0_rgba(255,255,255,0.82),inset_0_-10px_22px_rgba(180,83,9,0.22)] sm:min-h-20 sm:text-xl"
                   >
                     Chiama Ora - Attivi 24/7
-                    <span className="rounded-full bg-[#07111f]/12 px-2 py-1 text-[10px] uppercase tracking-[0.08em] sm:text-xs">
+                    <span className="rounded-full bg-[#07111f]/12 px-2 py-1 text-[9px] uppercase tracking-[0.08em] sm:text-[10px]">
                       RISPOSTA IMMEDIATA
                     </span>
                   </a>
                 </div>
 
-                <div className="mx-auto mt-7 grid w-full max-w-md gap-2 px-1 text-left sm:mt-5 sm:grid-cols-3 sm:gap-3">
+                <div className="mx-auto grid w-full max-w-md gap-2 px-1 text-left sm:mt-5 sm:grid-cols-3 sm:gap-3">
                   {[
                     'Nessun obbligo di accettare il servizio',
                     "Preventivo prima dell'uscita del mezzo",
@@ -398,7 +398,7 @@ export function BresciaRequestClient({
                   ))}
                 </div>
 
-                <div className="mt-6 text-center sm:mt-6">
+                <div className="text-center sm:mt-6">
                   <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/72">
                     Oppure completa il form
                   </p>
