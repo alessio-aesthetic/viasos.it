@@ -420,14 +420,14 @@ export function BresciaRequestClient({
                   href={backHref}
                   className={
                     premiumLogo
-                      ? 'block drop-shadow-[0_0_22px_rgba(45,212,191,0.55)]'
-                      : 'block'
+                      ? 'relative block before:absolute before:inset-[-10px_-14px] before:-z-10 before:rounded-full before:bg-[radial-gradient(circle,rgba(255,255,255,0.26),rgba(45,212,191,0.16)_42%,transparent_72%)] before:blur-sm'
+                      : 'relative block before:absolute before:inset-[-10px_-14px] before:-z-10 before:rounded-full before:bg-[radial-gradient(circle,rgba(255,255,255,0.22),rgba(45,212,191,0.14)_42%,transparent_72%)] before:blur-sm'
                   }
                 >
                   <img
                     src="/images/viasos-logo-header-cropped.webp"
                     alt="ViaSOS"
-                    className="h-8 w-auto brightness-125 contrast-125 drop-shadow-[0_14px_30px_rgba(0,0,0,0.7)] sm:h-12"
+                    className="h-9 w-auto brightness-150 contrast-150 saturate-125 drop-shadow-[0_0_16px_rgba(255,255,255,0.32)] [filter:brightness(1.45)_contrast(1.4)_saturate(1.15)_drop-shadow(0_14px_28px_rgba(0,0,0,0.78))] sm:h-14"
                   />
                 </a>
               </div>
