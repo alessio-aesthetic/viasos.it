@@ -334,10 +334,10 @@ export function BresciaRequestClient({
       <div className="fixed inset-x-0 top-0 h-64 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),transparent)]" />
 
       <div className="relative mx-auto flex min-h-screen w-full max-w-[1800px] items-stretch px-2 py-2 sm:px-4 sm:py-4 lg:px-6 lg:py-6">
-        <section className="mx-auto grid min-h-[calc(100vh-1rem)] w-full overflow-hidden rounded-[1.4rem] border border-white/25 bg-white/94 shadow-[0_34px_120px_rgba(0,0,0,0.46),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl sm:rounded-[2rem] lg:min-h-[calc(100vh-3rem)] lg:grid-cols-[0.34fr_0.66fr]">
-          <aside className="relative min-h-[calc(100svh-1rem)] overflow-hidden bg-[#07111f] p-3 text-white sm:min-h-0 sm:p-6 lg:p-10">
+        <section className="mx-auto grid w-full overflow-hidden rounded-[1.4rem] border border-white/25 bg-white/94 shadow-[0_34px_120px_rgba(0,0,0,0.46),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl sm:rounded-[2rem] lg:min-h-[calc(100vh-3rem)] lg:grid-cols-[0.34fr_0.66fr]">
+          <aside className="relative overflow-hidden bg-[#07111f] p-3 text-white sm:p-6 lg:p-10">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,255,255,0.10),transparent_36%)]" />
-            <div className="relative flex min-h-[calc(100svh-2.5rem)] flex-col sm:min-h-0 sm:h-full">
+            <div className="relative flex flex-col sm:h-full">
               <div className="flex items-center justify-center">
                 <a
                   href={backHref}
@@ -361,10 +361,10 @@ export function BresciaRequestClient({
                   <span className="block text-[1.08em] font-black text-white">RISPOSTA IMMEDIATA</span>
                   <span className="block">del nostro soccorso stradale</span>
                 </h2>
-                <p className="mx-auto max-w-md border-y border-white/15 py-3 text-sm font-semibold leading-[1.45] text-white/72 sm:py-4 sm:text-base">
-                  <strong className="block font-black text-white">Nessuna attesa. Nessuna telefonata a vuoto.</strong>
+                <p className="mx-auto max-w-md border-y border-white/15 py-3 text-sm font-semibold leading-[1.45] text-white/82 sm:py-4 sm:text-base">
+                  <span className="block">Nessuna attesa. Nessuna telefonata a vuoto.</span>
                   <span className="mt-0.5 block">
-                    <strong className="font-extrabold text-white">Una sola chiamata</strong> è tutto ciò che serve: solo <strong className="font-extrabold text-white">carroattrezzi disponibili.</strong>
+                    Una sola chiamata è tutto ciò che serve: <strong className="font-black">solo carroattrezzi disponibili.</strong>
                   </span>
                 </p>
 
