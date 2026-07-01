@@ -1,7 +1,8 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: Switzer, system-ui, sans-serif;
+  --font-sans: var(--font-inter), Inter, system-ui, sans-serif;
+  --font-display: var(--font-geist-sans), Geist, system-ui, sans-serif;
 
   --radius-4xl: 2rem;
 }

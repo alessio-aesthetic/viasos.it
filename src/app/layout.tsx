@@ -1,7 +1,15 @@
 import '@/styles/tailwind.css'
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import { GeistSans } from 'geist/font/sans'
 
 import { site } from '@/data/site'
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -34,9 +42,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="it" className="scroll-smooth">
+    <html
+      lang="it"
+      className={`scroll-smooth ${inter.variable} ${GeistSans.variable}`}
+    >
       <body className="bg-white text-slate-950 antialiased">{children}</body>
     </html>
   )
 }
-
