@@ -440,7 +440,7 @@ export function PartnerSection() {
             segnalato.
           </p>
           <a
-            href="mailto:partner@viasos.it?subject=Diventare%20partner%20ViaSOS"
+            href="/partner"
             className="mt-8 inline-flex rounded-full bg-[#07111f] px-6 py-3.5 text-base font-black text-white"
           >
             Diventa partner ViaSOS

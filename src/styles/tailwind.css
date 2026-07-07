@@ -68,3 +68,9 @@
     scroll-behavior: auto !important;
   }
 }
+
+@layer components {
+  .partner-input {
+    @apply h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-base font-semibold text-slate-900 outline-none transition focus:border-[#25d366] focus:ring-4 focus:ring-[#25d366]/15;
+  }
+}
