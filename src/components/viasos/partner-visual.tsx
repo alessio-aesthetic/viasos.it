@@ -25,8 +25,8 @@ const visualByType = {
   search: '/lottie/search-flow-large.lottie',
   whatsapp: '/lottie/whatsapp.lottie',
   position: '/lottie/brescia-request/gps.lottie',
-  service: '/lottie/form-assistance.json',
-  payment: '/lottie/search.lottie',
+  service: '/lottie/result-check.lottie',
+  payment: '/lottie/easy-checkout.lottie',
 }
 
 export function PartnerVisual({

@@ -22,7 +22,7 @@ const operatingSteps = [
   {
     title: 'Registrazione e verifica',
     visual: 'network' as const,
-    text: 'Compili i dati essenziali della tua attività: nome, referente, WhatsApp operativo, città, base di partenza, raggio di copertura e dati fiscali. Il profilo resta in attesa di approvazione finché non viene controllato manualmente.',
+    text: 'Compili i dati essenziali della tua attività: referente, WhatsApp operativo, città, base di partenza, raggio di copertura e dati fiscali. Il profilo resta in verifica finché non viene controllato manualmente.',
   },
   {
     title: 'Attivazione nella rete',
@@ -42,21 +42,21 @@ const operatingSteps = [
   {
     title: 'Esito del servizio',
     visual: 'service' as const,
-    text: 'Dopo aver parlato con il cliente devi indicare se il servizio è stato accettato, non accettato, se il cliente ha trovato altro o se cercava un servizio diverso.',
+    text: 'Dopo aver parlato con il cliente indichi l’esito: accettato, non accettato, cliente già sistemato o richiesta non pertinente. Questa risposta mantiene il lead ordinato e protegge la qualità della rete.',
   },
   {
     title: 'Commissione e pagamento',
     visual: 'payment' as const,
-    text: 'La commissione ViaSOS è fissa: 30 euro. Viene richiesta solo quando confermi che il servizio è stato fatto. Se il servizio non viene svolto, non viene richiesta la commissione.',
+    text: 'La commissione ViaSOS è fissa: 30 euro. Si paga solo dopo aver svolto il servizio e solo dopo che il cliente ha pagato direttamente te. Mai prima.',
   },
 ]
 
-const rules = [
-  'Rispondi ai pulsanti il più velocemente possibile: i lead urgenti vengono gestiti in pochi secondi.',
-  'Accetta solo se puoi davvero chiamare e gestire il cliente subito.',
-  'Se non puoi intervenire, rifiuta subito: il sistema può proporre il lead a un altro carroattrezzi.',
-  'Quando confermi “Servizio fatto”, ricevi il link per pagare la commissione fissa da 30 euro.',
-  'Pagamenti puntuali, disponibilità e servizi conclusi migliorano il punteggio partner.',
+const qualityRules = [
+  'Rispondi velocemente quando ricevi un lead: nelle emergenze anche pochi secondi fanno differenza.',
+  'Accetta solo se puoi richiamare subito il cliente e gestire davvero la richiesta.',
+  'Se non puoi intervenire, rifiuta subito: il sistema può cercare un altro carroattrezzi disponibile.',
+  'Dopo la chiamata aggiorna sempre l’esito, così non partono solleciti inutili.',
+  'Pagamenti puntuali, disponibilità reale e servizi chiusi correttamente migliorano il punteggio partner.',
   'Il profilo può essere sospeso se accetta lead senza richiamare i clienti o senza aggiornare l’esito.',
 ]
 
@@ -79,11 +79,11 @@ export default function PartnerHome() {
             ViaSOS collega clienti che hanno bisogno di soccorso stradale con
             carroattrezzi disponibili. Tu ricevi richieste operative, decidi se
             accettarle e paghi una commissione fissa solo sui servizi realmente
-            svolti.
+            svolti e incassati.
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             <HeroStat label="Commissione" value="30€" />
-            <HeroStat label="Pagamento" value="solo se fatto" />
+            <HeroStat label="Pagamento" value="solo dopo incasso" />
             <HeroStat label="Attivazione" value="manuale" />
           </div>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -155,38 +155,70 @@ export default function PartnerHome() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-          <PartnerPanel className="bg-[#07111f] p-7 text-white lg:p-8">
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#25d366]">
-              commissione
-            </p>
-            <h2 className="mt-3 text-4xl font-black tracking-tight">
-              30 euro fissi, solo a servizio fatto.
-            </h2>
-            <p className="mt-5 text-lg leading-8 font-semibold text-slate-300">
-              ViaSOS non chiede percentuali e non applica commissioni variabili
-              in base al valore dell’intervento. La commissione standard è fissa:
-              30 euro per ogni servizio confermato come svolto.
-            </p>
-            <div className="mt-7 grid gap-3 sm:grid-cols-2">
-              <CommissionBox title="Paghi" text="se clicchi Servizio fatto." />
-              <CommissionBox title="Non paghi" text="se il servizio non viene svolto." />
+        <div className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr]">
+          <PartnerPanel className="overflow-hidden !border-[#132235] !bg-[#07111f] text-white shadow-2xl shadow-slate-950/15">
+            <div className="grid min-h-full gap-0 lg:grid-cols-[0.92fr_1.08fr]">
+              <div className="p-7 lg:p-8">
+                <p className="text-sm font-black uppercase tracking-[0.18em] text-[#25d366]">
+                  commissione trasparente
+                </p>
+                <h2 className="mt-3 text-4xl font-black tracking-tight">
+                  Paghi 30 euro solo quando hai già incassato dal cliente.
+                </h2>
+                <p className="mt-5 text-lg leading-8 font-semibold text-slate-300">
+                  ViaSOS non chiede anticipi, non trattiene percentuali e non ti
+                  fa pagare prima di sapere com’è andato il servizio. La
+                  commissione nasce solo dopo tre condizioni semplici.
+                </p>
+                <div className="mt-7 grid gap-3">
+                  <CommissionPoint number="01" text="Hai accettato il lead." />
+                  <CommissionPoint number="02" text="Hai svolto il servizio." />
+                  <CommissionPoint
+                    number="03"
+                    text="Il cliente ha pagato direttamente te."
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col justify-between border-t border-white/10 bg-white/[0.04] p-7 lg:border-l lg:border-t-0 lg:p-8">
+                <PartnerVisual type="payment" size="large" />
+                <div className="mt-6 rounded-[1.75rem] border border-white/10 bg-white/10 p-5">
+                  <p className="text-sm font-black uppercase tracking-[0.16em] text-slate-300">
+                    importo fisso
+                  </p>
+                  <p className="mt-2 text-6xl font-black text-[#25d366]">30€</p>
+                  <p className="mt-3 text-sm leading-6 font-semibold text-slate-300">
+                    Nessuna percentuale sul lavoro. Nessun costo se il servizio
+                    non viene fatto o se il cliente non ti paga.
+                  </p>
+                </div>
+              </div>
             </div>
           </PartnerPanel>
+
           <PartnerPanel className="p-7 lg:p-8">
             <p className="text-sm font-black uppercase tracking-[0.18em] text-[#075e54]">
               regole operative
             </p>
             <h2 className="mt-3 text-3xl font-black tracking-tight">
-              Le regole che mantengono alta la qualità della rete.
+              Poche regole, pensate per proteggere clienti e partner seri.
             </h2>
+            <p className="mt-4 text-base leading-7 font-semibold text-slate-600">
+              Il sistema premia chi risponde davvero, chi richiama subito e chi
+              chiude correttamente l’esito del lead. Così i clienti ricevono un
+              servizio rapido e i partner affidabili hanno più valore nella rete.
+            </p>
             <div className="mt-6 grid gap-3">
-              {rules.map((rule) => (
+              {qualityRules.map((rule) => (
                 <div
                   key={rule}
-                  className="rounded-[1.25rem] border border-slate-200 bg-slate-50 p-4 text-sm font-bold leading-6 text-slate-700"
+                  className="group flex gap-4 rounded-[1.35rem] border border-slate-200 bg-white p-4 shadow-sm shadow-slate-950/[0.03]"
                 >
-                  {rule}
+                  <span className="mt-1 grid size-7 shrink-0 place-items-center rounded-full bg-[#e9fbf1] text-sm font-black text-[#075e54]">
+                    ✓
+                  </span>
+                  <p className="text-sm font-bold leading-6 text-slate-700">
+                    {rule}
+                  </p>
                 </div>
               ))}
             </div>
@@ -249,11 +281,13 @@ function HeroStat({ label, value }: { label: string; value: string }) {
   )
 }
 
-function CommissionBox({ title, text }: { title: string; text: string }) {
+function CommissionPoint({ number, text }: { number: string; text: string }) {
   return (
-    <div className="rounded-[1.25rem] bg-white/10 p-4">
-      <p className="text-2xl font-black text-[#25d366]">{title}</p>
-      <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{text}</p>
+    <div className="flex items-center gap-4 rounded-[1.35rem] border border-white/10 bg-white/10 p-4">
+      <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-[#25d366] text-sm font-black text-[#07111f]">
+        {number}
+      </span>
+      <p className="text-sm font-bold leading-6 text-slate-200">{text}</p>
     </div>
   )
 }
