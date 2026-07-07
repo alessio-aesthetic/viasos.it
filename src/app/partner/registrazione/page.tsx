@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import type { FormEvent } from 'react'
 import { useState } from 'react'
@@ -102,7 +102,7 @@ export default function PartnerRegistration() {
               'Numero WhatsApp usato per ricevere le richieste',
               'Dati fiscali utili per pagamenti e fatture',
             ].map((item) => (
-              <div key={item} className="rounded-2xl bg-white p-4 font-bold text-slate-700">
+              <div key={item} className="rounded-2xl border border-white/80 bg-white/90 p-4 font-bold text-slate-700 shadow-sm">
                 {item}
               </div>
             ))}
@@ -286,3 +286,4 @@ function Field({
     </label>
   )
 }
+
