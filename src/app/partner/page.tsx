@@ -4,107 +4,256 @@ import {
   PartnerBadge,
   PartnerPanel,
   PartnerShell,
+  StatusPill,
 } from '@/components/viasos/partner-shell'
+import { PartnerVisual } from '@/components/viasos/partner-visual'
 
 export const metadata: Metadata = {
   title: 'Area Partner Carroattrezzi',
   description:
-    'Registrazione e dashboard ViaSOS per carroattrezzi partner in attesa di approvazione.',
+    'Registrazione e dashboard ViaSOS per carroattrezzi partner: lead, regole operative, commissione fissa e pagamenti.',
   robots: {
     index: false,
     follow: false,
   },
 }
 
-const steps = [
+const operatingSteps = [
   {
-    title: 'Ti registri una sola volta',
-    text: 'Inserisci azienda, referente, numero WhatsApp, città operativa e dati minimi di fatturazione.',
+    title: 'Registrazione e verifica',
+    visual: 'network' as const,
+    text: 'Compili i dati essenziali della tua attività: nome, referente, WhatsApp operativo, città, base di partenza, raggio di copertura e dati fiscali. Il profilo resta in attesa di approvazione finché non viene controllato manualmente.',
   },
   {
-    title: 'Controlliamo la richiesta',
-    text: 'L account rimane in attesa di approvazione. Non ricevi lead finché non viene attivato manualmente.',
+    title: 'Attivazione nella rete',
+    visual: 'search' as const,
+    text: 'Quando il profilo viene approvato e attivato, ViaSOS può proporti richieste compatibili con la tua zona. Se non sei attivo, non ricevi lead.',
   },
   {
-    title: 'Ricevi richieste compatibili',
-    text: 'Quando sei attivo, ViaSOS può inviarti lead nella zona in cui lavori realmente.',
+    title: 'Lead su WhatsApp',
+    visual: 'whatsapp' as const,
+    text: 'Quando arriva una richiesta, ricevi un messaggio WhatsApp con i dati disponibili e i pulsanti per rispondere rapidamente. Se sei disponibile, il lead viene assegnato a te.',
   },
   {
-    title: 'Gestisci tutto dalla dashboard',
-    text: 'Vedi lead, pagamenti, storico, regole operative e stato del profilo partner.',
+    title: 'Posizione e cliente',
+    visual: 'position' as const,
+    text: 'Il cliente può condividere posizione, zona e informazioni utili. Dopo l’assegnazione ricevi i dettagli necessari per richiamarlo subito dal tuo telefono.',
+  },
+  {
+    title: 'Esito del servizio',
+    visual: 'service' as const,
+    text: 'Dopo aver parlato con il cliente devi indicare se il servizio è stato accettato, non accettato, se il cliente ha trovato altro o se cercava un servizio diverso.',
+  },
+  {
+    title: 'Commissione e pagamento',
+    visual: 'payment' as const,
+    text: 'La commissione ViaSOS è fissa: 30 euro. Viene richiesta solo quando confermi che il servizio è stato fatto. Se il servizio non viene svolto, non viene richiesta la commissione.',
   },
 ]
 
-const highlights = [
-  'Lead con numero cliente e posizione quando disponibili',
-  'Pagamenti e commissioni visibili in modo ordinato',
-  'Regole chiare prima di ricevere richieste',
-  'Account attivato solo dopo verifica manuale',
+const rules = [
+  'Rispondi ai pulsanti il più velocemente possibile: i lead urgenti vengono gestiti in pochi secondi.',
+  'Accetta solo se puoi davvero chiamare e gestire il cliente subito.',
+  'Se non puoi intervenire, rifiuta subito: il sistema può proporre il lead a un altro carroattrezzi.',
+  'Quando confermi “Servizio fatto”, ricevi il link per pagare la commissione fissa da 30 euro.',
+  'Pagamenti puntuali, disponibilità e servizi conclusi migliorano il punteggio partner.',
+  'Il profilo può essere sospeso se accetta lead senza richiamare i clienti o senza aggiornare l’esito.',
+]
+
+const scoreItems = [
+  ['Disponibilità', 'quante volte rispondi “Sono disponibile” quando ricevi un lead compatibile.'],
+  ['Completamento', 'quanti lead accettati vengono davvero gestiti fino all’esito finale.'],
+  ['Pagamenti', 'quanto velocemente saldi le commissioni dovute dopo i servizi fatti.'],
 ]
 
 export default function PartnerHome() {
   return (
     <PartnerShell>
-      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-18">
-        <div className="flex flex-col justify-center">
+      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:px-8 lg:py-16">
+        <div className="flex flex-col justify-center rounded-[2rem] bg-[#07111f] p-7 text-white shadow-2xl shadow-slate-950/15 sm:p-9 lg:p-10">
           <PartnerBadge>Portale partner ViaSOS</PartnerBadge>
           <h1 className="mt-6 max-w-4xl text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-            Ricevi richieste di soccorso stradale nella tua zona, senza perdere tempo.
+            Entra nella rete nazionale ViaSOS e ricevi richieste nella tua zona.
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 font-semibold text-slate-700">
-            Il portale partner serve per registrare la tua attività, vedere le
-            richieste ricevute, controllare pagamenti e avere sempre chiare le
-            regole operative di ViaSOS.
+          <p className="mt-6 max-w-3xl text-lg leading-8 font-semibold text-slate-300">
+            ViaSOS collega clienti che hanno bisogno di soccorso stradale con
+            carroattrezzi disponibili. Tu ricevi richieste operative, decidi se
+            accettarle e paghi una commissione fissa solo sui servizi realmente
+            svolti.
           </p>
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            <HeroStat label="Commissione" value="30€" />
+            <HeroStat label="Pagamento" value="solo se fatto" />
+            <HeroStat label="Attivazione" value="manuale" />
+          </div>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href="/partner/registrazione"
+              href="/partner/registrazione/"
               className="inline-flex justify-center rounded-full bg-[#25d366] px-6 py-4 text-base font-black text-[#07111f] shadow-xl shadow-emerald-950/15"
             >
               Candidati come partner
             </a>
             <a
-              href="/partner/login"
-              className="inline-flex justify-center rounded-full border border-slate-300 bg-white px-6 py-4 text-base font-black text-[#07111f]"
+              href="/partner/login/"
+              className="inline-flex justify-center rounded-full border border-white/15 bg-white/10 px-6 py-4 text-base font-black text-white"
             >
               Accedi alla dashboard
             </a>
           </div>
         </div>
-        <PartnerPanel className="lg:p-8">
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#075e54]">
-            Come funziona
+
+        <PartnerPanel className="p-6 lg:p-8">
+          <PartnerVisual type="network" size="large" />
+          <p className="mt-6 text-sm font-black uppercase tracking-[0.18em] text-[#075e54]">
+            modello operativo
           </p>
-          <div className="mt-6 grid gap-4">
-            {steps.map((step, index) => (
-              <div key={step.title} className="flex gap-4 rounded-3xl bg-slate-50 p-4">
+          <h2 className="mt-2 text-3xl font-black tracking-tight">
+            Una piattaforma chiara, controllata e misurabile.
+          </h2>
+          <p className="mt-4 text-base leading-7 font-semibold text-slate-600">
+            Ogni partner ha una dashboard con stato profilo, lead ricevuti,
+            pagamenti, punteggio e regole operative. L’obiettivo è lavorare con
+            carroattrezzi rapidi, affidabili e trasparenti.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <StatusPill tone="green">lead qualificati</StatusPill>
+            <StatusPill tone="neutral">dashboard partner</StatusPill>
+            <StatusPill tone="yellow">approvazione manuale</StatusPill>
+          </div>
+        </PartnerPanel>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <PartnerBadge>Come funziona</PartnerBadge>
+          <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">
+            Dal profilo partner al servizio concluso: tutto è tracciato.
+          </h2>
+          <p className="mt-5 text-lg leading-8 font-semibold text-slate-600">
+            La procedura è pensata per evitare confusione: pochi passaggi,
+            decisioni rapide e commissione chiara.
+          </p>
+        </div>
+        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {operatingSteps.map((step, index) => (
+            <PartnerPanel key={step.title} className="p-5">
+              <PartnerVisual type={step.visual} />
+              <div className="mt-5 flex items-start gap-4">
                 <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-[#07111f] text-sm font-black text-white">
                   {index + 1}
                 </span>
                 <div>
-                  <h2 className="font-black">{step.title}</h2>
-                  <p className="mt-1 text-sm leading-6 font-semibold text-slate-600">
+                  <h3 className="text-xl font-black">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-6 font-semibold text-slate-600">
                     {step.text}
                   </p>
                 </div>
               </div>
-            ))}
-          </div>
-        </PartnerPanel>
-      </section>
-      <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-        <div className="grid gap-4 md:grid-cols-4">
-          {highlights.map((item) => (
-            <div
-              key={item}
-              className="rounded-3xl border border-slate-200 bg-white p-5 text-sm font-black leading-6 text-slate-800 shadow-sm"
-            >
-              <span className="mb-4 block size-2 rounded-full bg-[#25d366]" />
-              {item}
-            </div>
+            </PartnerPanel>
           ))}
         </div>
       </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+          <PartnerPanel className="bg-[#07111f] p-7 text-white lg:p-8">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#25d366]">
+              commissione
+            </p>
+            <h2 className="mt-3 text-4xl font-black tracking-tight">
+              30 euro fissi, solo a servizio fatto.
+            </h2>
+            <p className="mt-5 text-lg leading-8 font-semibold text-slate-300">
+              ViaSOS non chiede percentuali e non applica commissioni variabili
+              in base al valore dell’intervento. La commissione standard è fissa:
+              30 euro per ogni servizio confermato come svolto.
+            </p>
+            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+              <CommissionBox title="Paghi" text="se clicchi Servizio fatto." />
+              <CommissionBox title="Non paghi" text="se il servizio non viene svolto." />
+            </div>
+          </PartnerPanel>
+          <PartnerPanel className="p-7 lg:p-8">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#075e54]">
+              regole operative
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight">
+              Le regole che mantengono alta la qualità della rete.
+            </h2>
+            <div className="mt-6 grid gap-3">
+              {rules.map((rule) => (
+                <div
+                  key={rule}
+                  className="rounded-[1.25rem] border border-slate-200 bg-slate-50 p-4 text-sm font-bold leading-6 text-slate-700"
+                >
+                  {rule}
+                </div>
+              ))}
+            </div>
+          </PartnerPanel>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-8 pb-16 sm:px-6 lg:px-8">
+        <PartnerPanel className="overflow-hidden p-0">
+          <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="p-7 lg:p-8">
+              <PartnerBadge>Punteggio partner</PartnerBadge>
+              <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-4xl">
+                La priorità cresce con affidabilità, velocità e pagamenti puntuali.
+              </h2>
+              <p className="mt-5 text-base leading-7 font-semibold text-slate-600">
+                La dashboard mostra un punteggio indicativo da 1 a 100. Serve a
+                capire quanto il partner è allineato agli standard ViaSOS e può
+                influenzare la priorità di invio nel tempo.
+              </p>
+              <div className="mt-6 grid gap-3">
+                {scoreItems.map(([title, text]) => (
+                  <div key={title} className="rounded-[1.25rem] bg-slate-50 p-4">
+                    <p className="font-black">{title}</p>
+                    <p className="mt-1 text-sm leading-6 font-semibold text-slate-600">
+                      {text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-[#07111f] p-7 text-white lg:p-8">
+              <PartnerVisual type="search" size="large" />
+              <div className="mt-6 rounded-[1.5rem] bg-white/10 p-5">
+                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#25d366]">
+                  dashboard
+                </p>
+                <p className="mt-3 text-5xl font-black">87/100</p>
+                <p className="mt-3 text-sm leading-6 font-semibold text-slate-300">
+                  Esempio di punteggio alto: risposte rapide, pochi lead lasciati
+                  senza esito e pagamenti saldati senza reminder.
+                </p>
+              </div>
+            </div>
+          </div>
+        </PartnerPanel>
+      </section>
     </PartnerShell>
+  )
+}
+
+function HeroStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-[1.25rem] bg-white/10 p-4">
+      <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">
+        {label}
+      </p>
+      <p className="mt-2 text-xl font-black">{value}</p>
+    </div>
+  )
+}
+
+function CommissionBox({ title, text }: { title: string; text: string }) {
+  return (
+    <div className="rounded-[1.25rem] bg-white/10 p-4">
+      <p className="text-2xl font-black text-[#25d366]">{title}</p>
+      <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">{text}</p>
+    </div>
   )
 }
