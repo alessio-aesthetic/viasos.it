@@ -1,150 +1,97 @@
 import type { Metadata } from 'next'
 
-import {
-  PartnerBadge,
-  PartnerPanel,
-  PartnerShell,
-  StatusPill,
-} from '@/components/viasos/partner-shell'
+import { PartnerBadge, PartnerPanel, PartnerShell } from '@/components/viasos/partner-shell'
 import { PartnerVisual } from '@/components/viasos/partner-visual'
 
 export const metadata: Metadata = {
   title: 'Area Partner Carroattrezzi',
   description:
-    'Registrazione e dashboard ViaSOS per carroattrezzi partner: lead, regole operative, commissione fissa e pagamenti.',
+    'Registrazione ViaSOS per carroattrezzi: richieste, regole semplici, commissione fissa e pagamenti.',
   robots: {
     index: false,
     follow: false,
   },
 }
 
-const operatingSteps = [
+const steps = [
   {
-    title: 'Registrazione e verifica',
+    title: 'Ti registri',
     visual: 'network' as const,
-    text: 'Compili i dati essenziali della tua attività: referente, WhatsApp operativo, città, base di partenza, raggio di copertura e dati fiscali. Il profilo resta in verifica finché non viene controllato manualmente.',
+    text: 'Inserisci i dati principali: nome, numero WhatsApp, città, zona di partenza e raggio in cui puoi lavorare.',
   },
   {
-    title: 'Attivazione nella rete',
+    title: 'Ti attiviamo noi',
     visual: 'search' as const,
-    text: 'Quando il profilo viene approvato e attivato, ViaSOS può proporti richieste compatibili con la tua zona. Se non sei attivo, non ricevi lead.',
+    text: 'Controlliamo la richiesta e, se va bene, ti attiviamo. Da quel momento puoi ricevere richieste nella tua zona.',
   },
   {
-    title: 'Lead su WhatsApp',
+    title: 'Ricevi la richiesta',
     visual: 'whatsapp' as const,
-    text: 'Quando arriva una richiesta, ricevi un messaggio WhatsApp con i dati disponibili e i pulsanti per rispondere rapidamente. Se sei disponibile, il lead viene assegnato a te.',
+    text: 'Quando arriva un cliente vicino a te, ricevi un messaggio WhatsApp. Puoi dire subito se sei disponibile oppure no.',
   },
   {
-    title: 'Posizione e cliente',
+    title: 'Richiami il cliente',
     visual: 'position' as const,
-    text: 'Il cliente può condividere posizione, zona e informazioni utili. Dopo l’assegnazione ricevi i dettagli necessari per richiamarlo subito dal tuo telefono.',
+    text: 'Se accetti, ricevi il numero del cliente e le informazioni disponibili. Lo richiami dal tuo telefono e gestisci tu il servizio.',
   },
   {
-    title: 'Esito del servizio',
+    title: 'Segni com’è andata',
     visual: 'service' as const,
-    text: 'Dopo aver parlato con il cliente indichi l’esito: accettato, non accettato, cliente già sistemato o richiesta non pertinente. Questa risposta mantiene il lead ordinato e protegge la qualità della rete.',
+    text: 'Dopo aver parlato con il cliente scegli una risposta: accettato, non accettato, ha trovato altro o cercava un altro servizio.',
   },
   {
-    title: 'Commissione e pagamento',
+    title: 'Paghi solo se lavori',
     visual: 'payment' as const,
-    text: 'La commissione ViaSOS è fissa: 30 euro. Si paga solo dopo aver svolto il servizio e solo dopo che il cliente ha pagato direttamente te. Mai prima.',
+    text: 'La commissione è sempre 30 euro. La paghi solo se hai fatto il servizio e il cliente ha pagato direttamente te.',
   },
 ]
 
-const qualityRules = [
-  'Rispondi velocemente quando ricevi un lead: nelle emergenze anche pochi secondi fanno differenza.',
-  'Accetta solo se puoi richiamare subito il cliente e gestire davvero la richiesta.',
-  'Se non puoi intervenire, rifiuta subito: il sistema può cercare un altro carroattrezzi disponibile.',
-  'Dopo la chiamata aggiorna sempre l’esito, così non partono solleciti inutili.',
-  'Pagamenti puntuali, disponibilità reale e servizi chiusi correttamente migliorano il punteggio partner.',
-  'Il profilo può essere sospeso se accetta lead senza richiamare i clienti o senza aggiornare l’esito.',
+const rules = [
+  'Rispondi subito quando ricevi una richiesta.',
+  'Accetta solo se puoi chiamare il cliente in quel momento.',
+  'Se non puoi andare, rifiuta subito. Così il cliente non aspetta inutilmente.',
+  'Dopo la chiamata scegli sempre una risposta, anche se il cliente non accetta.',
+  'Se il lavoro non viene fatto, non devi pagare la commissione.',
+  'Se fai il servizio e il cliente ti paga, la commissione ViaSOS è di 30 euro.',
 ]
 
 const scoreItems = [
-  ['Disponibilità', 'quante volte rispondi “Sono disponibile” quando ricevi un lead compatibile.'],
-  ['Completamento', 'quanti lead accettati vengono davvero gestiti fino all’esito finale.'],
-  ['Pagamenti', 'quanto velocemente saldi le commissioni dovute dopo i servizi fatti.'],
+  ['Risposte rapide', 'più rispondi velocemente, meglio lavori nel sistema.'],
+  ['Lavori conclusi', 'se accetti e poi gestisci bene il cliente, il tuo profilo migliora.'],
+  ['Pagamenti puntuali', 'pagare le commissioni dovute aiuta a mantenere alta la priorità.'],
 ]
 
 export default function PartnerHome() {
   return (
     <PartnerShell>
-      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:px-8 lg:py-16">
-        <div className="flex flex-col justify-center rounded-[2rem] bg-[#07111f] p-7 text-white shadow-2xl shadow-slate-950/15 sm:p-9 lg:p-10">
-          <PartnerBadge>Portale partner ViaSOS</PartnerBadge>
-          <h1 className="mt-6 max-w-4xl text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-            Entra nella rete nazionale ViaSOS e ricevi richieste nella tua zona.
+      <section className="mx-auto max-w-7xl px-4 pb-8 pt-10 sm:px-6 sm:pt-14 lg:px-8">
+        <div className="mx-auto max-w-5xl text-left sm:text-center">
+          <PartnerBadge>Per carroattrezzi</PartnerBadge>
+          <h1 className="mt-6 text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+            Ricevi richieste nella tua zona. Paghi solo a lavoro fatto.
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 font-semibold text-slate-300">
-            ViaSOS collega clienti che hanno bisogno di soccorso stradale con
-            carroattrezzi disponibili. Tu ricevi richieste operative, decidi se
-            accettarle e paghi una commissione fissa solo sui servizi realmente
-            svolti e incassati.
+          <p className="mt-6 max-w-4xl text-lg font-semibold leading-8 text-slate-600 sm:mx-auto sm:text-xl">
+            ViaSOS ti manda clienti che cercano un carroattrezzi. Se sei libero
+            accetti, richiami il cliente e gestisci il servizio. La commissione
+            è chiara: 30 euro, solo dopo che hai lavorato e hai incassato.
           </p>
-          <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            <HeroStat label="Commissione" value="30€" />
-            <HeroStat label="Pagamento" value="solo dopo incasso" />
-            <HeroStat label="Attivazione" value="manuale" />
-          </div>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a
-              href="/partner/registrazione/"
-              className="inline-flex justify-center rounded-full bg-[#25d366] px-6 py-4 text-base font-black text-[#07111f] shadow-xl shadow-emerald-950/15"
-            >
-              Candidati come partner
-            </a>
-            <a
-              href="/partner/login/"
-              className="inline-flex justify-center rounded-full border border-white/15 bg-white/10 px-6 py-4 text-base font-black text-white"
-            >
-              Accedi alla dashboard
-            </a>
-          </div>
         </div>
-
-        <PartnerPanel className="p-6 lg:p-8">
-          <PartnerVisual type="network" size="large" />
-          <p className="mt-6 text-sm font-black uppercase tracking-[0.18em] text-[#075e54]">
-            modello operativo
-          </p>
-          <h2 className="mt-2 text-3xl font-black tracking-tight">
-            Una piattaforma chiara, controllata e misurabile.
-          </h2>
-          <p className="mt-4 text-base leading-7 font-semibold text-slate-600">
-            Ogni partner ha una dashboard con stato profilo, lead ricevuti,
-            pagamenti, punteggio e regole operative. L’obiettivo è lavorare con
-            carroattrezzi rapidi, affidabili e trasparenti.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <StatusPill tone="green">lead qualificati</StatusPill>
-            <StatusPill tone="neutral">dashboard partner</StatusPill>
-            <StatusPill tone="yellow">approvazione manuale</StatusPill>
-          </div>
-        </PartnerPanel>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <PartnerBadge>Come funziona</PartnerBadge>
-          <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">
-            Dal profilo partner al servizio concluso: tutto è tracciato.
-          </h2>
-          <p className="mt-5 text-lg leading-8 font-semibold text-slate-600">
-            La procedura è pensata per evitare confusione: pochi passaggi,
-            decisioni rapide e commissione chiara.
-          </p>
-        </div>
-        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {operatingSteps.map((step, index) => (
-            <PartnerPanel key={step.title} className="p-5">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {steps.map((step, index) => (
+            <PartnerPanel key={step.title} className="p-5 sm:p-6">
               <PartnerVisual type={step.visual} />
-              <div className="mt-5 flex items-start gap-4">
-                <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-[#07111f] text-sm font-black text-white">
+              <div className="mt-6">
+                <span className="grid size-10 place-items-center rounded-2xl bg-[#e9fbf1] text-sm font-black text-[#075e54] ring-1 ring-emerald-200">
                   {index + 1}
                 </span>
-                <div>
-                  <h3 className="text-xl font-black">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-6 font-semibold text-slate-600">
+                <div className="mt-4">
+                  <h2 className="text-2xl font-black leading-tight tracking-tight text-slate-950 sm:text-3xl">
+                    {step.title}
+                  </h2>
+                  <p className="mt-3 text-base font-semibold leading-7 text-slate-600">
                     {step.text}
                   </p>
                 </div>
@@ -155,68 +102,68 @@ export default function PartnerHome() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr]">
-          <PartnerPanel className="overflow-hidden !border-[#132235] !bg-[#07111f] text-white shadow-2xl shadow-slate-950/15">
-            <div className="grid min-h-full gap-0 lg:grid-cols-[0.92fr_1.08fr]">
-              <div className="p-7 lg:p-8">
-                <p className="text-sm font-black uppercase tracking-[0.18em] text-[#25d366]">
-                  commissione trasparente
+        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+          <PartnerPanel className="overflow-hidden !bg-white p-0">
+            <div className="grid gap-0 lg:grid-cols-[1fr_0.9fr]">
+              <div className="p-6 sm:p-8 lg:p-10">
+                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
+                  Commissione chiara
                 </p>
-                <h2 className="mt-3 text-4xl font-black tracking-tight">
-                  Paghi 30 euro solo quando hai già incassato dal cliente.
+                <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl">
+                  30 euro solo dopo che il cliente ti ha pagato.
                 </h2>
-                <p className="mt-5 text-lg leading-8 font-semibold text-slate-300">
-                  ViaSOS non chiede anticipi, non trattiene percentuali e non ti
-                  fa pagare prima di sapere com’è andato il servizio. La
-                  commissione nasce solo dopo tre condizioni semplici.
+                <p className="mt-6 text-lg font-semibold leading-8 text-slate-600">
+                  Non paghi prima. Non paghi per ricevere la richiesta. Non
+                  paghi se il cliente non fa il servizio. La commissione parte
+                  solo quando il lavoro è stato fatto e il cliente ha pagato te.
                 </p>
-                <div className="mt-7 grid gap-3">
-                  <CommissionPoint number="01" text="Hai accettato il lead." />
-                  <CommissionPoint number="02" text="Hai svolto il servizio." />
-                  <CommissionPoint
-                    number="03"
-                    text="Il cliente ha pagato direttamente te."
-                  />
+
+                <div className="mt-8 grid gap-3">
+                  <CommissionStep number="1" text="Accetti la richiesta." />
+                  <CommissionStep number="2" text="Fai il servizio al cliente." />
+                  <CommissionStep number="3" text="Il cliente paga direttamente te." />
+                  <CommissionStep number="4" text="Solo a quel punto paghi 30 euro a ViaSOS." />
                 </div>
               </div>
-              <div className="flex flex-col justify-between border-t border-white/10 bg-white/[0.04] p-7 lg:border-l lg:border-t-0 lg:p-8">
+              <div className="border-t border-slate-200 bg-[#f8fbff] p-6 sm:p-8 lg:border-l lg:border-t-0">
                 <PartnerVisual type="payment" size="large" />
-                <div className="mt-6 rounded-[1.75rem] border border-white/10 bg-white/10 p-5">
-                  <p className="text-sm font-black uppercase tracking-[0.16em] text-slate-300">
-                    importo fisso
+                <div className="mt-6 rounded-[1.75rem] border border-emerald-200 bg-white p-6 shadow-sm shadow-emerald-950/5">
+                  <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
+                    Importo fisso
                   </p>
-                  <p className="mt-2 text-6xl font-black text-[#25d366]">30€</p>
-                  <p className="mt-3 text-sm leading-6 font-semibold text-slate-300">
-                    Nessuna percentuale sul lavoro. Nessun costo se il servizio
-                    non viene fatto o se il cliente non ti paga.
+                  <p className="mt-2 text-6xl font-black tracking-tight text-slate-950">
+                    30€
+                  </p>
+                  <p className="mt-4 text-base font-semibold leading-7 text-slate-600">
+                    Nessuna percentuale sul lavoro. Nessun anticipo. Nessun costo
+                    se il servizio non viene fatto.
                   </p>
                 </div>
               </div>
             </div>
           </PartnerPanel>
 
-          <PartnerPanel className="p-7 lg:p-8">
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#075e54]">
-              regole operative
+          <PartnerPanel className="p-6 sm:p-8 lg:p-10">
+            <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
+              Regole semplici
             </p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight">
-              Poche regole, pensate per proteggere clienti e partner seri.
+            <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
+              Cosa devi fare quando ricevi una richiesta.
             </h2>
-            <p className="mt-4 text-base leading-7 font-semibold text-slate-600">
-              Il sistema premia chi risponde davvero, chi richiama subito e chi
-              chiude correttamente l’esito del lead. Così i clienti ricevono un
-              servizio rapido e i partner affidabili hanno più valore nella rete.
+            <p className="mt-5 text-lg font-semibold leading-8 text-slate-600">
+              Le regole servono solo a non far aspettare il cliente e a mandare
+              le richieste ai carroattrezzi che rispondono davvero.
             </p>
-            <div className="mt-6 grid gap-3">
-              {qualityRules.map((rule) => (
+            <div className="mt-7 grid gap-3">
+              {rules.map((rule) => (
                 <div
                   key={rule}
-                  className="group flex gap-4 rounded-[1.35rem] border border-slate-200 bg-white p-4 shadow-sm shadow-slate-950/[0.03]"
+                  className="flex gap-4 rounded-[1.35rem] border border-slate-200 bg-[#fbfdff] p-4"
                 >
                   <span className="mt-1 grid size-7 shrink-0 place-items-center rounded-full bg-[#e9fbf1] text-sm font-black text-[#075e54]">
                     ✓
                   </span>
-                  <p className="text-sm font-bold leading-6 text-slate-700">
+                  <p className="text-base font-bold leading-7 text-slate-700">
                     {rule}
                   </p>
                 </div>
@@ -227,39 +174,41 @@ export default function PartnerHome() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8 pb-16 sm:px-6 lg:px-8">
-        <PartnerPanel className="overflow-hidden p-0">
-          <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
-            <div className="p-7 lg:p-8">
-              <PartnerBadge>Punteggio partner</PartnerBadge>
-              <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-4xl">
-                La priorità cresce con affidabilità, velocità e pagamenti puntuali.
+        <PartnerPanel className="p-6 sm:p-8 lg:p-10">
+          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div>
+              <PartnerBadge>Priorità richieste</PartnerBadge>
+              <h2 className="mt-5 text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl">
+                Chi lavora bene riceve più fiducia nel tempo.
               </h2>
-              <p className="mt-5 text-base leading-7 font-semibold text-slate-600">
-                La dashboard mostra un punteggio indicativo da 1 a 100. Serve a
-                capire quanto il partner è allineato agli standard ViaSOS e può
-                influenzare la priorità di invio nel tempo.
+              <p className="mt-6 text-lg font-semibold leading-8 text-slate-600">
+                Nell’area personale vedi un punteggio indicativo. Serve a capire
+                se stai rispondendo bene alle richieste e se il profilo è in
+                ordine.
               </p>
-              <div className="mt-6 grid gap-3">
+              <div className="mt-7 grid gap-3">
                 {scoreItems.map(([title, text]) => (
-                  <div key={title} className="rounded-[1.25rem] bg-slate-50 p-4">
-                    <p className="font-black">{title}</p>
-                    <p className="mt-1 text-sm leading-6 font-semibold text-slate-600">
+                  <div key={title} className="rounded-[1.35rem] bg-[#f8fbff] p-5">
+                    <p className="text-lg font-black text-slate-950">{title}</p>
+                    <p className="mt-2 text-base font-semibold leading-7 text-slate-600">
                       {text}
                     </p>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="bg-[#07111f] p-7 text-white lg:p-8">
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm shadow-slate-950/5">
               <PartnerVisual type="search" size="large" />
-              <div className="mt-6 rounded-[1.5rem] bg-white/10 p-5">
-                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#25d366]">
-                  dashboard
+              <div className="mt-6 rounded-[1.5rem] bg-[#f8fbff] p-6">
+                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
+                  Esempio
                 </p>
-                <p className="mt-3 text-5xl font-black">87/100</p>
-                <p className="mt-3 text-sm leading-6 font-semibold text-slate-300">
-                  Esempio di punteggio alto: risposte rapide, pochi lead lasciati
-                  senza esito e pagamenti saldati senza reminder.
+                <p className="mt-3 text-5xl font-black tracking-tight text-slate-950">
+                  87/100
+                </p>
+                <p className="mt-4 text-base font-semibold leading-7 text-slate-600">
+                  Un punteggio alto significa: rispondi in fretta, richiami i
+                  clienti, aggiorni l’esito e paghi le commissioni dovute.
                 </p>
               </div>
             </div>
@@ -270,24 +219,13 @@ export default function PartnerHome() {
   )
 }
 
-function HeroStat({ label, value }: { label: string; value: string }) {
+function CommissionStep({ number, text }: { number: string; text: string }) {
   return (
-    <div className="rounded-[1.25rem] bg-white/10 p-4">
-      <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">
-        {label}
-      </p>
-      <p className="mt-2 text-xl font-black">{value}</p>
-    </div>
-  )
-}
-
-function CommissionPoint({ number, text }: { number: string; text: string }) {
-  return (
-    <div className="flex items-center gap-4 rounded-[1.35rem] border border-white/10 bg-white/10 p-4">
-      <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-[#25d366] text-sm font-black text-[#07111f]">
+    <div className="flex items-center gap-4 rounded-[1.35rem] border border-slate-200 bg-white p-4 shadow-sm shadow-slate-950/[0.03]">
+      <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-[#25d366] text-sm font-black text-[#07111f]">
         {number}
       </span>
-      <p className="text-sm font-bold leading-6 text-slate-200">{text}</p>
+      <p className="text-base font-bold leading-7 text-slate-700">{text}</p>
     </div>
   )
 }
