@@ -426,10 +426,8 @@ export function BresciaRequestClient({
                   <span className="block">del nostro soccorso stradale</span>
                 </h2>
                 <p className="mx-auto max-w-md border-y border-white/15 py-3 text-sm font-semibold leading-[1.45] text-white/82 sm:py-4 sm:text-base">
-                  <span className="block">Nessuna attesa. Nessuna telefonata a vuoto.</span>
-                  <span className="mt-0.5 block">
-                    Una sola chiamata è tutto ciò che serve: <strong className="font-black">solo carroattrezzi disponibili.</strong>
-                  </span>
+                  Con noi hai meno attesa e costi contenuti rispetto ad altri carroattrezzi in zona {city} e provincia.
+                  <span className="mt-0.5 block font-black">Risposta garantita!</span>
                 </p>
 
                 <div className="mx-auto grid w-full max-w-md">
