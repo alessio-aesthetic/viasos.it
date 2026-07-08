@@ -15,6 +15,9 @@ type RequestClientProps = {
 
 const defaultWebhook =
   'https://alessiothrasos.app.n8n.cloud/webhook/viasos-brescia'
+const phoneClickWebhookUrl =
+  process.env.NEXT_PUBLIC_PHONE_CLICK_WEBHOOK_URL ||
+  'https://alessiothrasos.app.n8n.cloud/webhook/click-telefono-carroattrezzi-bergamo'
 
 const trackingKeys = [
   'gclid',
@@ -112,12 +115,73 @@ function emptyTracking(): TrackingData {
   }, {} as TrackingData)
 }
 
-function trackCall(city: string) {
+function trackCall({
+  city,
+  phone,
+  tel,
+  pagePath,
+}: {
+  city: string
+  phone: string
+  tel: string
+  pagePath: string
+}) {
   console.log(`conversione_click_telefono_${city.toLowerCase()}_richiesta`)
+  trackSponsoredPhoneClick({ city, page: pagePath, phone: tel, phoneLabel: phone })
 }
 
 function trackLead(city: string) {
   console.log(`conversione_invio_richiesta_${city.toLowerCase()}`)
+}
+
+function readStoredTracking(): TrackingData {
+  return trackingKeys.reduce((acc, key) => {
+    acc[key] =
+      typeof window === 'undefined'
+        ? ''
+        : window.localStorage.getItem(`ads_${key}`) || ''
+    return acc
+  }, {} as TrackingData)
+}
+
+function trackSponsoredPhoneClick({
+  city,
+  page,
+  phone,
+  phoneLabel,
+}: {
+  city: string
+  page: string
+  phone: string
+  phoneLabel: string
+}) {
+  if (typeof window === 'undefined') return
+
+  const payload = {
+    evento: 'click_telefono',
+    fonte: 'sponsorizzata_landing',
+    page_type: 'landing_lottie_ads',
+    citta: city,
+    pagina: page,
+    telefono: phone,
+    telefono_label: phoneLabel,
+    url: window.location.href,
+    dominio: window.location.hostname,
+    user_agent: window.navigator.userAgent,
+    timestamp: new Date().toISOString(),
+    ...readStoredTracking(),
+  }
+  const body = JSON.stringify(payload)
+  const blob = new Blob([body], { type: 'application/json' })
+
+  if (!navigator.sendBeacon?.(phoneClickWebhookUrl, blob)) {
+    void fetch(phoneClickWebhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body,
+      keepalive: true,
+    }).catch(() => {})
+  }
 }
 
 function LottieAsset({
@@ -371,7 +435,7 @@ export function BresciaRequestClient({
                 <div className="mx-auto grid w-full max-w-md">
                   <a
                     href={`tel:${tel}`}
-                    onClick={() => trackCall(city)}
+                    onClick={() => trackCall({ city, phone, tel, pagePath })}
                     className="call-premium inline-flex min-h-[4.4rem] w-full flex-col items-center justify-center gap-1 rounded-[1.2rem] border border-[#fff4b8] bg-[#facc15] px-4 text-center text-lg font-bold leading-tight text-[#07111f] shadow-[0_20px_54px_rgba(250,204,21,0.34),inset_0_1px_0_rgba(255,255,255,0.88),inset_0_-8px_18px_rgba(180,83,9,0.18)] sm:min-h-20 sm:rounded-[1.35rem] sm:text-xl"
                   >
                     Chiama Ora - Attivi 24/7

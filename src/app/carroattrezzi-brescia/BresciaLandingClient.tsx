@@ -26,6 +26,9 @@ const problems = [
 
 const defaultWebhook =
   'https://alessiothrasos.app.n8n.cloud/webhook/viasos-brescia'
+const phoneClickWebhookUrl =
+  process.env.NEXT_PUBLIC_PHONE_CLICK_WEBHOOK_URL ||
+  'https://alessiothrasos.app.n8n.cloud/webhook/click-telefono-carroattrezzi-bergamo'
 
 function storeTracking(): TrackingData {
   return trackingKeys.reduce((acc, key) => {
@@ -37,8 +40,54 @@ function storeTracking(): TrackingData {
   }, {} as TrackingData)
 }
 
-function trackCall() {
+function trackSponsoredPhoneClick({
+  city,
+  page,
+  phone,
+  phoneLabel,
+}: {
+  city: string
+  page: string
+  phone: string
+  phoneLabel: string
+}) {
+  if (typeof window === 'undefined') return
+
+  const payload = {
+    evento: 'click_telefono',
+    fonte: 'sponsorizzata_landing',
+    page_type: 'landing_lottie_ads',
+    citta: city,
+    pagina: page,
+    telefono: phone,
+    telefono_label: phoneLabel,
+    url: window.location.href,
+    dominio: window.location.hostname,
+    user_agent: window.navigator.userAgent,
+    timestamp: new Date().toISOString(),
+    ...storeTracking(),
+  }
+  const body = JSON.stringify(payload)
+  const blob = new Blob([body], { type: 'application/json' })
+
+  if (!navigator.sendBeacon?.(phoneClickWebhookUrl, blob)) {
+    void fetch(phoneClickWebhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body,
+      keepalive: true,
+    }).catch(() => {})
+  }
+}
+
+function trackCall({ phone, tel }: { phone: string; tel: string }) {
   console.log('conversione_click_telefono_brescia')
+  trackSponsoredPhoneClick({
+    city: 'Brescia',
+    page: '/carroattrezzi-brescia',
+    phone: tel,
+    phoneLabel: phone,
+  })
   // Google Ads: inserisci qui eventuale evento gtag per click telefono.
 }
 
@@ -89,7 +138,7 @@ export function BresciaLandingClient({
   }, [])
 
   function callNow() {
-    trackCall()
+    trackCall({ phone, tel })
   }
 
   async function submitPosition() {
