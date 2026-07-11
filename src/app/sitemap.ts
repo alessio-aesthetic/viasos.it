@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/',
     '/carroattrezzi-brescia',
     '/carroattrezzi-brescia/richiesta',
+    '/carroattrezzi-padova',
     '/richiesta-bologna',
     '/privacy',
     '/cookie',

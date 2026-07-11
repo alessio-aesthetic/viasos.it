@@ -80,28 +80,42 @@ function trackSponsoredPhoneClick({
   }
 }
 
-function trackCall({ phone, tel }: { phone: string; tel: string }) {
-  console.log('conversione_click_telefono_brescia')
+function trackCall({
+  phone,
+  tel,
+  city,
+  page,
+}: {
+  phone: string
+  tel: string
+  city: string
+  page: string
+}) {
+  console.log(`conversione_click_telefono_${city.toLowerCase()}`)
   trackSponsoredPhoneClick({
-    city: 'Brescia',
-    page: '/carroattrezzi-brescia',
+    city,
+    page,
     phone: tel,
     phoneLabel: phone,
   })
   // Google Ads: inserisci qui eventuale evento gtag per click telefono.
 }
 
-function trackLead() {
-  console.log('conversione_invio_posizione_brescia')
+function trackLead(city = 'Brescia') {
+  console.log(`conversione_invio_posizione_${city.toLowerCase()}`)
   // Google Ads: inserisci qui eventuale evento gtag per invio posizione.
 }
 
 export function BresciaLandingClient({
   phone,
   tel,
+  city = 'Brescia',
+  pagePath = '/carroattrezzi-brescia',
 }: {
   phone: string
   tel: string
+  city?: string
+  pagePath?: string
 }) {
   const [customerPhone, setCustomerPhone] = useState('')
   const [vehicle, setVehicle] = useState('')
@@ -138,7 +152,7 @@ export function BresciaLandingClient({
   }, [])
 
   function callNow() {
-    trackCall({ phone, tel })
+    trackCall({ phone, tel, city, page: pagePath })
   }
 
   async function submitPosition() {
@@ -175,12 +189,12 @@ export function BresciaLandingClient({
           latitudine,
           longitudine,
           google_maps_link: googleMapsLink,
-          citta: 'Brescia',
+          citta: city,
           mezzo: vehicle,
           problema: problem,
           autostrada: highway,
           sorgente: 'google_ads_landing',
-          pagina: '/carroattrezzi-brescia',
+          pagina: pagePath,
           timestamp: new Date().toISOString(),
           ...tracking,
         }
@@ -195,7 +209,7 @@ export function BresciaLandingClient({
             body: JSON.stringify(payload),
           })
 
-          trackLead()
+          trackLead(city)
           setStatus('success')
           setMessage(
             'Richiesta inviata. Tieni il telefono libero: verrai ricontattato rapidamente.',
@@ -239,16 +253,16 @@ export function BresciaLandingClient({
         <div className="relative mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:px-8 lg:py-16">
           <div className="order-2 lg:order-1">
             <p className="inline-flex rounded-full border border-teal-200/30 bg-white/10 px-4 py-2 text-sm font-black uppercase tracking-[0.18em] text-teal-100">
-              Soccorso stradale Brescia
+              Soccorso stradale {city}
             </p>
             <h1 className="mt-6 max-w-4xl text-5xl font-black tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Carroattrezzi Brescia 24 Ore
+              Carroattrezzi {city} 24 Ore
             </h1>
             <div className="mt-6 max-w-2xl space-y-4 text-lg font-semibold leading-8 text-slate-200 sm:text-xl">
               <p>
                 Auto ferma? Chiama subito oppure invia la posizione: ViaSOS
                 aiuta a individuare il carroattrezzi disponibile più vicino a
-                Brescia e provincia.
+                {city} e provincia.
               </p>
               <p>
                 Il form raccoglie telefono, mezzo, problema e GPS: così il
@@ -432,7 +446,7 @@ export function BresciaLandingClient({
       <section className="bg-[#f1f5f9] py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-black sm:text-4xl">
-            Quando chiamare ViaSOS a Brescia
+            Quando chiamare ViaSOS a {city}
           </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
@@ -464,7 +478,7 @@ export function BresciaLandingClient({
         <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="text-4xl font-black">Hai bisogno adesso?</h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg font-semibold text-slate-200">
-            Chiama direttamente il numero Brescia: è il modo più veloce quando
+            Chiama direttamente il numero {city}: è il modo più veloce quando
             il veicolo è fermo e vuoi parlare subito con qualcuno.
           </p>
           <a
