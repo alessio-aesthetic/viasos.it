@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { BresciaLandingClient } from '../carroattrezzi-brescia/BresciaLandingClient'
+import { BresciaRequestClient } from '../carroattrezzi-brescia/richiesta/BresciaRequestClient'
 
 const phone = '041 253 0637'
 const tel = '+390412530637'
@@ -89,11 +89,13 @@ export default function CarroattrezziPadovaPage() {
   return (
     <>
       <JsonLd />
-      <BresciaLandingClient
+      <BresciaRequestClient
         phone={phone}
         tel={tel}
         city="Padova"
         pagePath="/carroattrezzi-padova"
+        backHref="/"
+        premiumLogo
       />
     </>
   )
