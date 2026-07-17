@@ -71,26 +71,6 @@ export default function PartnerHome() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
-        <PartnerPanel className="overflow-hidden border-slate-200 bg-white px-6 py-8 text-center shadow-xl shadow-slate-950/[0.06] sm:px-10 sm:py-12 lg:px-16 lg:py-14">
-          <p className="text-sm font-black uppercase tracking-[0.2em] text-[#075e54]">Un nuovo modo di lavorare</p>
-          <h2 className="mx-auto mt-4 max-w-4xl text-3xl font-black leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-            Più richieste nella tua zona.
-            <br />
-            <span className="text-[#075e54]">Più libertà nel gestire ogni intervento.</span>
-          </h2>
-          <p className="mx-auto mt-6 max-w-3xl text-lg font-semibold leading-8 text-slate-600 sm:text-xl">
-            ViaSOS ti porta contatti reali e ti lascia il controllo del lavoro:
-            <strong className="text-slate-950"> scegli tu se intervenire, quale prezzo proporre e in quali tempi.</strong>
-          </p>
-          <div className="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-slate-200 pt-6 text-sm font-black text-slate-700">
-            <span><strong className="text-[#075e54]">Servizio gratuito</strong> per il partner</span>
-            <span><strong className="text-[#075e54]">Nessun anticipo</strong> per ricevere richieste</span>
-            <span><strong className="text-[#075e54]">Pagamento solo</strong> a lavoro concluso</span>
-          </div>
-        </PartnerPanel>
-      </section>
-
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {steps.map((step, index) => (
