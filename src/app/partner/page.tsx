@@ -102,9 +102,8 @@ export default function PartnerHome() {
             </div>
           </PartnerPanel>
 
-          <PartnerPanel className="p-6 sm:p-8 lg:p-10">
-            <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">Gestione semplice</p>
-            <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">La rete lavora. Tu scegli quando intervenire.</h2>
+          {/*
+
             <p className="mt-5 text-lg font-semibold leading-8 text-slate-600">Nessun abbonamento e nessun anticipo: rispondi solo alle richieste compatibili con il tuo mezzo, la tua zona e la tua disponibilità.</p>
             <div className="mt-7 grid gap-3">
               {rules.map((rule) => (
@@ -115,6 +114,7 @@ export default function PartnerHome() {
               ))}
             </div>
           </PartnerPanel>
+          */}
         </div>
       </section>
 
