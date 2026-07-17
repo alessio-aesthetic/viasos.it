@@ -16,6 +16,8 @@ type FormState = {
   contactName: string
   phone: string
   email: string
+  password: string
+  passwordConfirm: string
   city: string
   address: string
   coverageKm: string
@@ -32,6 +34,8 @@ const initialState: FormState = {
   contactName: '',
   phone: '',
   email: '',
+  password: '',
+  passwordConfirm: '',
   city: '',
   address: '',
   coverageKm: '30',
@@ -65,6 +69,18 @@ export default function PartnerRegistration() {
       return
     }
 
+    if (form.password.length < 8) {
+      setStatus('error')
+      setMessage('La password deve contenere almeno 8 caratteri.')
+      return
+    }
+
+    if (form.password !== form.passwordConfirm) {
+      setStatus('error')
+      setMessage('Le due password non coincidono.')
+      return
+    }
+
     try {
       await partnerRequest('viasos-partner-register', form)
     } catch (error) {
@@ -79,7 +95,7 @@ export default function PartnerRegistration() {
 
     setStatus('success')
     setMessage(
-      'Registrazione ricevuta. Il profilo è in attesa di approvazione e non riceverà lead finché non viene attivato.',
+      'Registrazione ricevuta. Ti contatteremo per completare l’attivazione del profilo partner.',
     )
     setForm(initialState)
   }
@@ -93,14 +109,14 @@ export default function PartnerRegistration() {
             Candidatura carroattrezzi ViaSOS
           </h1>
           <p className="mt-5 text-lg leading-8 font-semibold text-slate-700">
-            Compila solo i dati essenziali. Il profilo resta bloccato in attesa
-            di approvazione, così nessun lead viene inviato prima della verifica.
+            Raccontaci dove lavori e quali interventi puoi gestire. Dopo l’invio
+            ti ricontatteremo per completare l’attivazione in modo chiaro e ordinato.
           </p>
           <div className="mt-6 grid gap-3">
             {[
-              'Nessun lead prima dell approvazione manuale',
-              'Numero WhatsApp usato per ricevere le richieste',
-              'Dati fiscali utili per pagamenti e fatture',
+              'Richieste coerenti con la tua zona operativa',
+              'Numero WhatsApp usato per il contatto di lavoro',
+              'Password personale per proteggere l’accesso',
             ].map((item) => (
               <div key={item} className="rounded-2xl border border-white/80 bg-white/90 p-4 font-bold text-slate-700 shadow-sm">
                 {item}
@@ -111,7 +127,7 @@ export default function PartnerRegistration() {
         <PartnerPanel>
           <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-2xl font-black">Dati partner</h2>
-            <StatusPill tone="yellow">In attesa approvazione</StatusPill>
+            {status === 'success' ? <StatusPill tone="green">Richiesta inviata</StatusPill> : null}
           </div>
           <form className="grid gap-5" onSubmit={submit}>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -147,6 +163,26 @@ export default function PartnerRegistration() {
                   onChange={(event) => update('email', event.target.value)}
                   className="partner-input"
                   type="email"
+                  required
+                />
+              </Field>
+              <Field label="Password" required>
+                <input
+                  value={form.password}
+                  onChange={(event) => update('password', event.target.value)}
+                  className="partner-input"
+                  type="password"
+                  minLength={8}
+                  required
+                />
+              </Field>
+              <Field label="Conferma password" required>
+                <input
+                  value={form.passwordConfirm}
+                  onChange={(event) => update('passwordConfirm', event.target.value)}
+                  className="partner-input"
+                  type="password"
+                  minLength={8}
                   required
                 />
               </Field>

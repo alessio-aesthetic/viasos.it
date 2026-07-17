@@ -4,61 +4,56 @@ import { PartnerBadge, PartnerPanel, PartnerShell } from '@/components/viasos/pa
 import { PartnerVisual } from '@/components/viasos/partner-visual'
 
 export const metadata: Metadata = {
-  title: 'Area Partner Carroattrezzi',
+  title: 'Diventa partner ViaSOS | Richieste per carroattrezzi',
   description:
-    'Registrazione ViaSOS per carroattrezzi: richieste, regole semplici, commissione fissa e pagamenti.',
-  robots: {
-    index: false,
-    follow: false,
-  },
+    'Entra nella rete ViaSOS: ricevi richieste nella tua zona, scegli prezzo e tempi e paghi solo dopo un servizio concluso e pagato.',
+  robots: { index: false, follow: false },
 }
 
 const steps = [
   {
-    title: 'Ti registri',
+    title: 'Registrazione o trasferimento diretto',
     visual: 'network' as const,
-    text: 'Inserisci i dati principali: nome, numero WhatsApp, città, zona di partenza e raggio in cui puoi lavorare.',
+    text: 'Puoi compilare la candidatura oppure ricevere direttamente una chiamata trasferita dal sistema quando sei il carroattrezzi disponibile per quella richiesta.',
   },
   {
-    title: 'Ti attiviamo noi',
+    title: 'Attivazione del profilo',
     visual: 'search' as const,
-    text: 'Controlliamo la richiesta e, se va bene, ti attiviamo. Da quel momento puoi ricevere richieste nella tua zona.',
+    text: 'Verifichiamo i dati operativi e la zona in cui lavori, così le richieste vengono indirizzate verso mezzi realmente adatti e disponibili.',
   },
   {
-    title: 'Ricevi la richiesta',
+    title: 'Ricevi una richiesta',
     visual: 'whatsapp' as const,
-    text: 'Quando arriva un cliente vicino a te, ricevi un messaggio WhatsApp. Puoi dire subito se sei disponibile oppure no.',
+    text: 'Quando un cliente ha bisogno nella tua area, ricevi i dettagli sul canale concordato e puoi decidere subito se prendere in carico l’intervento.',
   },
   {
-    title: 'Richiami il cliente',
+    title: 'Decidi tu come intervenire',
     visual: 'position' as const,
-    text: 'Se accetti, ricevi il numero del cliente e le informazioni disponibili. Lo richiami dal tuo telefono e gestisci tu il servizio.',
+    text: 'Se accetti, richiami il cliente e stabilisci liberamente prezzo, tempi e modalità del servizio in base al mezzo e alla situazione.',
   },
   {
-    title: 'Segni com’è andata',
+    title: 'Aggiorni l’esito',
     visual: 'service' as const,
-    text: 'Dopo aver parlato con il cliente scegli una risposta: accettato, non accettato, ha trovato altro o cercava un altro servizio.',
+    text: 'Dopo il contatto indichi semplicemente com’è andata. In questo modo il sistema mantiene aggiornate le richieste e il tuo profilo operativo.',
   },
   {
-    title: 'Paghi solo se lavori',
+    title: 'Paghi solo a lavoro concluso',
     visual: 'payment' as const,
-    text: 'La commissione è sempre 30 euro. La paghi solo se hai fatto il servizio e il cliente ha pagato direttamente te.',
+    text: 'La commissione fissa di 30 euro si applica solo se hai svolto il servizio e il cliente ti ha pagato direttamente.',
   },
 ]
 
 const rules = [
-  'Rispondi subito quando ricevi una richiesta.',
-  'Accetta solo se puoi chiamare il cliente in quel momento.',
-  'Se non puoi andare, rifiuta subito. Così il cliente non aspetta inutilmente.',
-  'Dopo la chiamata scegli sempre una risposta, anche se il cliente non accetta.',
-  'Se il lavoro non viene fatto, non devi pagare la commissione.',
-  'Se fai il servizio e il cliente ti paga, la commissione ViaSOS è di 30 euro.',
+  'Indica quando sei realmente disponibile.',
+  'Richiama il cliente appena prendi in carico la richiesta.',
+  'Concorda prezzo e tempistiche direttamente con il cliente.',
+  'Aggiorna l’esito dopo il contatto o dopo l’intervento.',
 ]
 
 const scoreItems = [
-  ['Risposte rapide', 'più rispondi velocemente, meglio lavori nel sistema.'],
-  ['Lavori conclusi', 'se accetti e poi gestisci bene il cliente, il tuo profilo migliora.'],
-  ['Pagamenti puntuali', 'pagare le commissioni dovute aiuta a mantenere alta la priorità.'],
+  ['Più controllo', 'Decidi quali richieste accettare e organizzi il lavoro secondo la tua disponibilità.'],
+  ['Più chiarezza', 'Il cliente arriva con posizione e dettagli già raccolti, così la prima chiamata è concreta.'],
+  ['Più opportunità', 'La rete lavora per portare nuove richieste nella zona in cui operi davvero.'],
 ]
 
 export default function PartnerHome() {
@@ -68,14 +63,34 @@ export default function PartnerHome() {
         <div className="mx-auto max-w-5xl text-left sm:text-center">
           <PartnerBadge>Per carroattrezzi</PartnerBadge>
           <h1 className="mt-6 text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-            Ricevi richieste nella tua zona. Paghi solo a lavoro fatto.
+            Più richieste nella tua zona. Paghi solo quando il lavoro è concluso.
           </h1>
           <p className="mt-6 max-w-4xl text-lg font-semibold leading-8 text-slate-600 sm:mx-auto sm:text-xl">
-            ViaSOS ti manda clienti che cercano un carroattrezzi. Se sei libero
-            accetti, richiami il cliente e gestisci il servizio. La commissione
-            è chiara: 30 euro, solo dopo che hai lavorato e hai incassato.
+            ViaSOS sostiene direttamente il rischio delle sponsorizzate: per te il servizio è totalmente gratuito fino a quando non hai svolto l’intervento e ricevuto il pagamento dal cliente. <strong className="text-slate-950">Prezzo e tempistiche li decidi tu.</strong>
           </p>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
+        <PartnerPanel className="overflow-hidden border-emerald-200 bg-[#07111f] p-0 text-white shadow-xl shadow-slate-950/10">
+          <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="p-6 sm:p-8 lg:p-10">
+              <p className="text-sm font-black uppercase tracking-[0.16em] text-emerald-300">La prima opzione</p>
+              <h2 className="mt-3 text-3xl font-black leading-tight tracking-tight sm:text-4xl">
+                Puoi ricevere anche il trasferimento diretto di chiamata.
+              </h2>
+              <p className="mt-5 max-w-2xl text-lg font-semibold leading-8 text-slate-200">
+                Quando il cliente cerca assistenza nella tua zona, puoi essere collegato direttamente alla chiamata. Parli con lui subito, valuti l’intervento e scegli in autonomia se accettarlo.
+              </p>
+            </div>
+            <div className="flex items-center border-t border-white/10 bg-white/[0.04] p-6 sm:p-8 lg:border-l lg:border-t-0">
+              <div className="rounded-[1.75rem] border border-emerald-300/30 bg-emerald-300/10 p-6">
+                <p className="text-2xl font-black text-white">Una chiamata concreta.</p>
+                <p className="mt-2 text-base font-semibold leading-7 text-slate-200">Meno passaggi, più controllo sulla richiesta e nessun costo anticipato.</p>
+              </div>
+            </div>
+          </div>
+        </PartnerPanel>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -84,17 +99,9 @@ export default function PartnerHome() {
             <PartnerPanel key={step.title} className="p-5 sm:p-6">
               <PartnerVisual type={step.visual} />
               <div className="mt-6">
-                <span className="grid size-10 place-items-center rounded-2xl bg-[#e9fbf1] text-sm font-black text-[#075e54] ring-1 ring-emerald-200">
-                  {index + 1}
-                </span>
-                <div className="mt-4">
-                  <h2 className="text-2xl font-black leading-tight tracking-tight text-slate-950 sm:text-3xl">
-                    {step.title}
-                  </h2>
-                  <p className="mt-3 text-base font-semibold leading-7 text-slate-600">
-                    {step.text}
-                  </p>
-                </div>
+                <span className="grid size-10 place-items-center rounded-2xl bg-[#e9fbf1] text-sm font-black text-[#075e54] ring-1 ring-emerald-200">{index + 1}</span>
+                <h2 className="mt-4 text-2xl font-black leading-tight tracking-tight text-slate-950 sm:text-3xl">{step.title}</h2>
+                <p className="mt-3 text-base font-semibold leading-7 text-slate-600">{step.text}</p>
               </div>
             </PartnerPanel>
           ))}
@@ -104,68 +111,28 @@ export default function PartnerHome() {
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <PartnerPanel className="overflow-hidden !bg-white p-0">
-            <div className="grid gap-0 lg:grid-cols-[1fr_0.9fr]">
-              <div className="p-6 sm:p-8 lg:p-10">
-                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
-                  Commissione chiara
-                </p>
-                <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl">
-                  30 euro solo dopo che il cliente ti ha pagato.
-                </h2>
-                <p className="mt-6 text-lg font-semibold leading-8 text-slate-600">
-                  Non paghi prima. Non paghi per ricevere la richiesta. Non
-                  paghi se il cliente non fa il servizio. La commissione parte
-                  solo quando il lavoro è stato fatto e il cliente ha pagato te.
-                </p>
-
-                <div className="mt-8 grid gap-3">
-                  <CommissionStep number="1" text="Accetti la richiesta." />
-                  <CommissionStep number="2" text="Fai il servizio al cliente." />
-                  <CommissionStep number="3" text="Il cliente paga direttamente te." />
-                  <CommissionStep number="4" text="Solo a quel punto paghi 30 euro a ViaSOS." />
-                </div>
-              </div>
-              <div className="border-t border-slate-200 bg-[#f8fbff] p-6 sm:p-8 lg:border-l lg:border-t-0">
-                <PartnerVisual type="payment" size="large" />
-                <div className="mt-6 rounded-[1.75rem] border border-emerald-200 bg-white p-6 shadow-sm shadow-emerald-950/5">
-                  <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
-                    Importo fisso
-                  </p>
-                  <p className="mt-2 text-6xl font-black tracking-tight text-slate-950">
-                    30€
-                  </p>
-                  <p className="mt-4 text-base font-semibold leading-7 text-slate-600">
-                    Nessuna percentuale sul lavoro. Nessun anticipo. Nessun costo
-                    se il servizio non viene fatto.
-                  </p>
-                </div>
+            <div className="p-6 sm:p-8 lg:p-10">
+              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">Modello economico</p>
+              <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl">30 euro solo dopo che il cliente ti ha pagato.</h2>
+              <p className="mt-6 text-lg font-semibold leading-8 text-slate-600">Il cliente paga direttamente te. Solo dopo un intervento concluso e incassato riconosci a ViaSOS la commissione fissa prevista.</p>
+              <div className="mt-8 grid gap-3">
+                <CommissionStep number="1" text="Prendi in carico la richiesta." />
+                <CommissionStep number="2" text="Concordi prezzo e tempi con il cliente." />
+                <CommissionStep number="3" text="Concludi il servizio e ricevi il pagamento." />
+                <CommissionStep number="4" text="Versi 30 euro a ViaSOS solo in quel caso." />
               </div>
             </div>
           </PartnerPanel>
 
           <PartnerPanel className="p-6 sm:p-8 lg:p-10">
-            <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
-              Regole semplici
-            </p>
-            <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
-              Cosa devi fare quando ricevi una richiesta.
-            </h2>
-            <p className="mt-5 text-lg font-semibold leading-8 text-slate-600">
-              Le regole servono solo a non far aspettare il cliente e a mandare
-              le richieste ai carroattrezzi che rispondono davvero.
-            </p>
+            <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">Gestione semplice</p>
+            <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">La rete lavora. Tu scegli quando intervenire.</h2>
+            <p className="mt-5 text-lg font-semibold leading-8 text-slate-600">Nessun abbonamento e nessun anticipo: rispondi solo alle richieste compatibili con il tuo mezzo, la tua zona e la tua disponibilità.</p>
             <div className="mt-7 grid gap-3">
               {rules.map((rule) => (
-                <div
-                  key={rule}
-                  className="flex gap-4 rounded-[1.35rem] border border-slate-200 bg-[#fbfdff] p-4"
-                >
-                  <span className="mt-1 grid size-7 shrink-0 place-items-center rounded-full bg-[#e9fbf1] text-sm font-black text-[#075e54]">
-                    ✓
-                  </span>
-                  <p className="text-base font-bold leading-7 text-slate-700">
-                    {rule}
-                  </p>
+                <div key={rule} className="flex gap-4 rounded-[1.35rem] border border-slate-200 bg-[#fbfdff] p-4">
+                  <span className="mt-1 grid size-7 shrink-0 place-items-center rounded-full bg-[#e9fbf1] text-sm font-black text-[#075e54]">✓</span>
+                  <p className="text-base font-bold leading-7 text-slate-700">{rule}</p>
                 </div>
               ))}
             </div>
@@ -177,40 +144,23 @@ export default function PartnerHome() {
         <PartnerPanel className="p-6 sm:p-8 lg:p-10">
           <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div>
-              <PartnerBadge>Priorità richieste</PartnerBadge>
-              <h2 className="mt-5 text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl">
-                Chi lavora bene riceve più fiducia nel tempo.
-              </h2>
-              <p className="mt-6 text-lg font-semibold leading-8 text-slate-600">
-                Nell’area personale vedi un punteggio indicativo. Serve a capire
-                se stai rispondendo bene alle richieste e se il profilo è in
-                ordine.
-              </p>
+              <PartnerBadge>Il tuo vantaggio</PartnerBadge>
+              <h2 className="mt-5 text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl">Un canale in più per lavorare meglio.</h2>
+              <p className="mt-6 text-lg font-semibold leading-8 text-slate-600">ViaSOS raccoglie la richiesta e ti lascia la parte più importante: valutare il lavoro, parlare con il cliente e gestire l’intervento secondo il tuo metodo.</p>
               <div className="mt-7 grid gap-3">
                 {scoreItems.map(([title, text]) => (
                   <div key={title} className="rounded-[1.35rem] bg-[#f8fbff] p-5">
                     <p className="text-lg font-black text-slate-950">{title}</p>
-                    <p className="mt-2 text-base font-semibold leading-7 text-slate-600">
-                      {text}
-                    </p>
+                    <p className="mt-2 text-base font-semibold leading-7 text-slate-600">{text}</p>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm shadow-slate-950/5">
-              <PartnerVisual type="search" size="large" />
-              <div className="mt-6 rounded-[1.5rem] bg-[#f8fbff] p-6">
-                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
-                  Esempio
-                </p>
-                <p className="mt-3 text-5xl font-black tracking-tight text-slate-950">
-                  87/100
-                </p>
-                <p className="mt-4 text-base font-semibold leading-7 text-slate-600">
-                  Un punteggio alto significa: rispondi in fretta, richiami i
-                  clienti, aggiorni l’esito e paghi le commissioni dovute.
-                </p>
-              </div>
+            <div className="rounded-[2rem] border border-slate-200 bg-[#07111f] p-8 text-white shadow-xl shadow-slate-950/10">
+              <p className="text-sm font-black uppercase tracking-[0.16em] text-emerald-300">In sintesi</p>
+              <p className="mt-5 text-4xl font-black leading-tight tracking-tight">Più richieste. Più autonomia. Nessun costo prima del lavoro.</p>
+              <p className="mt-5 text-base font-semibold leading-7 text-slate-300">Entra nella rete, indica dove operi e scegli tu come organizzare ogni intervento.</p>
+              <a href="/partner/registrazione/" className="mt-8 inline-flex rounded-full bg-[#25d366] px-6 py-4 text-base font-black text-[#07111f] transition hover:bg-[#55e888]">Candidati come partner</a>
             </div>
           </div>
         </PartnerPanel>
@@ -222,9 +172,7 @@ export default function PartnerHome() {
 function CommissionStep({ number, text }: { number: string; text: string }) {
   return (
     <div className="flex items-center gap-4 rounded-[1.35rem] border border-slate-200 bg-white p-4 shadow-sm shadow-slate-950/[0.03]">
-      <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-[#25d366] text-sm font-black text-[#07111f]">
-        {number}
-      </span>
+      <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-[#25d366] text-sm font-black text-[#07111f]">{number}</span>
       <p className="text-base font-bold leading-7 text-slate-700">{text}</p>
     </div>
   )
