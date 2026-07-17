@@ -87,13 +87,13 @@ export default function PartnerHome() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <PartnerPanel className="overflow-hidden !bg-white p-0">
-            <div className="p-6 sm:p-8 lg:p-10">
-              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">Modello economico</p>
+        <div className="mx-auto max-w-4xl">
+          <PartnerPanel className="overflow-hidden !bg-white p-0 text-center">
+            <div className="p-6 sm:p-8 lg:p-12">
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-[#075e54]">Modello economico</p>
               <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl">30 euro solo dopo che il cliente ti ha pagato.</h2>
-              <p className="mt-6 text-lg font-semibold leading-8 text-slate-600">Il cliente paga direttamente te. Solo dopo un intervento concluso e incassato riconosci a ViaSOS la commissione fissa prevista.</p>
-              <div className="mt-8 grid gap-3">
+              <p className="mx-auto mt-6 max-w-2xl text-lg font-semibold leading-8 text-slate-600">Il cliente paga direttamente te. Solo dopo un intervento concluso e incassato riconosci a ViaSOS la commissione fissa prevista.</p>
+              <div className="mx-auto mt-8 grid max-w-2xl gap-3 text-left">
                 <CommissionStep number="1" text="Prendi in carico la richiesta." />
                 <CommissionStep number="2" text="Concordi prezzo e tempi con il cliente." />
                 <CommissionStep number="3" text="Concludi il servizio e ricevi il pagamento." />
