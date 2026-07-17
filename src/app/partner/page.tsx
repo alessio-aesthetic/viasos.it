@@ -72,23 +72,21 @@ export default function PartnerHome() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
-        <PartnerPanel className="overflow-hidden border-emerald-200 bg-[#07111f] p-0 text-white shadow-xl shadow-slate-950/10">
-          <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="p-6 sm:p-8 lg:p-10">
-              <p className="text-sm font-black uppercase tracking-[0.16em] text-emerald-300">La prima opzione</p>
-              <h2 className="mt-3 text-3xl font-black leading-tight tracking-tight sm:text-4xl">
-                Puoi ricevere anche il trasferimento diretto di chiamata.
-              </h2>
-              <p className="mt-5 max-w-2xl text-lg font-semibold leading-8 text-slate-200">
-                Quando il cliente cerca assistenza nella tua zona, puoi essere collegato direttamente alla chiamata. Parli con lui subito, valuti l’intervento e scegli in autonomia se accettarlo.
-              </p>
-            </div>
-            <div className="flex items-center border-t border-white/10 bg-white/[0.04] p-6 sm:p-8 lg:border-l lg:border-t-0">
-              <div className="rounded-[1.75rem] border border-emerald-300/30 bg-emerald-300/10 p-6">
-                <p className="text-2xl font-black text-white">Una chiamata concreta.</p>
-                <p className="mt-2 text-base font-semibold leading-7 text-slate-200">Meno passaggi, più controllo sulla richiesta e nessun costo anticipato.</p>
-              </div>
-            </div>
+        <PartnerPanel className="overflow-hidden border-slate-200 bg-white px-6 py-8 text-center shadow-xl shadow-slate-950/[0.06] sm:px-10 sm:py-12 lg:px-16 lg:py-14">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-[#075e54]">Un nuovo modo di lavorare</p>
+          <h2 className="mx-auto mt-4 max-w-4xl text-3xl font-black leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+            Più richieste nella tua zona.
+            <br />
+            <span className="text-[#075e54]">Più libertà nel gestire ogni intervento.</span>
+          </h2>
+          <p className="mx-auto mt-6 max-w-3xl text-lg font-semibold leading-8 text-slate-600 sm:text-xl">
+            ViaSOS ti porta contatti reali e ti lascia il controllo del lavoro:
+            <strong className="text-slate-950"> scegli tu se intervenire, quale prezzo proporre e in quali tempi.</strong>
+          </p>
+          <div className="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-slate-200 pt-6 text-sm font-black text-slate-700">
+            <span><strong className="text-[#075e54]">Servizio gratuito</strong> per il partner</span>
+            <span><strong className="text-[#075e54]">Nessun anticipo</strong> per ricevere richieste</span>
+            <span><strong className="text-[#075e54]">Pagamento solo</strong> a lavoro concluso</span>
           </div>
         </PartnerPanel>
       </section>
