@@ -17,7 +17,7 @@ const steps = [
     text: 'Puoi compilare la candidatura oppure ricevere direttamente una chiamata trasferita dal sistema quando sei il carroattrezzi disponibile per quella richiesta.',
   },
   {
-    title: 'Scegli come ricevere le richieste',
+    title: 'Ricevi la richiesta nel modo più rapido',
     visual: 'search' as const,
     text: 'Verifichiamo i dati operativi e la zona in cui lavori, così le richieste vengono indirizzate verso mezzi realmente adatti e disponibili.',
   },
@@ -45,7 +45,7 @@ const steps = [
 
 const stepCopy = [
   { title: 'Ti registri per entrare nella rete', highlight: 'La registrazione è necessaria.', text: 'Inserisci i dati della tua attività, della base operativa e del mezzo per entrare nella lista dei carroattrezzi disponibili.' },
-  { title: 'Scegli come ricevere le richieste', highlight: 'Indichi come vuoi ricevere le richieste.', text: 'Puoi scegliere il trasferimento diretto di chiamata oppure la notifica con controllo WhatsApp.' },
+  { title: 'Ricevi la richiesta nel modo più rapido', highlight: 'Decide il sistema, in base alla richiesta.', text: 'Può arrivarti un trasferimento diretto di chiamata oppure una notifica su WhatsApp: in entrambi i casi hai massimo 25 secondi per rispondere.' },
   { title: 'Trasferimento diretto di chiamata', highlight: 'Il cliente viene trasferito direttamente a te.', text: 'Parli subito con chi ha chiesto assistenza e valuti l’intervento senza passaggi inutili.' },
   { title: 'Controlla WhatsApp in pochi secondi', highlight: 'Su WhatsApp decidi in pochi secondi.', text: 'Quando arriva una richiesta, controlli posizione, veicolo e problema e confermi se sei disponibile oppure no.' },
   { title: 'Confermi e gestisci il soccorso', highlight: 'Dopo la conferma, gestisci tutto tu.', text: 'Parli con il cliente, concordi prezzo e tempi e porti avanti il soccorso con il tuo metodo.' },
