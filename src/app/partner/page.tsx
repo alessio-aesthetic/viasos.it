@@ -12,22 +12,22 @@ export const metadata: Metadata = {
 
 const steps = [
   {
-    title: 'Registrazione o trasferimento diretto',
+    title: 'Ti registri oppure ricevi la chiamata',
     visual: 'network' as const,
     text: 'Puoi compilare la candidatura oppure ricevere direttamente una chiamata trasferita dal sistema quando sei il carroattrezzi disponibile per quella richiesta.',
   },
   {
-    title: 'Attivazione del profilo',
+    title: 'Ci dici dove lavori davvero',
     visual: 'search' as const,
     text: 'Verifichiamo i dati operativi e la zona in cui lavori, così le richieste vengono indirizzate verso mezzi realmente adatti e disponibili.',
   },
   {
-    title: 'Ricevi una richiesta',
+    title: 'Ti arriva un cliente in difficoltà',
     visual: 'whatsapp' as const,
     text: 'Quando un cliente ha bisogno nella tua area, ricevi i dettagli sul canale concordato e puoi decidere subito se prendere in carico l’intervento.',
   },
   {
-    title: 'Decidi tu come intervenire',
+    title: 'Scegli tu se andare',
     visual: 'position' as const,
     text: 'Se accetti, richiami il cliente e stabilisci liberamente prezzo, tempi e modalità del servizio in base al mezzo e alla situazione.',
   },
@@ -37,10 +37,19 @@ const steps = [
     text: 'Dopo il contatto indichi semplicemente com’è andata. In questo modo il sistema mantiene aggiornate le richieste e il tuo profilo operativo.',
   },
   {
-    title: 'Paghi solo a lavoro concluso',
+    title: 'Paghi solo quando hai incassato',
     visual: 'payment' as const,
     text: 'La commissione fissa di 30 euro si applica solo se hai svolto il servizio e il cliente ti ha pagato direttamente.',
   },
+]
+
+const stepCopy = [
+  { highlight: 'Parti come preferisci.', text: 'Compili la registrazione oppure puoi ricevere direttamente una chiamata quando c’è un cliente nella tua zona.' },
+  { highlight: 'Ci dici dove lavori.', text: 'Indichi raggio, tipo di mezzo e interventi che puoi gestire, così le richieste restano concrete.' },
+  { highlight: 'Ricevi già i dati utili.', text: 'Posizione, veicolo e problema arrivano insieme: niente telefonate confuse e niente informazioni da rincorrere.' },
+  { highlight: 'Sei libero di accettare o rifiutare.', text: 'Se il lavoro fa per te, richiami e parti. Se sei impegnato, lo segnali subito senza obblighi.' },
+  { highlight: 'Prezzo e tempi li decidi tu.', text: 'Parli con il cliente, concordi il soccorso e gestisci l’intervento secondo il tuo metodo.' },
+  { highlight: 'Nessun anticipo e nessun abbonamento.', text: 'I 30 euro si applicano solo dopo un servizio concluso e pagato direttamente dal cliente.' },
 ]
 
 const rules = [
@@ -79,7 +88,9 @@ export default function PartnerHome() {
               <div className="mt-6">
                 <span className="grid size-10 place-items-center rounded-2xl bg-[#e9fbf1] text-sm font-black text-[#075e54] ring-1 ring-emerald-200">{index + 1}</span>
                 <h2 className="mt-4 text-2xl font-black leading-tight tracking-tight text-slate-950 sm:text-3xl">{step.title}</h2>
-                <p className="mt-3 text-base font-semibold leading-7 text-slate-600">{step.text}</p>
+                <p className="mt-3 text-base font-semibold leading-7 text-slate-600">
+                  <strong className="font-black text-slate-950">{stepCopy[index].highlight}</strong>{' '}{stepCopy[index].text}
+                </p>
               </div>
             </PartnerPanel>
           ))}
@@ -88,12 +99,12 @@ export default function PartnerHome() {
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
-          <PartnerPanel className="overflow-hidden !bg-white p-0 text-center">
+          <PartnerPanel className="overflow-hidden !bg-white p-0 text-left">
             <div className="p-6 sm:p-8 lg:p-12">
-              <p className="text-sm font-black uppercase tracking-[0.2em] text-[#075e54]">Modello economico</p>
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-[#075e54]">Come funziona il pagamento</p>
               <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl">30 euro solo dopo che il cliente ti ha pagato.</h2>
-              <p className="mx-auto mt-6 max-w-2xl text-lg font-semibold leading-8 text-slate-600">Il cliente paga direttamente te. Solo dopo un intervento concluso e incassato riconosci a ViaSOS la commissione fissa prevista.</p>
-              <div className="mx-auto mt-8 grid max-w-2xl gap-3 text-left">
+              <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-slate-600"><strong className="text-slate-950">Il cliente paga direttamente te.</strong> Solo quando il soccorso è concluso e hai incassato, riconosci a ViaSOS la commissione fissa prevista.</p>
+              <div className="mt-8 grid max-w-2xl gap-3">
                 <CommissionStep number="1" text="Prendi in carico la richiesta." />
                 <CommissionStep number="2" text="Concordi prezzo e tempi con il cliente." />
                 <CommissionStep number="3" text="Concludi il servizio e ricevi il pagamento." />
