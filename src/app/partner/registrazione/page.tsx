@@ -53,6 +53,8 @@ export default function PartnerRegistration() {
     'idle',
   )
   const [message, setMessage] = useState('')
+  const [conditionsOpen, setConditionsOpen] = useState(false)
+  const [conditionsViewed, setConditionsViewed] = useState(false)
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((current) => ({ ...current, [key]: value }))
@@ -98,6 +100,7 @@ export default function PartnerRegistration() {
       'Registrazione ricevuta. Ti contatteremo per completare l’attivazione del profilo partner.',
     )
     setForm(initialState)
+    setConditionsViewed(false)
   }
 
   return (
@@ -270,28 +273,26 @@ export default function PartnerRegistration() {
               <legend className="px-2 text-lg font-black text-slate-950">
                 Condizioni per entrare nella rete ViaSOS
               </legend>
-              <div className="mt-3 grid gap-4 text-sm font-semibold leading-6 text-slate-600">
-                <p>
-                  <strong className="text-slate-950">ViaSOS opera esclusivamente come generatore e smistatore di richieste.</strong>{' '}
-                  Non esegue il soccorso stradale e non diventa parte del rapporto tra il cliente e il carroattrezzi.
-                </p>
-                <p>
-                  Dal momento in cui accetti una richiesta, <strong className="text-slate-950">sei tu il responsabile dell’intervento assegnato</strong>:
-                  contatto con il cliente, prezzo, tempi, mezzo utilizzato, modalità operative, sicurezza, autorizzazioni, assicurazioni e corretta esecuzione del servizio.
-                </p>
-                <p>
-                  ViaSOS non risponde di danni, ritardi, mancati interventi, disservizi, contestazioni, costi, incidenti o qualsiasi altra conseguenza relativa al servizio svolto dal carroattrezzi. <strong className="text-slate-950">Ogni responsabilità resta a carico dell’operatore che prende in carico il cliente.</strong>
-                </p>
-                <p>
-                  I dati e le dichiarazioni forniti devono essere completi e veritieri. In caso di informazioni false, disponibilità dichiarate senza fondamento o comportamenti scorretti, ViaSOS potrà sospendere il profilo, interrompere l’invio delle richieste e <strong className="text-slate-950">valutare le opportune azioni legali</strong> a tutela del cliente e della rete.
-                </p>
-              </div>
+              <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-slate-600">
+                Prima di inviare la candidatura devi leggere e accettare le condizioni che regolano il rapporto tra ViaSOS, il partner e il cliente.
+              </p>
+              <button
+                type="button"
+                onClick={() => setConditionsOpen(true)}
+                className="mt-5 inline-flex items-center justify-center rounded-full bg-[#07111f] px-5 py-3 text-sm font-black text-white transition hover:bg-[#123456]"
+              >
+                {conditionsViewed ? 'Condizioni già consultate' : 'Apri e leggi le condizioni'}
+              </button>
+              {conditionsViewed ? (
+                <p className="mt-3 text-sm font-black text-[#075e54]">✓ Puoi procedere con l’accettazione.</p>
+              ) : null}
               <label className="mt-6 flex cursor-pointer gap-3 rounded-2xl border border-emerald-200 bg-white p-4 text-sm font-black leading-6 text-slate-800 shadow-sm">
                 <input
                   type="checkbox"
                   checked={form.accepted}
                   onChange={(event) => update('accepted', event.target.checked)}
                   className="mt-1 size-5 shrink-0 accent-[#075e54]"
+                  disabled={!conditionsViewed}
                   required
                 />
                 <span>
@@ -299,6 +300,26 @@ export default function PartnerRegistration() {
                 </span>
               </label>
             </fieldset>
+            {conditionsOpen ? (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#07111f]/70 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="partner-conditions-title">
+                <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-[2rem] bg-white p-6 shadow-2xl shadow-slate-950/30 sm:p-9">
+                  <div className="flex items-start justify-between gap-5">
+                    <div>
+                      <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">Lettura obbligatoria</p>
+                      <h3 id="partner-conditions-title" className="mt-2 text-3xl font-black leading-tight text-slate-950">Condizioni partner ViaSOS</h3>
+                    </div>
+                    <button type="button" onClick={() => setConditionsOpen(false)} className="rounded-full px-3 py-2 text-sm font-black text-slate-500 hover:bg-slate-100 hover:text-slate-950" aria-label="Chiudi condizioni">Chiudi</button>
+                  </div>
+                  <div className="mt-7 grid gap-5 text-base font-semibold leading-7 text-slate-600">
+                    <p><strong className="text-slate-950">ViaSOS opera esclusivamente come generatore e smistatore di richieste.</strong> Non esegue il soccorso stradale e non diventa parte del rapporto tra il cliente e il carroattrezzi.</p>
+                    <p>Dal momento in cui accetti una richiesta, <strong className="text-slate-950">sei tu il responsabile dell’intervento assegnato</strong>: contatto con il cliente, prezzo, tempi, mezzo utilizzato, modalità operative, sicurezza, autorizzazioni, assicurazioni e corretta esecuzione del servizio.</p>
+                    <p>ViaSOS non risponde di danni, ritardi, mancati interventi, disservizi, contestazioni, costi, incidenti o qualsiasi altra conseguenza relativa al servizio svolto dal carroattrezzi. <strong className="text-slate-950">Ogni responsabilità resta a carico dell’operatore che prende in carico il cliente.</strong></p>
+                    <p>I dati e le dichiarazioni forniti devono essere completi e veritieri. In caso di informazioni false, disponibilità dichiarate senza fondamento o comportamenti scorretti, ViaSOS potrà sospendere il profilo, interrompere l’invio delle richieste e <strong className="text-slate-950">valutare le opportune azioni legali</strong> a tutela del cliente e della rete.</p>
+                  </div>
+                  <button type="button" onClick={() => { setConditionsViewed(true); setConditionsOpen(false) }} className="mt-8 w-full rounded-full bg-[#075e54] px-6 py-4 text-base font-black text-white transition hover:bg-[#06483f]">Ho letto le condizioni e voglio accettarle</button>
+                </div>
+              </div>
+            ) : null}
             {message ? (
               <p
                 className={
