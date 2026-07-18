@@ -266,16 +266,39 @@ export default function PartnerRegistration() {
                 </Field>
               </div>
             </div>
-            <label className="flex gap-3 rounded-2xl bg-slate-50 p-4 text-sm font-bold leading-6 text-slate-700">
-              <input
-                type="checkbox"
-                checked={form.accepted}
-                onChange={(event) => update('accepted', event.target.checked)}
-                className="mt-1 size-5 shrink-0"
-              />
-              Confermo che i dati inseriti sono corretti e accetto di essere
-              contattato da ViaSOS per la verifica del profilo partner.
-            </label>
+            <fieldset className="rounded-[1.75rem] border border-slate-200 bg-[#f8fbff] p-5 sm:p-6">
+              <legend className="px-2 text-lg font-black text-slate-950">
+                Condizioni per entrare nella rete ViaSOS
+              </legend>
+              <div className="mt-3 grid gap-4 text-sm font-semibold leading-6 text-slate-600">
+                <p>
+                  <strong className="text-slate-950">ViaSOS opera esclusivamente come generatore e smistatore di richieste.</strong>{' '}
+                  Non esegue il soccorso stradale e non diventa parte del rapporto tra il cliente e il carroattrezzi.
+                </p>
+                <p>
+                  Dal momento in cui accetti una richiesta, <strong className="text-slate-950">sei tu il responsabile dell’intervento assegnato</strong>:
+                  contatto con il cliente, prezzo, tempi, mezzo utilizzato, modalità operative, sicurezza, autorizzazioni, assicurazioni e corretta esecuzione del servizio.
+                </p>
+                <p>
+                  ViaSOS non risponde di danni, ritardi, mancati interventi, disservizi, contestazioni, costi, incidenti o qualsiasi altra conseguenza relativa al servizio svolto dal carroattrezzi. <strong className="text-slate-950">Ogni responsabilità resta a carico dell’operatore che prende in carico il cliente.</strong>
+                </p>
+                <p>
+                  I dati e le dichiarazioni forniti devono essere completi e veritieri. In caso di informazioni false, disponibilità dichiarate senza fondamento o comportamenti scorretti, ViaSOS potrà sospendere il profilo, interrompere l’invio delle richieste e <strong className="text-slate-950">valutare le opportune azioni legali</strong> a tutela del cliente e della rete.
+                </p>
+              </div>
+              <label className="mt-6 flex cursor-pointer gap-3 rounded-2xl border border-emerald-200 bg-white p-4 text-sm font-black leading-6 text-slate-800 shadow-sm">
+                <input
+                  type="checkbox"
+                  checked={form.accepted}
+                  onChange={(event) => update('accepted', event.target.checked)}
+                  className="mt-1 size-5 shrink-0 accent-[#075e54]"
+                  required
+                />
+                <span>
+                  Ho letto e accetto le condizioni partner. Confermo inoltre che i dati inseriti sono corretti e autorizzo ViaSOS a contattarmi per la verifica e l’attivazione del profilo.
+                </span>
+              </label>
+            </fieldset>
             {message ? (
               <p
                 className={
