@@ -301,8 +301,8 @@ export default function PartnerRegistration() {
               </label>
             </fieldset>
             {conditionsOpen ? (
-              <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#07111f]/70 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="partner-conditions-title">
-                <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-[2rem] bg-white p-6 shadow-2xl shadow-slate-950/30 sm:p-9">
+              <div className="fixed inset-0 z-50 overflow-y-auto bg-[#07111f]/70 p-3 backdrop-blur-sm sm:p-6" role="dialog" aria-modal="true" aria-labelledby="partner-conditions-title">
+                <div className="relative my-auto max-h-[calc(100dvh-1.5rem)] w-full max-w-3xl overflow-y-auto rounded-[2rem] bg-white p-5 shadow-2xl shadow-slate-950/30 sm:max-h-[calc(100dvh-3rem)] sm:p-9">
                   <div className="flex items-start justify-between gap-5">
                     <div>
                       <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">Lettura obbligatoria</p>
