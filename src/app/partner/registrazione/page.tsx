@@ -231,10 +231,10 @@ export default function PartnerRegistration() {
                 </label>
               </Field>
             </div>
-            <fieldset className="relative overflow-hidden rounded-[2rem] border-2 border-[#075e54] bg-[#f0fdf9] p-5 shadow-[0_18px_50px_rgba(7,94,84,0.12)] sm:p-7">
-              <div className="absolute right-5 top-5 rounded-full bg-[#075e54] px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-white">Consigliata</div>
-              <legend className="pr-24 text-xl font-black text-slate-950 sm:text-2xl">
-                Come vuoi ricevere le richieste?
+            <fieldset className="overflow-hidden rounded-[2rem] border-2 border-[#075e54] bg-[#f0fdf9] p-5 shadow-[0_18px_50px_rgba(7,94,84,0.12)] sm:p-7">
+              <legend className="flex w-full items-center justify-between gap-4 text-xl font-black text-slate-950 sm:text-2xl">
+                <span>Come vuoi ricevere le richieste?</span>
+                <span className="shrink-0 rounded-full bg-[#075e54] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-white sm:text-[11px]">Consigliata</span>
               </legend>
               <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-600">
                 Questa scelta determina la priorità con cui il sistema può proporti gli interventi nella tua zona.
