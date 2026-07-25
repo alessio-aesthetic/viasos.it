@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { type FormEvent, useEffect, useMemo, useState } from 'react'
 
 import {
   PartnerBadge,
@@ -18,6 +18,10 @@ type PartnerFields = {
   Attivo?: boolean
   'Email Fatturazione'?: string
   'Indirizzo Fatturazione'?: string
+  'Partita IVA'?: string
+  'Codice Fiscale'?: string
+  'Codice SDI'?: string
+  PEC?: string
   'Copertura KM'?: number
   'Abilitato Autostrada'?: boolean
   'Latitudine Zona'?: number
@@ -134,6 +138,35 @@ function DashboardContent({ data }: { data: DashboardData }) {
   const approved = status === 'Approvato'
   const active = Boolean(partner.Attivo)
   const score = useMemo(() => calculatePartnerScore(partner), [partner])
+  const [fiscal, setFiscal] = useState({
+    vatNumber: partner['Partita IVA'] || '',
+    taxCode: partner['Codice Fiscale'] || '',
+    sdi: partner['Codice SDI'] || '',
+    pec: partner.PEC || '',
+  })
+  const [fiscalStatus, setFiscalStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [fiscalMessage, setFiscalMessage] = useState('')
+
+  async function saveFiscalData(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setFiscalStatus('loading')
+    setFiscalMessage('')
+    try {
+      const token = new URLSearchParams(window.location.search).get('token') || ''
+      await partnerRequest('viasos-partner-fiscal-update', {
+        token,
+        'Partita IVA': fiscal.vatNumber,
+        'Codice Fiscale': fiscal.taxCode,
+        'Codice SDI': fiscal.sdi,
+        PEC: fiscal.pec,
+      })
+      setFiscalStatus('success')
+      setFiscalMessage('Dati fiscali salvati correttamente.')
+    } catch (error) {
+      setFiscalStatus('error')
+      setFiscalMessage(error instanceof Error ? error.message : 'Non è stato possibile salvare i dati fiscali.')
+    }
+  }
 
   return (
     <PartnerShell>
@@ -146,7 +179,7 @@ function DashboardContent({ data }: { data: DashboardData }) {
                 {partner['Nome Ditta'] || 'Profilo partner'}
               </h1>
               <p className="mt-4 text-lg font-semibold text-slate-300">
-                {partner.Citta || 'Città non indicata'} ·{' '}
+                {partner.Citta || 'Città non indicata'} Â·{' '}
                 {partner.WhatsApp || 'WhatsApp non indicato'}
               </p>
             </div>
@@ -214,6 +247,35 @@ function DashboardContent({ data }: { data: DashboardData }) {
           </div>
         ) : null}
 
+        {approved ? (
+          <PartnerPanel>
+            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
+                  Dopo l’approvazione
+                </p>
+                <h2 className="mt-2 text-2xl font-black">Completa i dati fiscali</h2>
+                <p className="mt-2 max-w-2xl text-sm font-semibold leading-6 text-slate-600">
+                  Questi dati non vengono richiesti durante la registrazione. Inseriscili ora nella tua area partner per mantenere ordinata la gestione amministrativa dei servizi conclusi.
+                </p>
+              </div>
+              <StatusPill tone="green">Profilo approvato</StatusPill>
+            </div>
+            <form onSubmit={saveFiscalData} className="mt-6 grid gap-4 sm:grid-cols-2">
+              <FiscalField label="Partita IVA" value={fiscal.vatNumber} onChange={(value) => setFiscal((current) => ({ ...current, vatNumber: value }))} />
+              <FiscalField label="Codice fiscale" value={fiscal.taxCode} onChange={(value) => setFiscal((current) => ({ ...current, taxCode: value }))} />
+              <FiscalField label="Codice SDI" value={fiscal.sdi} onChange={(value) => setFiscal((current) => ({ ...current, sdi: value }))} />
+              <FiscalField label="PEC" type="email" value={fiscal.pec} onChange={(value) => setFiscal((current) => ({ ...current, pec: value }))} />
+              <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
+                {fiscalMessage ? <p className={fiscalStatus === 'success' ? 'text-sm font-bold text-emerald-700' : 'text-sm font-bold text-red-700'}>{fiscalMessage}</p> : <span />}
+                <button type="submit" disabled={fiscalStatus === 'loading'} className="rounded-full bg-[#075e54] px-6 py-3.5 text-sm font-black text-white transition hover:bg-[#06483f] disabled:cursor-not-allowed disabled:opacity-60">
+                  {fiscalStatus === 'loading' ? 'Salvataggio in corso' : 'Salva dati fiscali'}
+                </button>
+              </div>
+            </form>
+          </PartnerPanel>
+        ) : null}
+
         <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Metric label="Lead collegati" value={data.leads.length} />
           <Metric
@@ -234,17 +296,17 @@ function DashboardContent({ data }: { data: DashboardData }) {
           <Metric
             label="Commissioni dovute"
             value={partner['Commissioni Dovute'] || 0}
-            suffix="€"
+            suffix="â‚¬"
           />
           <Metric
             label="Commissioni pagate"
             value={partner['Commissioni Pagate'] || 0}
-            suffix="€"
+            suffix="â‚¬"
           />
           <Metric
             label="Commissioni aperte"
             value={partner['Commissioni Non Pagate'] || 0}
-            suffix="€"
+            suffix="â‚¬"
           />
         </div>
 
@@ -276,7 +338,7 @@ function DashboardContent({ data }: { data: DashboardData }) {
                           {lead.Servizio || 'Servizio non indicato'}
                         </p>
                         <p className="mt-1 text-sm font-semibold text-slate-600">
-                          {lead.Citta || 'Zona non indicata'} ·{' '}
+                          {lead.Citta || 'Zona non indicata'} Â·{' '}
                           {lead['Telefono Cliente'] || 'telefono non visibile'}
                         </p>
                       </div>
@@ -348,6 +410,30 @@ function DashboardContent({ data }: { data: DashboardData }) {
         </div>
       </section>
     </PartnerShell>
+  )
+}
+
+function FiscalField({
+  label,
+  value,
+  onChange,
+  type = 'text',
+}: {
+  label: string
+  value: string
+  onChange: (value: string) => void
+  type?: string
+}) {
+  return (
+    <label className="grid gap-2 text-sm font-black text-slate-700">
+      {label}
+      <input
+        className="partner-input"
+        type={type}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+      />
+    </label>
   )
 }
 
@@ -511,3 +597,4 @@ function Info({ label, value }: { label: string; value?: string }) {
     </div>
   )
 }
+
