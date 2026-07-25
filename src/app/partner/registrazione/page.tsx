@@ -231,16 +231,15 @@ export default function PartnerRegistration() {
                 </label>
               </Field>
             </div>
-            <fieldset className="overflow-hidden rounded-[2rem] border-2 border-[#075e54] bg-[#f0fdf9] p-5 shadow-[0_18px_50px_rgba(7,94,84,0.12)] sm:p-7">
-              <legend className="flex w-full items-center justify-between gap-4 text-xl font-black text-slate-950 sm:text-2xl">
-                <span>Come vuoi ricevere le richieste?</span>
-                <span className="shrink-0 rounded-full bg-[#075e54] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-white sm:text-[11px]">Consigliata</span>
+            <fieldset className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_20px_55px_rgba(15,23,42,0.08)] sm:p-7">
+              <legend className="w-full text-xl font-black text-slate-950 sm:text-2xl">
+                Come vuoi ricevere le richieste?
               </legend>
               <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-600">
-                Questa scelta determina la priorità con cui il sistema può proporti gli interventi nella tua zona.
+                Scegli la modalità con cui vuoi essere inserito nel flusso di assegnazione degli interventi.
               </p>
               <div className="mt-5 grid gap-4 lg:grid-cols-2">
-                <label className={`cursor-pointer rounded-2xl border-2 bg-white p-5 transition ${form.priorityMode === 'prioritaria' ? 'border-[#075e54] shadow-lg shadow-emerald-900/10' : 'border-slate-200 hover:border-emerald-300'}`}>
+                <label className={`cursor-pointer rounded-2xl border-2 p-5 transition ${form.priorityMode === 'prioritaria' ? 'border-[#075e54] bg-[#f0fdf9] shadow-lg shadow-emerald-900/10' : 'border-slate-200 bg-slate-50 hover:border-emerald-300 hover:bg-white'}`}>
                   <span className="flex items-start gap-3">
                     <input
                       type="radio"
@@ -261,7 +260,7 @@ export default function PartnerRegistration() {
                     Il cliente può ricevere un preventivo massimo di <strong>140 € di giorno</strong> e <strong>170 € di notte</strong>, comprensivo della fee ViaSOS e dell’eventuale IVA.
                   </span>
                 </label>
-                <label className={`cursor-pointer rounded-2xl border-2 bg-white p-5 transition ${form.priorityMode === 'senza-priorita' ? 'border-slate-900 shadow-lg shadow-slate-900/10' : 'border-slate-200 hover:border-slate-400'}`}>
+                <label className={`cursor-pointer rounded-2xl border-2 p-5 transition ${form.priorityMode === 'senza-priorita' ? 'border-slate-900 bg-slate-50 shadow-lg shadow-slate-900/10' : 'border-slate-200 bg-slate-50 hover:border-slate-400 hover:bg-white'}`}>
                   <span className="flex items-start gap-3">
                     <input
                       type="radio"
@@ -316,8 +315,8 @@ export default function PartnerRegistration() {
               </label>
             </fieldset>
             {conditionsOpen ? (
-              <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-white p-0" role="dialog" aria-modal="true" aria-labelledby="partner-conditions-title">
-                <div className="my-0 flex max-h-[100dvh] w-full max-w-4xl flex-col overflow-y-auto bg-white px-5 py-6 sm:max-h-[92dvh] sm:rounded-[2rem] sm:border sm:border-slate-200 sm:px-10 sm:py-10 sm:shadow-2xl">
+              <div className="fixed inset-0 z-50 overflow-y-auto bg-white" role="dialog" aria-modal="true" aria-labelledby="partner-conditions-title">
+                <div className="mx-auto w-full max-w-3xl px-5 py-6 sm:px-10 sm:py-10">
                   <div className="flex items-start justify-between gap-5">
                     <div>
                       <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">Lettura obbligatoria</p>
