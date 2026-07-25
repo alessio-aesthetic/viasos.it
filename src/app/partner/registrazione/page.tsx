@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import type { FormEvent } from 'react'
 import { useState } from 'react'
@@ -22,6 +22,7 @@ type FormState = {
   address: string
   coverageKm: string
   highwayEnabled: boolean
+  priorityMode: 'prioritaria' | 'senza-priorita'
   vatNumber: string
   taxCode: string
   sdi: string
@@ -40,6 +41,7 @@ const initialState: FormState = {
   address: '',
   coverageKm: '30',
   highwayEnabled: false,
+  priorityMode: 'prioritaria',
   vatNumber: '',
   taxCode: '',
   sdi: '',
@@ -231,6 +233,59 @@ export default function PartnerRegistration() {
                 </label>
               </Field>
             </div>
+            <fieldset className="relative overflow-hidden rounded-[2rem] border-2 border-[#075e54] bg-[#f0fdf9] p-5 shadow-[0_18px_50px_rgba(7,94,84,0.12)] sm:p-7">
+              <div className="absolute right-5 top-5 rounded-full bg-[#075e54] px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-white">Consigliata</div>
+              <legend className="pr-24 text-xl font-black text-slate-950 sm:text-2xl">
+                Come vuoi ricevere le richieste?
+              </legend>
+              <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-600">
+                Questa scelta determina la priorità con cui il sistema può proporti gli interventi nella tua zona.
+              </p>
+              <div className="mt-5 grid gap-4 lg:grid-cols-2">
+                <label className={`cursor-pointer rounded-2xl border-2 bg-white p-5 transition ${form.priorityMode === 'prioritaria' ? 'border-[#075e54] shadow-lg shadow-emerald-900/10' : 'border-slate-200 hover:border-emerald-300'}`}>
+                  <span className="flex items-start gap-3">
+                    <input
+                      type="radio"
+                      name="priorityMode"
+                      value="prioritaria"
+                      checked={form.priorityMode === 'prioritaria'}
+                      onChange={() => update('priorityMode', 'prioritaria')}
+                      className="mt-1 size-5 accent-[#075e54]"
+                    />
+                    <span>
+                      <strong className="block text-lg font-black text-slate-950">Via prioritaria</strong>
+                      <span className="mt-2 block text-sm font-semibold leading-6 text-slate-600">
+                        Entri tra i primi carroattrezzi contattati nella tua zona, con priorità di invio e chiamata diretta con il cliente quando prevista dal flusso di assegnazione.
+                      </span>
+                    </span>
+                  </span>
+                  <span className="mt-4 block rounded-xl bg-[#e5f8f1] p-4 text-sm font-bold leading-6 text-[#06483f]">
+                    Il cliente può ricevere un preventivo massimo di <strong>140 € di giorno</strong> e <strong>170 € di notte</strong>, comprensivo della fee ViaSOS e dell’eventuale IVA.
+                  </span>
+                </label>
+                <label className={`cursor-pointer rounded-2xl border-2 bg-white p-5 transition ${form.priorityMode === 'senza-priorita' ? 'border-slate-900 shadow-lg shadow-slate-900/10' : 'border-slate-200 hover:border-slate-400'}`}>
+                  <span className="flex items-start gap-3">
+                    <input
+                      type="radio"
+                      name="priorityMode"
+                      value="senza-priorita"
+                      checked={form.priorityMode === 'senza-priorita'}
+                      onChange={() => update('priorityMode', 'senza-priorita')}
+                      className="mt-1 size-5 accent-slate-900"
+                    />
+                    <span>
+                      <strong className="block text-lg font-black text-slate-950">Senza priorità</strong>
+                      <span className="mt-2 block text-sm font-semibold leading-6 text-slate-600">
+                        Ricevi richieste per formulare un preventivo dopo il primo contatto, oppure quando i carroattrezzi con priorità più alta non accettano l’intervento o il preventivo proposto.
+                      </span>
+                    </span>
+                  </span>
+                  <span className="mt-4 block rounded-xl bg-slate-100 p-4 text-sm font-bold leading-6 text-slate-700">
+                    In questa modalità puoi definire liberamente il prezzo e le condizioni del servizio in base alla situazione reale.
+                  </span>
+                </label>
+              </div>
+            </fieldset>
             <div className="border-t border-slate-200 pt-5">
               <h3 className="font-black">Dati fiscali</h3>
               <p className="mt-1 text-sm font-semibold text-slate-500">
