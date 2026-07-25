@@ -23,10 +23,6 @@ type FormState = {
   coverageKm: string
   highwayEnabled: boolean
   priorityMode: '' | 'prioritaria' | 'senza-priorita'
-  vatNumber: string
-  taxCode: string
-  sdi: string
-  pec: string
   accepted: boolean
 }
 
@@ -42,10 +38,6 @@ const initialState: FormState = {
   coverageKm: '30',
   highwayEnabled: false,
   priorityMode: '',
-  vatNumber: '',
-  taxCode: '',
-  sdi: '',
-  pec: '',
   accepted: false,
 }
 
@@ -292,44 +284,6 @@ export default function PartnerRegistration() {
                 </label>
               </div>
             </fieldset>
-            <div className="border-t border-slate-200 pt-5">
-              <h3 className="font-black">Dati fiscali</h3>
-              <p className="mt-1 text-sm font-semibold text-slate-500">
-                Puoi completarli anche dopo, ma se li inserisci ora la gestione è
-                più ordinata.
-              </p>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <Field label="Partita IVA">
-                  <input
-                    value={form.vatNumber}
-                    onChange={(event) => update('vatNumber', event.target.value)}
-                    className="partner-input"
-                  />
-                </Field>
-                <Field label="Codice fiscale">
-                  <input
-                    value={form.taxCode}
-                    onChange={(event) => update('taxCode', event.target.value)}
-                    className="partner-input"
-                  />
-                </Field>
-                <Field label="Codice SDI">
-                  <input
-                    value={form.sdi}
-                    onChange={(event) => update('sdi', event.target.value)}
-                    className="partner-input"
-                  />
-                </Field>
-                <Field label="PEC">
-                  <input
-                    value={form.pec}
-                    onChange={(event) => update('pec', event.target.value)}
-                    className="partner-input"
-                    type="email"
-                  />
-                </Field>
-              </div>
-            </div>
             <fieldset className="rounded-[1.75rem] border border-slate-200 bg-[#f8fbff] p-5 sm:p-6">
               <legend className="px-2 text-lg font-black text-slate-950">
                 Condizioni per entrare nella rete ViaSOS
