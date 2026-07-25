@@ -22,7 +22,7 @@ type FormState = {
   address: string
   coverageKm: string
   highwayEnabled: boolean
-  priorityMode: 'prioritaria' | 'senza-priorita'
+  priorityMode: '' | 'prioritaria' | 'senza-priorita'
   vatNumber: string
   taxCode: string
   sdi: string
@@ -41,7 +41,7 @@ const initialState: FormState = {
   address: '',
   coverageKm: '30',
   highwayEnabled: false,
-  priorityMode: 'prioritaria',
+  priorityMode: '',
   vatNumber: '',
   taxCode: '',
   sdi: '',
@@ -70,6 +70,12 @@ export default function PartnerRegistration() {
     if (!form.accepted) {
       setStatus('error')
       setMessage('Accetta le condizioni partner per inviare la candidatura.')
+      return
+    }
+
+    if (!form.priorityMode) {
+      setStatus('error')
+      setMessage('Scegli come vuoi ricevere le richieste prima di inviare la candidatura.')
       return
     }
 
@@ -356,8 +362,8 @@ export default function PartnerRegistration() {
               </label>
             </fieldset>
             {conditionsOpen ? (
-              <div className="fixed inset-0 z-50 flex items-start justify-center overflow-hidden bg-[#07111f]/70 p-3 backdrop-blur-sm sm:p-6" role="dialog" aria-modal="true" aria-labelledby="partner-conditions-title">
-                <div className="max-h-[calc(100dvh-1.5rem)] w-full max-w-3xl overflow-y-auto rounded-[2rem] bg-white p-5 shadow-2xl shadow-slate-950/30 sm:max-h-[calc(100dvh-3rem)] sm:p-9">
+              <div className="fixed inset-0 z-50 overflow-hidden bg-white" role="dialog" aria-modal="true" aria-labelledby="partner-conditions-title">
+                <div className="mx-auto flex h-full w-full max-w-4xl flex-col overflow-y-auto bg-white px-5 py-6 sm:px-10 sm:py-10">
                   <div className="flex items-start justify-between gap-5">
                     <div>
                       <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">Lettura obbligatoria</p>
