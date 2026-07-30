@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import type { FormEvent } from 'react'
 import { useState } from 'react'
@@ -105,29 +105,12 @@ export default function PartnerRegistration() {
 
   return (
     <PartnerShell>
-      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8 lg:py-14">
-        <div>
+      <section className="mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <div className="mb-4 text-center">
           <PartnerBadge>Registrazione partner</PartnerBadge>
-          <h1 className="mt-5 text-4xl font-black tracking-tight sm:text-5xl">
-            Candidatura carroattrezzi ViaSOS
-          </h1>
-          <p className="mt-5 text-lg leading-8 font-semibold text-slate-700">
-            Raccontaci dove lavori e quali interventi puoi gestire. Dopo l’invio
-            ti ricontatteremo per completare l’attivazione in modo chiaro e ordinato.
-          </p>
-          <div className="mt-6 grid gap-3">
-            {[
-              'Richieste coerenti con la tua zona operativa',
-              'Numero WhatsApp usato per il contatto di lavoro',
-              'Password personale per proteggere l’accesso',
-            ].map((item) => (
-              <div key={item} className="rounded-2xl border border-white/80 bg-white/90 p-4 font-bold text-slate-700 shadow-sm">
-                {item}
-              </div>
-            ))}
-          </div>
+          <p className="mt-3 text-base font-semibold text-slate-600">Registrati per entrare nella rete ViaSOS e ricevere richieste compatibili con il tuo mezzo e la tua zona.</p>
         </div>
-        <PartnerPanel>
+        <PartnerPanel className="p-5 sm:p-7">
           <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-2xl font-black">Dati partner</h2>
             {status === 'success' ? <StatusPill tone="green">Richiesta inviata</StatusPill> : null}
@@ -231,15 +214,13 @@ export default function PartnerRegistration() {
                 </label>
               </Field>
             </div>
-            <fieldset className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_20px_55px_rgba(15,23,42,0.08)] sm:p-7">
-              <legend className="w-full text-xl font-black text-slate-950 sm:text-2xl">
-                Come vuoi ricevere le richieste?
-              </legend>
-              <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-600">
-                Scegli la modalità con cui vuoi essere inserito nel flusso di assegnazione degli interventi.
-              </p>
-              <div className="mt-5 grid gap-4 lg:grid-cols-2">
-                <label className={`cursor-pointer rounded-2xl border-2 p-5 transition ${form.priorityMode === 'prioritaria' ? 'border-[#075e54] bg-[#f0fdf9] shadow-lg shadow-emerald-900/10' : 'border-slate-200 bg-slate-50 hover:border-emerald-300 hover:bg-white'}`}>
+            <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-[0_18px_45px_rgba(15,23,42,0.07)] sm:p-5">
+              <div className="border-b border-slate-200 pb-4">
+                <h3 className="text-xl font-black text-slate-950 sm:text-2xl">Come vuoi ricevere le richieste?</h3>
+                <p className="mt-1 text-sm font-semibold leading-6 text-slate-600">La modalità viene scelta dal sistema in base alla richiesta e alla disponibilità: in entrambi i casi dovrai rispondere entro 25 secondi.</p>
+              </div>
+              <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                <label className={`cursor-pointer rounded-2xl border-2 p-5 transition ${form.priorityMode === 'prioritaria' ? 'border-[#075e54] bg-[#f0fdf9] shadow-[0_12px_30px_rgba(7,94,84,0.12)]' : 'border-slate-200 bg-slate-50 hover:border-[#75b9aa] hover:bg-white'}`}>
                   <span className="flex items-start gap-3">
                     <input
                       type="radio"
@@ -257,10 +238,10 @@ export default function PartnerRegistration() {
                     </span>
                   </span>
                   <span className="mt-4 block rounded-xl bg-[#e5f8f1] p-4 text-sm font-bold leading-6 text-[#06483f]">
-                    Il cliente può ricevere un preventivo massimo di <strong>140 € di giorno</strong> e <strong>170 € di notte</strong>, comprensivo della fee ViaSOS e dell’eventuale IVA.
+                    Entro <strong>12 km</strong> e per recuperi normali, il preventivo massimo è di <strong>150 € di giorno</strong> e <strong>180 € di notte</strong>, inclusi fee ViaSOS ed eventuale IVA. Per interventi complessi o oltre 12 km sono possibili maggiorazioni concordate.
                   </span>
                 </label>
-                <label className={`cursor-pointer rounded-2xl border-2 p-5 transition ${form.priorityMode === 'senza-priorita' ? 'border-slate-900 bg-slate-50 shadow-lg shadow-slate-900/10' : 'border-slate-200 bg-slate-50 hover:border-slate-400 hover:bg-white'}`}>
+                <label className={`cursor-pointer rounded-2xl border-2 p-5 transition ${form.priorityMode === 'senza-priorita' ? 'border-slate-900 bg-slate-100 shadow-[0_12px_30px_rgba(15,23,42,0.1)]' : 'border-slate-200 bg-slate-50 hover:border-slate-400 hover:bg-white'}`}>
                   <span className="flex items-start gap-3">
                     <input
                       type="radio"
@@ -282,7 +263,7 @@ export default function PartnerRegistration() {
                   </span>
                 </label>
               </div>
-            </fieldset>
+            </div>
             <fieldset className="rounded-[1.75rem] border border-slate-200 bg-[#f8fbff] p-5 sm:p-6">
               <legend className="px-2 text-lg font-black text-slate-950">
                 Condizioni per entrare nella rete ViaSOS
@@ -315,22 +296,19 @@ export default function PartnerRegistration() {
               </label>
             </fieldset>
             {conditionsOpen ? (
-              <div className="fixed inset-0 z-50 overflow-y-auto bg-white" role="dialog" aria-modal="true" aria-labelledby="partner-conditions-title">
-                <div className="mx-auto w-full max-w-3xl px-5 py-6 sm:px-10 sm:py-10">
-                  <div className="flex items-start justify-between gap-5">
-                    <div>
-                      <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">Lettura obbligatoria</p>
-                      <h3 id="partner-conditions-title" className="mt-2 text-3xl font-black leading-tight text-slate-950">Condizioni partner ViaSOS</h3>
-                    </div>
-                    <button type="button" onClick={() => setConditionsOpen(false)} className="rounded-full px-3 py-2 text-sm font-black text-slate-500 hover:bg-slate-100 hover:text-slate-950" aria-label="Chiudi condizioni">Chiudi</button>
+              <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/35 p-0 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="partner-conditions-title">
+                <div className="max-h-[90svh] w-full max-w-3xl overflow-y-auto rounded-t-[1.5rem] bg-white p-5 shadow-2xl sm:rounded-[1.5rem] sm:p-6">
+                  <div className="sticky top-0 z-10 -mx-5 -mt-5 flex items-center justify-between border-b border-slate-200 bg-white px-5 py-4 sm:-mx-6 sm:-mt-6 sm:px-6">
+                    <div><p className="text-xs font-black uppercase tracking-[0.16em] text-[#075e54]">Lettura obbligatoria</p><h3 id="partner-conditions-title" className="text-xl font-black text-slate-950">Condizioni partner ViaSOS</h3></div>
+                    <button type="button" onClick={() => setConditionsOpen(false)} className="rounded-full border border-slate-200 px-3 py-2 text-sm font-black text-slate-600 hover:bg-slate-100" aria-label="Chiudi condizioni">Chiudi</button>
                   </div>
-                  <div className="mt-7 grid gap-5 text-base font-semibold leading-7 text-slate-600">
+                  <div className="grid gap-4 pt-4 text-sm font-semibold leading-6 text-slate-600">
                     <p><strong className="text-slate-950">ViaSOS opera esclusivamente come generatore e smistatore di richieste.</strong> Non esegue il soccorso stradale e non diventa parte del rapporto tra il cliente e il carroattrezzi.</p>
                     <p>Dal momento in cui accetti una richiesta, <strong className="text-slate-950">sei tu il responsabile dell’intervento assegnato</strong>: contatto con il cliente, prezzo, tempi, mezzo utilizzato, modalità operative, sicurezza, autorizzazioni, assicurazioni e corretta esecuzione del servizio.</p>
                     <p>ViaSOS non risponde di danni, ritardi, mancati interventi, disservizi, contestazioni, costi, incidenti o qualsiasi altra conseguenza relativa al servizio svolto dal carroattrezzi. <strong className="text-slate-950">Ogni responsabilità resta a carico dell’operatore che prende in carico il cliente.</strong></p>
                     <p>I dati e le dichiarazioni forniti devono essere completi e veritieri. In caso di informazioni false, disponibilità dichiarate senza fondamento o comportamenti scorretti, ViaSOS potrà sospendere il profilo, interrompere l’invio delle richieste e <strong className="text-slate-950">valutare le opportune azioni legali</strong> a tutela del cliente e della rete.</p>
                   </div>
-                  <button type="button" onClick={() => { setConditionsViewed(true); setConditionsOpen(false) }} className="mt-8 w-full rounded-full bg-[#075e54] px-6 py-4 text-base font-black text-white transition hover:bg-[#06483f]">Ho letto le condizioni e voglio accettarle</button>
+                  <button type="button" onClick={() => { setConditionsViewed(true); setConditionsOpen(false) }} className="mt-5 w-full rounded-full bg-[#075e54] px-6 py-3.5 text-base font-black text-white transition hover:bg-[#06483f]">Ho letto le condizioni e voglio accettarle</button>
                 </div>
               </div>
             ) : null}
