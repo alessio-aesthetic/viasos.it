@@ -302,7 +302,7 @@ export default function PartnerRegistration() {
                     <div><p className="text-xs font-black uppercase tracking-[0.16em] text-[#075e54]">Lettura obbligatoria</p><h3 id="partner-conditions-title" className="text-xl font-black text-slate-950">Condizioni partner ViaSOS</h3></div>
                     <button type="button" onClick={() => setConditionsOpen(false)} className="rounded-full border border-slate-200 px-3 py-2 text-sm font-black text-slate-600 hover:bg-slate-100" aria-label="Chiudi condizioni">Chiudi</button>
                   </div>
-                  <div className="grid gap-4 pt-4 text-sm font-semibold leading-6 text-slate-600">
+                  <div className="grid gap-4 pt-6 text-sm font-semibold leading-6 text-slate-600">
                     <p><strong className="text-slate-950">ViaSOS opera esclusivamente come generatore e smistatore di richieste.</strong> Non esegue il soccorso stradale e non diventa parte del rapporto tra il cliente e il carroattrezzi.</p>
                     <p>Dal momento in cui accetti una richiesta, <strong className="text-slate-950">sei tu il responsabile dell’intervento assegnato</strong>: contatto con il cliente, prezzo, tempi, mezzo utilizzato, modalità operative, sicurezza, autorizzazioni, assicurazioni e corretta esecuzione del servizio.</p>
                     <p>ViaSOS non risponde di danni, ritardi, mancati interventi, disservizi, contestazioni, costi, incidenti o qualsiasi altra conseguenza relativa al servizio svolto dal carroattrezzi. <strong className="text-slate-950">Ogni responsabilità resta a carico dell’operatore che prende in carico il cliente.</strong></p>
