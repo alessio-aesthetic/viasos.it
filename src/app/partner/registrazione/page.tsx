@@ -264,10 +264,10 @@ export default function PartnerRegistration() {
                 </label>
               </div>
             </div>
-            <fieldset className="rounded-[1.75rem] border border-slate-200 bg-[#f8fbff] p-5 sm:p-6">
-              <legend className="px-2 text-lg font-black text-slate-950">
+            <div className="rounded-[1.75rem] border border-slate-200 bg-[#f8fbff] p-5 sm:p-6">
+              <h3 className="text-lg font-black text-slate-950">
                 Condizioni per entrare nella rete ViaSOS
-              </legend>
+              </h3>
               <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-slate-600">
                 Prima di inviare la candidatura devi leggere e accettare le condizioni che regolano il rapporto tra ViaSOS, il partner e il cliente.
               </p>
@@ -294,7 +294,7 @@ export default function PartnerRegistration() {
                   Ho letto e accetto le condizioni partner. Confermo inoltre che i dati inseriti sono corretti e autorizzo ViaSOS a contattarmi per la verifica e l’attivazione del profilo.
                 </span>
               </label>
-            </fieldset>
+            </div>
             {conditionsOpen ? (
               <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/35 p-0 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="partner-conditions-title">
                 <div className="max-h-[90svh] w-full max-w-3xl overflow-y-auto rounded-t-[1.5rem] bg-white p-5 shadow-2xl sm:rounded-[1.5rem] sm:p-6">
