@@ -217,7 +217,6 @@ export default function PartnerRegistration() {
             <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-[0_18px_45px_rgba(15,23,42,0.07)] sm:p-5">
               <div className="border-b border-slate-200 pb-4">
                 <h3 className="text-xl font-black text-slate-950 sm:text-2xl">Come vuoi ricevere le richieste?</h3>
-                <p className="mt-1 text-sm font-semibold leading-6 text-slate-600">La modalità viene scelta dal sistema in base alla richiesta e alla disponibilità: in entrambi i casi dovrai rispondere entro 25 secondi.</p>
               </div>
               <div className="mt-4 grid gap-4 lg:grid-cols-2">
                 <label className={`cursor-pointer rounded-2xl border-2 p-5 transition duration-300 hover:-translate-y-0.5 ${form.priorityMode === 'prioritaria' ? 'border-[#20a477] bg-[#effcf6] shadow-[0_18px_36px_rgba(32,164,119,0.22)] ring-1 ring-[#9be2c5]' : 'border-emerald-200 bg-white shadow-[0_8px_22px_rgba(32,164,119,0.08)] hover:border-[#75b9aa] hover:shadow-[0_14px_30px_rgba(32,164,119,0.14)]'}`}>
