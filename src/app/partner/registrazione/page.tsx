@@ -269,14 +269,14 @@ export default function PartnerRegistration() {
                 Condizioni per entrare nella rete ViaSOS
               </h3>
               <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-slate-600">
-                Prima di inviare la candidatura devi leggere e accettare le condizioni che regolano il rapporto tra ViaSOS, il partner e il cliente.
+                Puoi consultare le condizioni che regolano il rapporto tra ViaSOS, il partner e il cliente prima di accettarle.
               </p>
               <button
                 type="button"
                 onClick={() => setConditionsOpen(true)}
                 className="mt-5 inline-flex items-center justify-center rounded-full bg-[#07111f] px-5 py-3 text-sm font-black text-white transition hover:bg-[#123456]"
               >
-                {conditionsViewed ? 'Condizioni già consultate' : 'Apri e leggi le condizioni'}
+                {conditionsViewed ? 'Riapri le condizioni' : 'Consulta le condizioni'}
               </button>
               {conditionsViewed ? (
                 <p className="mt-3 text-sm font-black text-[#075e54]">✓ Puoi procedere con l’accettazione.</p>
@@ -287,11 +287,10 @@ export default function PartnerRegistration() {
                   checked={form.accepted}
                   onChange={(event) => update('accepted', event.target.checked)}
                   className="mt-1 size-5 shrink-0 accent-[#075e54]"
-                  disabled={!conditionsViewed}
                   required
                 />
                 <span>
-                  Ho letto e accetto le condizioni partner. Confermo inoltre che i dati inseriti sono corretti e autorizzo ViaSOS a contattarmi per la verifica e l’attivazione del profilo.
+                  Accetto le condizioni partner. Confermo inoltre che i dati inseriti sono corretti e autorizzo ViaSOS a contattarmi per la verifica e l’attivazione del profilo.
                 </span>
               </label>
             </div>
@@ -299,7 +298,7 @@ export default function PartnerRegistration() {
               <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/35 p-0 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="partner-conditions-title">
                 <div className="max-h-[90svh] w-full max-w-3xl overflow-y-auto rounded-t-[1.5rem] bg-white p-5 shadow-2xl sm:rounded-[1.5rem] sm:p-6">
                   <div className="sticky top-0 z-10 -mx-5 -mt-5 flex items-center justify-between border-b border-slate-200 bg-white px-5 py-4 sm:-mx-6 sm:-mt-6 sm:px-6">
-                    <div><p className="text-xs font-black uppercase tracking-[0.16em] text-[#075e54]">Lettura obbligatoria</p><h3 id="partner-conditions-title" className="text-xl font-black text-slate-950">Condizioni partner ViaSOS</h3></div>
+                    <div><p className="text-xs font-black uppercase tracking-[0.16em] text-[#075e54]">Informazioni partner</p><h3 id="partner-conditions-title" className="text-xl font-black text-slate-950">Condizioni partner ViaSOS</h3></div>
                     <button type="button" onClick={() => setConditionsOpen(false)} className="rounded-full border border-slate-200 px-3 py-2 text-sm font-black text-slate-600 hover:bg-slate-100" aria-label="Chiudi condizioni">Chiudi</button>
                   </div>
                   <div className="grid gap-4 pt-6 text-sm font-semibold leading-6 text-slate-600">
