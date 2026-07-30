@@ -220,7 +220,7 @@ export default function PartnerRegistration() {
                 <p className="mt-1 text-sm font-semibold leading-6 text-slate-600">La modalità viene scelta dal sistema in base alla richiesta e alla disponibilità: in entrambi i casi dovrai rispondere entro 25 secondi.</p>
               </div>
               <div className="mt-4 grid gap-4 lg:grid-cols-2">
-                <label className={`cursor-pointer rounded-2xl border-2 p-5 transition ${form.priorityMode === 'prioritaria' ? 'border-[#075e54] bg-[#f0fdf9] shadow-[0_12px_30px_rgba(7,94,84,0.12)]' : 'border-slate-200 bg-slate-50 hover:border-[#75b9aa] hover:bg-white'}`}>
+                <label className={`cursor-pointer rounded-2xl border-2 p-5 transition duration-300 hover:-translate-y-0.5 ${form.priorityMode === 'prioritaria' ? 'border-[#20a477] bg-[#effcf6] shadow-[0_18px_36px_rgba(32,164,119,0.22)] ring-1 ring-[#9be2c5]' : 'border-emerald-200 bg-white shadow-[0_8px_22px_rgba(32,164,119,0.08)] hover:border-[#75b9aa] hover:shadow-[0_14px_30px_rgba(32,164,119,0.14)]'}`}>
                   <span className="flex items-start gap-3">
                     <input
                       type="radio"
@@ -231,7 +231,7 @@ export default function PartnerRegistration() {
                       className="mt-1 size-5 accent-[#075e54]"
                     />
                     <span>
-                      <strong className="block text-lg font-black text-slate-950">Via prioritaria</strong>
+                      <strong className="block text-lg font-black text-[#087f5b]">Via prioritaria</strong>
                       <span className="mt-2 block text-sm font-semibold leading-6 text-slate-600">
                         Entri tra i primi carroattrezzi contattati nella tua zona, con priorità di invio e chiamata diretta con il cliente quando prevista dal flusso di assegnazione.
                       </span>
