@@ -14,9 +14,23 @@ export async function partnerRequest<T>(
     body: JSON.stringify(payload),
   })
 
-  const result = (await response.json()) as T & {
+  const raw = await response.text()
+  let result = {} as T & {
     ok?: boolean
     message?: string
+  }
+
+  if (raw.trim()) {
+    try {
+      result = JSON.parse(raw) as T & {
+        ok?: boolean
+        message?: string
+      }
+    } catch {
+      if (!response.ok) {
+        throw new Error('Il servizio ha restituito una risposta non valida.')
+      }
+    }
   }
 
   if (!response.ok || result.ok === false) {
