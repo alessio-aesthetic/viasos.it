@@ -55,6 +55,7 @@ export default function CarroattrezziFerraraPage() {
         pagePath="/carroattrezzi-ferrara"
         backHref="/"
         premiumLogo
+        proximityCopy="Carroattrezzi disponibile a meno di 7 km da te."
       />
     </>
   )
