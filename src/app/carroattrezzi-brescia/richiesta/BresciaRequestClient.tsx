@@ -11,6 +11,7 @@ type RequestClientProps = {
   backHref?: string
   webhookUrl?: string
   premiumLogo?: boolean
+  proximityCopy?: string
 }
 
 const defaultWebhook =
@@ -224,6 +225,7 @@ export function BresciaRequestClient({
   backHref = '/carroattrezzi-brescia',
   webhookUrl = defaultWebhook,
   premiumLogo = false,
+  proximityCopy,
 }: RequestClientProps = {}) {
   const [step, setStep] = useState<Step>(0)
   const [problem, setProblem] = useState('')
@@ -448,7 +450,7 @@ export function BresciaRequestClient({
                     </span>
                   </h2>
                   <p className="mx-auto mt-3 max-w-md border-y border-[#0f766e]/16 py-3 text-base font-bold leading-[1.45] text-slate-700 sm:mt-4 sm:py-4 sm:text-lg">
-                    Con noi hai meno attesa e costi inferiori rispetto agli altri carroattrezzi in zona {city} e provincia.
+                    {proximityCopy ?? `Con noi hai meno attesa e costi inferiori rispetto agli altri carroattrezzi in zona ${city} e provincia.`}
                   </p>
 
                   <div className="mx-auto mt-3 grid w-full max-w-md sm:mt-4">
