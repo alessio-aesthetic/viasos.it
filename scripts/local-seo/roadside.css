@@ -115,10 +115,10 @@ a:focus-visible,summary:focus-visible,input:focus-visible{outline-color:#006fc7}
 }
 /* Keep long municipality names in flow, above the illustration at every width. */
 .radar{display:flex;flex-direction:column;height:auto;min-height:620px}
-.radar-center{position:relative;top:auto;left:auto;transform:none;margin:100px 26px 10px;width:auto}
-.tow-art{position:relative;top:auto;left:auto;flex-shrink:0;margin-top:auto;height:auto;max-height:290px}
-.radar-tag{position:relative;bottom:auto;left:auto;transform:none;margin:8px auto 12px;flex-shrink:0}
-.radar-note{position:relative;bottom:auto;left:auto;margin:0 15px 20px;width:auto}
+.radar-center{order:1;position:relative;top:auto;left:auto;transform:none;margin:100px 26px 10px;width:auto}
+.tow-art{order:2;position:relative;top:auto;left:auto;flex-shrink:0;margin-top:auto;height:auto;max-height:290px}
+.radar-tag{order:3;position:relative;bottom:auto;left:auto;transform:none;margin:8px auto 12px;flex-shrink:0}
+.radar-note{order:4;position:relative;bottom:auto;left:auto;margin:0 15px 20px;width:auto}
 @media(max-width:800px){.radar{min-height:470px}.radar-center{margin:80px 24px 12px}.tow-art{max-height:250px}}
 @media(max-width:450px){.radar{min-height:390px}.radar-center{margin:66px 20px 8px}.tow-art{max-height:205px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
