@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node scripts/build-local-seo.mjs",
+    "verify:local-seo": "node scripts/verify-local-seo.mjs",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"

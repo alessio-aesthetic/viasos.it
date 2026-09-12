@@ -20,6 +20,7 @@ export function Footer() {
           <FooterGroup
             title="Navigazione"
             links={[
+              ['Carroattrezzi per comune', '/carroattrezzi/'],
               ['Come funziona', '#come-funziona'],
               ['Servizi', '#servizi'],
               ['Copertura', '#copertura'],

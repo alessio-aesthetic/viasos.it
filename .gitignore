@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+local-build.log
+/data/local-seo/comuni-source.json
+/data/local-seo/coordinates-source.csv

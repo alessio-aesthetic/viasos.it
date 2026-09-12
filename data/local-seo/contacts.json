@@ -1,0 +1,230 @@
+[
+  {
+    "city": "Ferrara",
+    "phone": "0532 080206",
+    "tel": "+390532080206",
+    "site": "https://carroattrezziaferrara.it",
+    "coordinates": {
+      "lat": 44.8360145,
+      "lng": 11.6187445
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezziaferrara.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Pavia",
+    "phone": "350 892 2659",
+    "tel": "+393508922659",
+    "site": "https://carroattrezziapavia.it",
+    "coordinates": {
+      "lat": 45.1850329,
+      "lng": 9.159774
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezziapavia.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Bergamo",
+    "phone": "035 068 3839",
+    "tel": "+390350683839",
+    "site": "https://carroattrezzibergamo24ore.it",
+    "coordinates": {
+      "lat": 45.6947848,
+      "lng": 9.667711
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezzibergamo24ore.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Brescia",
+    "phone": "030 204 1917",
+    "tel": "+390302041917",
+    "site": "https://carroattrezzibrescia24.it",
+    "coordinates": {
+      "lat": 45.5399355,
+      "lng": 10.219113
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezzibrescia24.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Catania",
+    "phone": "095 090 1842",
+    "tel": "+390950901842",
+    "site": "https://carroattrezzicatania.it",
+    "coordinates": {
+      "lat": 37.5029702,
+      "lng": 15.086964
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezzicatania.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Cesena",
+    "phone": "0547 040096",
+    "tel": "+390547040096",
+    "site": "https://carroattrezzicesenamf.it",
+    "coordinates": {
+      "lat": 44.1362573,
+      "lng": 12.2419181
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezzicesenamf.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Livorno",
+    "phone": "0586 180 2274",
+    "tel": "+3905861802274",
+    "site": "https://carroattrezzilivorno24h.it",
+    "coordinates": {
+      "lat": 43.5522323,
+      "lng": 10.308057
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezzilivorno24h.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Mantova",
+    "phone": "0444 152 0807",
+    "tel": "+3904441520807",
+    "site": "https://carroattrezzimantova.it",
+    "coordinates": {
+      "lat": 45.1574335,
+      "lng": 10.7928012
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezzimantova.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Napoli",
+    "phone": "081 180 4692",
+    "tel": "+390811804692",
+    "site": "https://carroattrezzinapoli24.it",
+    "coordinates": {
+      "lat": 40.8400998,
+      "lng": 14.2500966
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezzinapoli24.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Padova",
+    "phone": "04441520847",
+    "tel": "+3904441520847",
+    "site": "https://carroattrezzipadova.it",
+    "coordinates": {
+      "lat": 45.40702,
+      "lng": 11.876346
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezzipadova.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Piacenza",
+    "phone": "0523 192 0069",
+    "tel": "+3905231920069",
+    "site": "https://carroattrezzipiacenzamg.it",
+    "coordinates": {
+      "lat": 45.0519613,
+      "lng": 9.6926721
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezzipiacenzamg.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Prato",
+    "phone": "0574 198 0036",
+    "tel": "+3905741980036",
+    "site": "https://carroattrezziprato24.it",
+    "coordinates": {
+      "lat": 43.8808908,
+      "lng": 11.0968044
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezziprato24.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Reggio Emilia",
+    "phone": "0522 178 0329",
+    "tel": "+3905221780329",
+    "site": "https://carroattrezzireggioemiliapro.it",
+    "coordinates": {
+      "lat": 44.6971946,
+      "lng": 10.6303573
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezzireggioemiliapro.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Salerno",
+    "phone": "089 180 3547",
+    "tel": "+390891803547",
+    "site": "https://carroattrezzisalerno.it",
+    "coordinates": {
+      "lat": 40.6784645,
+      "lng": 14.756079
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezzisalerno.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Udine",
+    "phone": "0432 177 2099",
+    "tel": "+3904321772099",
+    "site": "https://carroattrezziudine.it",
+    "coordinates": {
+      "lat": 46.0633481,
+      "lng": 13.2354304
+    },
+    "source": "https://github.com/alessio-aesthetic/carroattrezziudine.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Pescara",
+    "phone": "085 180 4196",
+    "tel": "+390851804196",
+    "site": "https://pescaracarroattrezzi.it",
+    "coordinates": {
+      "lat": 42.4641173,
+      "lng": 14.2143544
+    },
+    "source": "https://github.com/alessio-aesthetic/pescaracarroattrezzi.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Latina",
+    "phone": "0773 180 2964",
+    "tel": "+3907731802964",
+    "site": "https://soccorsostradalelatina.it",
+    "coordinates": {
+      "lat": 41.4678964,
+      "lng": 12.9031901
+    },
+    "source": "https://github.com/alessio-aesthetic/soccorsostradalelatina.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Trieste",
+    "phone": "040 180 2385",
+    "tel": "+390401802385",
+    "site": "https://soccorsostradaletrieste.it",
+    "coordinates": {
+      "lat": 45.6494502,
+      "lng": 13.7684078
+    },
+    "source": "https://github.com/alessio-aesthetic/soccorsostradaletrieste.it/blob/main/src",
+    "checkedAt": "2026-09-12"
+  },
+  {
+    "city": "Lucca",
+    "phone": "035 068 3881",
+    "tel": "+390350683881",
+    "site": "https://viasos.it/carroattrezzi-lucca/",
+    "coordinates": {
+      "lat": 43.8442458,
+      "lng": 10.5015454
+    },
+    "source": "src/app/carroattrezzi-lucca/page.tsx",
+    "checkedAt": "2026-09-12"
+  }
+]

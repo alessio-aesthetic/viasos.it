@@ -1,0 +1,14 @@
+(() => {
+  const clocks = document.querySelectorAll('[data-clock]');
+  const updateClock = () => { const time = new Intl.DateTimeFormat('it-IT', {timeZone:'Europe/Rome',hour:'2-digit',minute:'2-digit'}).format(new Date());clocks.forEach(el => {el.textContent = `· Ore ${time}`;}); };
+  if(clocks.length){updateClock();setInterval(updateClock,30000);}
+  if('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){e.target.classList.add('reveal');observer.unobserve(e.target)}},{threshold:.08});document.querySelectorAll('.contact-card,.benefits>div,.faq details,.section-heading').forEach(el=>observer.observe(el));}
+  // Emits only a local event; a consenting analytics integration can subscribe later.
+  document.querySelectorAll('[data-call]').forEach(a=>a.addEventListener('click',()=>window.dispatchEvent(new CustomEvent('viasos:call',{detail:{page:location.pathname,contactCity:a.dataset.call,placement:a.closest('.sticky-call')?'sticky':'content'}}))));
+  const input=document.getElementById('city-search'),results=document.getElementById('search-results'),status=document.querySelector('[data-search-status]');
+  if(!input)return;
+  const normalize=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+  let pending,loading,data,request=0;
+  const search=async()=>{const id=++request;const query=normalize(input.value);results.replaceChildren();if(query.length<2){status.textContent='';return;}status.textContent='Ricerca del comune…';try{if(!data){loading ||= fetch('/local-assets/cities.json').then(r=>{if(!r.ok)throw Error();return r.json()}).catch(e=>{loading=null;throw e});data=await loading;}if(id!==request||query!==normalize(input.value))return;const found=data.filter(c=>normalize(c.name).includes(query)||normalize(c.province).includes(query)||normalize(c.code)===query).sort((a,b)=>Number(normalize(b.name)===query)-Number(normalize(a.name)===query)||Number(normalize(b.name).startsWith(query))-Number(normalize(a.name).startsWith(query))||a.name.localeCompare(b.name,'it'));status.textContent=found.length?`${found.length} comuni trovati${found.length>20?'. Mostrati i primi 20: precisa il nome per restringere la ricerca.':'.'}`:'Nessun comune trovato. Prova il nome della provincia.';for(const c of found.slice(0,20)){const a=document.createElement('a');a.href=c.url;const label=document.createElement('span');label.textContent=c.name;const small=document.createElement('small');small.textContent=`${c.province} (${c.code})`;label.append(small);const arrow=document.createElement('span');arrow.textContent='↗';a.append(label,arrow);results.append(a)}}catch{status.textContent='Ricerca momentaneamente non disponibile. Usa l’elenco delle regioni qui sotto.'}};
+  input.addEventListener('input',()=>{clearTimeout(pending);pending=setTimeout(search,150)});
+})();

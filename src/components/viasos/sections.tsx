@@ -378,6 +378,9 @@ export function Coverage() {
               ),
             )}
           </div>
+          <a href="/carroattrezzi/" className="mt-8 inline-flex rounded-full bg-[#07111f] px-6 py-3.5 text-base font-bold text-white">
+            Trova il carroattrezzi per il tuo comune →
+          </a>
         </div>
         <div className="relative h-[430px] rounded-[2rem] bg-white p-6 shadow-xl">
           <div className="absolute inset-8 rounded-[45%_55%_50%_50%] border-2 border-dashed border-[#25d366]/50 bg-[#e9fff2]" />
