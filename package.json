@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build && node scripts/build-local-seo.mjs",
     "verify:local-seo": "node scripts/verify-local-seo.mjs",
+    "verify:location": "node scripts/verify-location-flow.mjs",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"

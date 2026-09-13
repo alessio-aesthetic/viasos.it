@@ -26,6 +26,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run verify:local-seo
+      - run: npm run verify:location
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

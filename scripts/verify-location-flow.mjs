@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {normalizePlace,resolveLocation,requestPosition} from '../src/lib/location-flow.mjs';
+const places=JSON.parse(fs.readFileSync('out/local-assets/cities.json','utf8'));
+const cases=['Bergamo','Padova','Udine','Roma','Cagliari','Catania','Abano Terme'];
+for(const name of cases){const p=places.find(c=>c.name===name);const result=resolveLocation(places,{latitude:p.latitude,longitude:p.longitude,accuracy:30});assert.equal(result.city.name,name);assert.equal(result.automatic,true);assert(fs.existsSync(`out${result.city.url}index.html`))}
+assert.equal(resolveLocation(places,{latitude:51.5,longitude:-.12,accuracy:10}).automatic,false,'No routing from London');
+assert.equal(resolveLocation(places,{latitude:45.69,longitude:9.67,accuracy:30000}).automatic,false,'No routing with imprecise position');
+assert.equal(resolveLocation(places,{latitude:45.69,longitude:9.67}).automatic,false,'Unknown accuracy needs confirmation');
+assert.throws(()=>resolveLocation(places,{latitude:NaN,longitude:0,accuracy:10}));
+assert.throws(()=>resolveLocation([],{latitude:45,longitude:10,accuracy:10}));
+assert.equal(normalizePlace('  Agliè '),'aglie');
+let options;
+const expected={coords:{latitude:45.69,longitude:9.67,accuracy:20}};
+assert.equal(await requestPosition({getCurrentPosition:(ok,fail,opts)=>{options=opts;ok(expected)}}),expected);
+assert.equal(options.timeout,10000);assert.equal(options.maximumAge,60000);
+for(const code of [1,2,3])await assert.rejects(requestPosition({getCurrentPosition:(ok,fail)=>fail({code})}),e=>e.code===code);
+const home=fs.readFileSync('out/index.html','utf8');
+assert(home.includes('Usa la mia posizione'));assert(!home.includes('type="tel"'),'Home must not ask for a phone');
+for(const lottie of ['search.lottie','whatsapp.lottie','technology-network.lottie','search-flow-large.lottie'])assert(home.includes(lottie),`Preserve ${lottie}`);
+console.log('Location flow: 7 municipality routes, remote/imprecise/invalid fixes, permission denial, timeout, manual fallback data, no phone form, original Lottie assets: passed.');

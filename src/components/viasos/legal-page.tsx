@@ -11,7 +11,7 @@ export function LegalPage({
   return (
     <>
       <Header />
-      <main className="bg-slate-50 pb-24 pt-32">
+      <main className="rescue-legal bg-slate-50 pb-24 pt-32">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl font-black tracking-tight text-[#07111f]">
             {title}

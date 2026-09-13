@@ -74,7 +74,7 @@ function FooterGroup({
       <p className="font-black">{title}</p>
       <div className="mt-4 grid gap-3 text-sm text-slate-300">
         {links.map(([label, href]) => (
-          <a key={label} href={href} className="hover:text-white">
+          <a key={label} href={href.startsWith('#') ? '/' + href : href} className="hover:text-white">
             {label}
           </a>
         ))}

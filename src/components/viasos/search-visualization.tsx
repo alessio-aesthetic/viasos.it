@@ -22,18 +22,18 @@ declare global {
 
 const towTrucks = [
   {
-    label: 'Carroattrezzi 1',
-    status: 'verifica disponibilità',
+    label: 'La tua posizione',
+    status: 'punto di partenza',
     state: 'checking',
   },
   {
-    label: 'Carroattrezzi 2',
-    status: 'non disponibile',
+    label: 'Il tuo comune',
+    status: 'zona di riferimento',
     state: 'unavailable',
   },
   {
-    label: 'Carroattrezzi 3',
-    status: 'disponibile',
+    label: 'Il contatto',
+    status: 'pronto da chiamare',
     state: 'available',
   },
 ]
@@ -47,15 +47,13 @@ export function SearchVisualization() {
         <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
           <div>
             <p className="inline-flex rounded-full border border-[#25d366]/25 bg-[#25d366]/10 px-4 py-2 text-sm font-black uppercase tracking-[0.18em] text-[#8ff7b6]">
-              ricerca progressiva in tempo reale
+              come funziona la ricerca
             </p>
             <h2 className="mt-6 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-              La richiesta non si ferma al primo numero.
+              Dalla tua posizione al numero da chiamare.
             </h2>
             <p className="mt-6 text-lg leading-8 text-slate-300">
-              ViaSOS parte dalla tua posizione, verifica i carroattrezzi più
-              vicini e continua la ricerca finché trova una disponibilità
-              compatibile con veicolo, problema e zona.
+              ViaSOS individua il comune più vicino alla posizione rilevata e apre la pagina con il numero di riferimento. L’animazione illustra il percorso: la disponibilità effettiva si conferma al telefono.
             </p>
             <div className="mt-8 grid gap-3">
               {towTrucks.map((truck, index) => (

@@ -1,5 +1,21 @@
 # Pagine comunali ViaSOS
 
+## Ricerca rapida dalla homepage
+
+La homepage usa `LocationFinder` e `src/lib/location-flow.mjs`: geolocalizzazione
+solo su click, massimo 10 secondi per il fix e 8 secondi per l'archivio statico.
+La posizione precisa non lascia il browser. Il comune viene selezionato per
+distanza dal suo centro, non tramite confini amministrativi o geocodifica esterna.
+Fix con accuratezza peggiore di 10 km o lontani oltre 25 km dal centro più vicino
+richiedono una scelta manuale. La ricerca per nome e provincia è sempre disponibile.
+La homepage non invia richieste, non chiama automaticamente e non chiede il telefono.
+Le pagine di richiesta già esistenti mantengono i rispettivi flussi.
+
+`npm run verify:location` verifica coordinate di esempio, posizione fuori Italia,
+accuratezza insufficiente, permesso negato, timeout, URL di destinazione e presenza
+dei Lottie originali. Il test usa coordinate simulate, non la posizione reale
+del dispositivo. Il controllo viene eseguito anche prima del deploy.
+
 Le pagine sono generate dopo l'export Next.js da `scripts/build-local-seo.mjs`.
 Il contenuto è HTML leggibile senza JavaScript. CSS e JavaScript sono condivisi;
 nessuna fotografia o libreria di animazione viene duplicata per comune.

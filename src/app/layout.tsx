@@ -1,4 +1,5 @@
 import '@/styles/tailwind.css'
+import '@/styles/rescue-theme.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { GeistSans } from 'geist/font/sans'
@@ -46,7 +47,7 @@ export default function RootLayout({
       lang="it"
       className={`scroll-smooth ${inter.variable} ${GeistSans.variable}`}
     >
-      <body className="bg-white text-slate-950 antialiased">{children}</body>
+      <body className="viasos-app bg-white text-slate-950 antialiased">{children}</body>
     </html>
   )
 }

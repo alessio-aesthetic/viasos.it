@@ -8,22 +8,22 @@ const steps = [
   {
     title: 'Invia la posizione',
     image: '/images/micro/step-position.webp',
-    text: 'Compila il breve modulo e condividi la posizione del veicolo, anche senza conoscere l’indirizzo esatto.',
+    text: 'Tocca Usa la mia posizione e autorizza il browser, anche senza conoscere l’indirizzo esatto.',
   },
   {
-    title: 'Avviamo la ricerca',
+    title: 'Troviamo il comune',
     image: '/images/micro/step-search.webp',
-    text: 'Il sistema individua i partner presenti nei dintorni e parte dal carroattrezzi potenzialmente più vicino.',
+    text: 'Il sistema confronta la posizione rilevata con le coordinate dei comuni e apre la pagina della zona più vicina.',
   },
   {
-    title: 'Verifichiamo la disponibilità',
+    title: 'Apri il contatto',
     image: '/images/micro/step-availability.webp',
-    text: 'Se il primo carroattrezzi non risponde o non può intervenire, la richiesta passa automaticamente al successivo.',
+    text: 'Nella pagina trovi il numero di riferimento e le alternative geograficamente più vicine fra i contatti disponibili.',
   },
   {
-    title: 'Ricevi la conferma',
+    title: 'Chiama e conferma',
     image: '/images/micro/step-confirm.webp',
-    text: 'Il carroattrezzi disponibile riceve i dati e può contattarti direttamente tramite telefono o WhatsApp.',
+    text: 'Tocca Chiama ora e concorda direttamente disponibilità, tempi e costo del recupero con il professionista.',
   },
 ]
 
@@ -36,11 +36,11 @@ const oldWay = [
 ]
 
 const newWay = [
-  'Inoltri una sola richiesta',
-  'Condividi una volta sola la posizione',
-  'Il sistema parte dai carroattrezzi più vicini',
-  'La ricerca continua fino a trovare disponibilità',
-  'Ricevi il riscontro direttamente su WhatsApp',
+  'Parti dalla posizione del veicolo',
+  'Apri subito la pagina del comune',
+  'Trovi il numero di riferimento già pronto',
+  'Hai a disposizione anche contatti alternativi',
+  'Confermi disponibilità e costo al telefono',
 ]
 
 export function ImpactBand() {
@@ -48,11 +48,10 @@ export function ImpactBand() {
     <section className="bg-[#07111f] py-14 text-white">
       <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
         <p className="text-2xl font-black tracking-tight sm:text-4xl">
-          Non cercare il carroattrezzi. Lascia che sia il carroattrezzi più
-          vicino a trovare te.
+          Il carroattrezzi di riferimento, partendo da dove sei.
         </p>
         <p className="mt-5 text-lg font-semibold text-slate-300">
-          ViaSOS sostituisce numerose telefonate con una sola richiesta.
+          La tua posizione diventa il punto di partenza per trovare il numero da chiamare.
         </p>
       </div>
     </section>
@@ -184,7 +183,7 @@ export function ProximityBenefits() {
     [
       'Maggiore possibilità di intervento',
       '/images/micro/benefit-continuity.webp',
-      'Se un carroattrezzi è impegnato, il sistema continua automaticamente con quelli successivi.',
+      'Se il primo contatto non può intervenire, nella pagina della zona trovi anche numeri alternativi.',
     ],
   ]
   return (
@@ -232,36 +231,33 @@ export function SpeedSection() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.22em] text-[#25d366]">
-            ricerca progressiva
+            ricerca per posizione
           </p>
           <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
-            Oltre 15 possibilità con una sola richiesta
+            Dalla posizione al numero, senza compilare un modulo
           </h2>
           <p className="mt-6 text-lg leading-8 text-slate-300">
-            La velocità di ViaSOS non dipende dalla risposta di un solo
-            carroattrezzi. In base alla copertura della zona, il sistema può
-            verificare progressivamente la disponibilità di oltre 15 carroattrezzi,
-            partendo da quelli più vicini.
+            Non serve inserire il numero di telefono per trovare il contatto. La posizione viene confrontata nel browser con l’elenco dei comuni: apri la pagina locale e chiama. Se la posizione non è disponibile, puoi scegliere il comune manualmente.
           </p>
           <p className="mt-6 rounded-2xl bg-white/10 p-5 text-xl font-black">
-            Tu invii la posizione una sola volta. Il sistema continua a cercare.
+            Tu condividi la posizione. ViaSOS apre il comune di riferimento.
           </p>
         </div>
         <div className="grid gap-3">
-          {Array.from({ length: 9 }).map((_, index) => (
+          {Array.from({ length: 3 }).map((_, index) => (
             <div
               key={index}
               className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3"
             >
-              <span className="font-bold">Carroattrezzi {index + 1}</span>
+              <span className="font-bold">{['Condividi la posizione', 'Apri la pagina del comune', 'Chiama il riferimento'][index]}</span>
               <span
                 className={
-                  index === 5
+                  index === 2
                     ? 'rounded-full bg-[#25d366] px-3 py-1 text-xs font-black text-[#07111f]'
                     : 'rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-slate-300'
                 }
               >
-                {index < 5 ? 'verifica' : index === 5 ? 'disponibile' : 'in coda'}
+                {['01', '02', '03'][index]}
               </span>
             </div>
           ))}
@@ -327,16 +323,16 @@ export function WhatsAppFlow() {
             href="#assistenza"
             className="mt-8 inline-flex rounded-full bg-[#25d366] px-6 py-3.5 text-base font-black text-[#07111f] shadow-xl shadow-emerald-950/15"
           >
-            Richiedi assistenza su WhatsApp
+            Trova il contatto della tua zona
           </a>
         </div>
         <div className="rounded-[2rem] bg-[#e9fff2] p-5">
           <div className="rounded-[1.5rem] bg-white p-5 shadow-xl">
             {[
-              'Posizione ricevuta',
-              'Ricerca dei carroattrezzi più vicini avviata',
-              'Carroattrezzi disponibile trovato',
-              'Il carroattrezzi ti contatterà a breve',
+              'Comunica il punto esatto al professionista',
+              'Descrivi il veicolo e il problema',
+              'Chiedi disponibilità e preventivo',
+              'Concorda il recupero e la destinazione',
             ].map((message) => (
               <div
                 key={message}
@@ -413,12 +409,10 @@ export function Reliability() {
             Una tecnologia semplice per un momento complicato
           </h2>
           <p className="mx-auto mt-6 max-w-4xl text-lg leading-8 text-slate-300">
-            Quando sei fermo per strada non vuoi confrontare decine di siti o
-            ripetere il problema a più carroattrezzi. ViaSOS riduce tutto a quattro
-            elementi: posizione, richiesta, ricerca automatica e risposta.
+            Quando sei fermo per strada vuoi arrivare velocemente al contatto utile. ViaSOS parte dalla posizione, individua il comune più vicino al punto rilevato e ti porta alla pagina con il numero da chiamare.
           </p>
           <p className="mt-10 text-2xl font-black text-[#ffd34d] sm:text-4xl">
-            La strada più breve tra te e il soccorso di cui hai bisogno.
+            La tua posizione. Il tuo comune. Il contatto da chiamare.
           </p>
         </div>
       </div>

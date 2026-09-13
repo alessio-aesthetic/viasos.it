@@ -232,11 +232,11 @@ export function BresciaLandingClient({
   }
 
   return (
-    <main className="min-h-screen bg-[#f6f8fb] pb-24 text-[#111827]">
+    <main className="rescue-landing min-h-screen bg-[#f6f8fb] pb-24 text-[#111827]">
       <header className="border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
           <a href="/" className="text-2xl font-black tracking-tight">
-            Via<span className="text-[#0f766e]">SOS</span>
+            <img src="/images/viasos-logo-header-cropped.webp" alt="ViaSOS" width="190" height="63" />
           </a>
           <a
             href={telHref}

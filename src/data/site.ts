@@ -5,7 +5,7 @@ export const site = {
   vatNumber: '02606820690',
   title: 'ViaSOS | Carroattrezzi e Soccorso Stradale Vicino in Tutta Italia',
   description:
-    'Invia la tua posizione e ViaSOS cerca automaticamente il carroattrezzi disponibile più vicino. Una sola richiesta, risposta tramite WhatsApp e rete di partner in tutta Italia.',
+    'Trova il carroattrezzi di riferimento dalla tua posizione. Apri la pagina del comune più vicino e chiama: nessun numero da inserire, ricerca manuale disponibile.',
   nav: [
     { href: '#come-funziona', label: 'Come funziona' },
     { href: '#servizi', label: 'Servizi' },
@@ -95,22 +95,22 @@ export const faqs = [
   {
     question: 'Come posso trovare un carroattrezzi vicino a me?',
     answer:
-      'Compila il modulo, inserisci il telefono, seleziona veicolo e problema e condividi la posizione. ViaSOS prepara una richiesta completa e la indirizza verso i carroattrezzi presenti nelle vicinanze, partendo da quelli potenzialmente più vicini.',
+      'Tocca Usa la mia posizione e autorizza il browser. ViaSOS apre la pagina del comune più vicino al punto rilevato, con il numero da chiamare. Puoi anche scegliere manualmente il comune.',
   },
   {
     question: 'Quanto tempo serve per ricevere una risposta?',
     answer:
-      'Dipende dalla zona, dal traffico, dal tipo di veicolo e dalla disponibilità dei carroattrezzi. Il vantaggio e che non devi chiamare un numero dopo l’altro: la richiesta può essere verificata progressivamente nella rete.',
+      'La ricerca del comune avviene appena il browser fornisce una posizione sufficientemente precisa. La risposta telefonica e il tempo d’intervento dipendono invece dal professionista, dalla zona e dal traffico.',
   },
   {
-    question: 'ViaSOS contatta un solo carroattrezzi?',
+    question: 'Posso trovare contatti alternativi?',
     answer:
-      'No. Il punto di forza della piattaforma e proprio la ricerca progressiva: se un carroattrezzi non può intervenire, la richiesta può passare a quello successivo compatibile e più vicino.',
+      'Sì. Nella pagina comunale trovi un riferimento principale e contatti alternativi ordinati per distanza geografica. La homepage non inoltra automaticamente chiamate o richieste.',
   },
   {
     question: 'Come viene scelto il carroattrezzi?',
     answer:
-      'La ricerca parte dalla posizione condivisa e considera i carroattrezzi disponibili e compatibili presenti nella rete al momento della richiesta. L’obiettivo e trovare una disponibilità vicina, non assegnare il lavoro in modo casuale.',
+      'La homepage seleziona il comune il cui centro è più vicino al punto rilevato. Nella pagina locale il contatto è associato alla città più vicina fra i numeri in elenco. Le distanze non indicano la posizione dei mezzi o tempi di arrivo.',
   },
   {
     question: 'Perché un carroattrezzi più vicino può essere più conveniente?',
@@ -120,12 +120,12 @@ export const faqs = [
   {
     question: 'Devo scaricare un’applicazione?',
     answer:
-      'No. ViaSOS funziona dal browser e prepara una richiesta inviabile tramite WhatsApp. Non servono registrazioni complesse o app aggiuntive.',
+      'No. ViaSOS funziona dal browser. Per trovare il comune e aprire il numero da chiamare non serve registrarsi o inserire il telefono.',
   },
   {
     question: 'Posso condividere la posizione senza conoscere l’indirizzo?',
     answer:
-      'Sì. Puoi usare la geolocalizzazione del browser. Se non vuoi concedere il permesso, puoi scrivere manualmente strada, riferimento, uscita, parcheggio o punto vicino.',
+      'Sì. Puoi autorizzare la geolocalizzazione del browser. Se non concedi il permesso o la posizione è imprecisa, cerca il nome del comune o della provincia e scegli il risultato corretto.',
   },
   {
     question: 'Quali veicoli possono essere recuperati?',
@@ -148,8 +148,8 @@ export const faqs = [
       'Puoi inviare la richiesta anche in orari serali, notturni o festivi. La risposta dipende dai carroattrezzi disponibili nella zona in quel momento.',
   },
   {
-    question: 'Cosa devo fare dopo aver inviato la richiesta?',
+    question: 'Cosa devo fare dopo aver trovato il comune?',
     answer:
-      'Controlla WhatsApp e tieni il telefono raggiungibile. Il carroattrezzi disponibile potrà contattarti per confermare dettagli, destinazione e condizioni dell’intervento.',
+      'Tocca Chiama ora nella pagina del comune. Comunica il punto esatto, il tipo di veicolo e il problema; chiedi disponibilità, tempi e costo prima di confermare.',
   },
 ]

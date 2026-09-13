@@ -12,7 +12,7 @@ export function PartnerShell({
   return (
     <main
       className={clsx(
-        'min-h-screen bg-[#f3f7fb] text-[#07111f]',
+        'rescue-partner min-h-screen bg-[#f3f7fb] text-[#07111f]',
         className,
       )}
     >

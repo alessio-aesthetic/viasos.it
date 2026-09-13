@@ -39,6 +39,7 @@ export default function PrivacyPage() {
         log di sicurezza, pagina di provenienza, gclid e parametri UTM.
       </p>
 
+      <h2 className="text-2xl font-black text-[#07111f]">Ricerca del comune dalla homepage</h2><p>La ricerca rapida della homepage confronta la posizione autorizzata nel browser con un elenco di coordinate comunali. Questo confronto avviene sul dispositivo: la funzione non invia le coordinate a ViaSOS o a un servizio di geocodifica e non le inserisce nell’indirizzo della pagina. I moduli di richiesta separati mantengono le modalità di trattamento descritte in questa informativa.</p>
       <h2 className="text-2xl font-black text-[#07111f]">Finalità del trattamento</h2>
       <ul className="list-disc space-y-2 pl-6">
         <li>Ricevere, organizzare e inoltrare la richiesta di soccorso.</li>
