@@ -15,6 +15,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
+  icons: {
+    icon: '/viasos-mark-2.ico',
+    shortcut: '/viasos-mark-2.ico',
+  },
   title: {
     template: `%s | ${site.name}`,
     default: site.title,
