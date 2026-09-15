@@ -37,55 +37,55 @@ export const vehicleProblems = [
 export const services = [
   {
     title: 'Auto in panne',
-    image: '/images/micro/service-auto-panne.webp',
+    image: '/images/realistic/service-auto-panne.webp',
     description:
       'Richiesta rapida per auto ferme su strada, in parcheggio, in area urbana o in zone extraurbane coperte dalla rete.',
   },
   {
     title: 'Recupero dopo incidente',
-    image: '/images/micro/service-incident.webp',
+    image: '/images/realistic/service-incident.webp',
     description:
       'Invio dei dati principali a carroattrezzi compatibili quando il veicolo non può proseguire dopo un sinistro.',
   },
   {
     title: 'Batteria scarica',
-    image: '/images/micro/service-battery.webp',
+    image: '/images/realistic/service-battery.webp',
     description:
       'Assistenza per veicoli che non si avviano, con posizione precisa e contatto diretto tramite telefono o WhatsApp.',
   },
   {
     title: 'Gomma danneggiata',
-    image: '/images/micro/service-tire.webp',
+    image: '/images/realistic/service-tire.webp',
     description:
       'Supporto in caso di gomma forata, danneggiata o veicolo fermo senza possibilità di ripartenza sicura.',
   },
   {
     title: 'Recupero veicolo bloccato',
-    image: '/images/micro/service-blocked.webp',
+    image: '/images/realistic/service-blocked.webp',
     description:
       'Richieste per auto, moto o furgoni bloccati in accessi difficili, cortili, parcheggi o strade secondarie.',
   },
   {
     title: 'Trasporto auto',
-    image: '/images/micro/service-transport.webp',
+    image: '/images/realistic/service-transport.webp',
     description:
       'Trasporto programmato o urgente verso officina, carrozzeria, deposito o destinazione concordata con il carroattrezzi.',
   },
   {
     title: 'Soccorso moto e scooter',
-    image: '/images/micro/service-moto.webp',
+    image: '/images/realistic/service-moto.webp',
     description:
       'Recupero di due ruote ferme, non marcianti o danneggiate, con richiesta inviata ai carroattrezzi adatti.',
   },
   {
     title: 'Soccorso furgoni',
-    image: '/images/micro/service-van.webp',
+    image: '/images/realistic/service-van.webp',
     description:
       'Assistenza per furgoni leggeri in panne, veicoli commerciali bloccati e trasporti verso officine specializzate.',
   },
   {
     title: 'Soccorso camper',
-    image: '/images/micro/service-camper.webp',
+    image: '/images/realistic/service-camper.webp',
     description:
       'Richieste per camper e veicoli ricreazionali, dove compatibilità del mezzo e distanza del carroattrezzi contano molto.',
   },

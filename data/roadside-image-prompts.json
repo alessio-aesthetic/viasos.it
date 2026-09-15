@@ -1,0 +1,66 @@
+{
+  "mode": "imagegen",
+  "style": "Photorealistic commercial automotive cutout, studio lighting, genuine alpha transparency, no text or logos",
+  "assets": [
+    {
+      "name": "benefit-waiting",
+      "subject": "a professional amber roadside recovery truck, front three-quarter view, ready for departure, crisp headlights and amber beacon",
+      "source": "C:\\Users\\aless\\.codex\\generated_images\\01a087fa-790d-7a03-a214-f91b8b7311d4\\exec-6714ce3f-77a3-4efd-9a94-1afe53752319.png"
+    },
+    {
+      "name": "benefit-km",
+      "subject": "a compact yellow flatbed tow truck beside a realistic small automotive navigation device with a short highlighted route on its screen, no readable text",
+      "source": "C:\\Users\\aless\\.codex\\generated_images\\01a087fa-790d-7a03-a214-f91b8b7311d4\\exec-330bb8e0-4f96-4612-827d-bf1db8f2cdd6.png"
+    },
+    {
+      "name": "benefit-continuity",
+      "subject": "a professional mechanic in navy workwear holding a car key beside the front corner of a clean silver car, realistic hands and face",
+      "source": "C:\\Users\\aless\\.codex\\generated_images\\01a087fa-790d-7a03-a214-f91b8b7311d4\\exec-ef0286c5-4ac3-48a3-b42f-8e6dc76a2958.png"
+    },
+    {
+      "name": "service-auto-panne",
+      "subject": "a blue modern hatchback with its hood open, three-quarter front view, complete vehicle",
+      "source": "C:\\Users\\aless\\.codex\\generated_images\\01a087fa-790d-7a03-a214-f91b8b7311d4\\exec-fa2b29a5-b43f-4e46-b587-20d824808362.png"
+    },
+    {
+      "name": "service-incident",
+      "subject": "a dark grey compact car with realistic moderate front bumper damage, no people or injury, three-quarter view",
+      "source": "C:\\Users\\aless\\.codex\\generated_images\\01a087fa-790d-7a03-a214-f91b8b7311d4\\exec-42ba0bf1-7ce5-45ff-86ce-56c4b59362a6.png"
+    },
+    {
+      "name": "service-battery",
+      "subject": "a realistic automotive battery connected correctly to a professional portable jump starter with red and black cables",
+      "source": "C:\\Users\\aless\\.codex\\generated_images\\01a087fa-790d-7a03-a214-f91b8b7311d4\\exec-4fd25318-420c-43ca-a1a2-92b4321be61a.png"
+    },
+    {
+      "name": "service-tire",
+      "subject": "a realistic car wheel with a visibly deflated tyre beside a small hydraulic jack and wheel wrench",
+      "source": "C:\\Users\\aless\\.codex\\generated_images\\01a087fa-790d-7a03-a214-f91b8b7311d4\\exec-400b8b4e-a079-4cb1-a682-1d4c539f3922.png"
+    },
+    {
+      "name": "service-blocked",
+      "subject": "a silver car being carefully recovered using a professional winch cable attached to its towing eye, full car and visible recovery equipment",
+      "source": "C:\\Users\\aless\\.codex\\generated_images\\01a087fa-790d-7a03-a214-f91b8b7311d4\\exec-af9151cb-809a-4bc0-b335-8be5a9c669f1.png"
+    },
+    {
+      "name": "service-transport",
+      "subject": "a yellow professional flatbed recovery truck carrying a red modern car, complete truck three-quarter side view",
+      "source": "C:\\Users\\aless\\.codex\\generated_images\\01a087fa-790d-7a03-a214-f91b8b7311d4\\exec-f446381f-0964-41b3-aa16-8426f0014e2f.png"
+    },
+    {
+      "name": "service-moto",
+      "subject": "a realistic black touring motorcycle beside a white contemporary scooter, both complete",
+      "source": "C:\\Users\\aless\\.codex\\generated_images\\01a087fa-790d-7a03-a214-f91b8b7311d4\\exec-4082930f-00f2-47e1-a868-8ff4411dadca.png"
+    },
+    {
+      "name": "service-van",
+      "subject": "a white medium commercial van, front three-quarter view, full vehicle",
+      "source": "C:\\Users\\aless\\.codex\\generated_images\\01a087fa-790d-7a03-a214-f91b8b7311d4\\exec-9104ce05-716a-4de1-8d19-e19ebf9eafcc.png"
+    },
+    {
+      "name": "service-camper",
+      "subject": "a realistic modern white motorhome with subtle grey detailing, three-quarter front view, full vehicle",
+      "source": "C:\\Users\\aless\\.codex\\generated_images\\01a087fa-790d-7a03-a214-f91b8b7311d4\\exec-3db520fd-6042-4489-81e8-23c658a19b0d.png"
+    }
+  ]
+}

@@ -172,17 +172,17 @@ export function ProximityBenefits() {
   const cards = [
     [
       'Meno attesa',
-      '/images/micro/benefit-waiting.webp',
+      '/images/realistic/benefit-waiting.webp',
       'Un carroattrezzi più vicino deve percorrere una distanza inferiore per raggiungere il veicolo.',
     ],
     [
       'Meno chilometri',
-      '/images/micro/benefit-km.webp',
+      '/images/realistic/benefit-km.webp',
       'Ridurre il tragitto del carroattrezzi significa evitare trasferte inutilmente lunghe.',
     ],
     [
       'Maggiore possibilità di intervento',
-      '/images/micro/benefit-continuity.webp',
+      '/images/realistic/benefit-continuity.webp',
       'Se il primo contatto non può intervenire, nella pagina della zona trovi anche numeri alternativi.',
     ],
   ]
@@ -210,9 +210,9 @@ export function ProximityBenefits() {
               <Image
                 src={image}
                 alt=""
-                width={160}
-                height={160}
-                className="mb-4 size-24 object-contain"
+                width={960}
+                height={960}
+                className="mb-5 h-44 w-full object-contain sm:h-48"
                 loading="lazy"
               />
               <h3 className="text-xl font-black text-[#07111f]">{title}</h3>
@@ -283,9 +283,9 @@ export function Services() {
               <Image
                 src={service.image}
                 alt=""
-                width={160}
-                height={160}
-                className="size-24 object-contain"
+                width={960}
+                height={960}
+                className="h-44 w-full object-contain sm:h-48"
                 loading="lazy"
               />
               <h3 className="mt-5 text-xl font-black text-[#07111f]">
