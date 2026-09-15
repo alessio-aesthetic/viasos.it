@@ -8,11 +8,8 @@ import {
   Comparison,
   Coverage,
   FaqSection,
-  HowItWorks,
-  ImpactBand,
   PartnerSection,
   ProximityBenefits,
-  Reliability,
   Services,
   SpeedSection,
   WhatsAppFlow,
@@ -169,15 +166,12 @@ export default function Home() {
         <Hero />
         <TrustHighlights />
         <SearchVisualization />
-        <ImpactBand />
-        <HowItWorks />
         <Comparison />
         <ProximityBenefits />
         <SpeedSection />
         <Services />
         <WhatsAppFlow />
         <Coverage />
-        <Reliability />
         <PartnerSection />
         <FaqSection />
         <section className="bg-[#07111f] py-24 text-white">

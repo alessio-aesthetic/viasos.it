@@ -1,5 +1,6 @@
 import '@/styles/tailwind.css'
 import '@/styles/rescue-theme.css'
+import '@/styles/rescue-experience.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { GeistSans } from 'geist/font/sans'

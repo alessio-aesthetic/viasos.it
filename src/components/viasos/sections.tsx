@@ -3,29 +3,12 @@ import Image from 'next/image'
 
 import { faqs, services } from '@/data/site'
 import { FaqAccordion } from './faq-accordion'
-
-const steps = [
-  {
-    title: 'Invia la posizione',
-    image: '/images/micro/step-position.webp',
-    text: 'Tocca Usa la mia posizione e autorizza il browser, anche senza conoscere l’indirizzo esatto.',
-  },
-  {
-    title: 'Troviamo il comune',
-    image: '/images/micro/step-search.webp',
-    text: 'Il sistema confronta la posizione rilevata con le coordinate dei comuni e apre la pagina della zona più vicina.',
-  },
-  {
-    title: 'Apri il contatto',
-    image: '/images/micro/step-availability.webp',
-    text: 'Nella pagina trovi il numero di riferimento e le alternative geograficamente più vicine fra i contatti disponibili.',
-  },
-  {
-    title: 'Chiama e conferma',
-    image: '/images/micro/step-confirm.webp',
-    text: 'Tocca Chiama ora e concorda direttamente disponibilità, tempi e costo del recupero con il professionista.',
-  },
-]
+import {
+  CallPreparation,
+  NationalCoverage,
+  RescueButton,
+  RescueReveal,
+} from './rescue-experience'
 
 const oldWay = [
   'Cerchi diversi numeri su Google',
@@ -43,70 +26,12 @@ const newWay = [
   'Confermi disponibilità e costo al telefono',
 ]
 
-export function ImpactBand() {
-  return (
-    <section className="bg-[#07111f] py-14 text-white">
-      <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-        <p className="text-2xl font-black tracking-tight sm:text-4xl">
-          Il carroattrezzi di riferimento, partendo da dove sei.
-        </p>
-        <p className="mt-5 text-lg font-semibold text-slate-300">
-          La tua posizione diventa il punto di partenza per trovare il numero da chiamare.
-        </p>
-      </div>
-    </section>
-  )
-}
-
-export function HowItWorks() {
-  return (
-    <section id="come-funziona" className="bg-white py-24">
-      <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-        <p className="text-sm font-black uppercase tracking-[0.22em] text-[#075e54]">
-          come funziona
-        </p>
-        <h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
-          Dalla posizione al soccorso in quattro semplici passaggi
-        </h2>
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, index) => (
-            <div
-              key={step.title}
-              className="rounded-[2rem] border border-slate-200 bg-slate-50 p-6 shadow-sm"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <Image
-                  src={step.image}
-                  alt=""
-                  width={160}
-                  height={160}
-                  className="size-24 object-contain"
-                  loading="lazy"
-                />
-                <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-[#07111f] text-base font-black text-white">
-                  {index + 1}
-                </span>
-              </div>
-              <h3 className="mt-6 text-xl font-black text-[#07111f]">
-                {step.title}
-              </h3>
-              <p className="mt-3 text-base leading-7 text-slate-700">
-                {step.text}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 export function Comparison() {
   return (
     <section id="perché-viasos" className="bg-slate-50 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-10 max-w-4xl text-center">
-          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#075e54]">
+          <p className="text-sm font-black tracking-[0.22em] text-[#075e54] uppercase">
             perché funziona meglio
           </p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
@@ -119,7 +44,7 @@ export function Comparison() {
           </p>
         </div>
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="relative flex h-full flex-col rounded-[2.5rem] border border-white bg-white p-8 shadow-[0_34px_90px_rgba(15,23,42,0.14),inset_0_1px_0_rgba(255,255,255,1)] ring-1 ring-slate-200/70">
+          <div className="relative flex h-full flex-col rounded-[2.5rem] border border-white bg-white p-8 ring-1 shadow-[0_34px_90px_rgba(15,23,42,0.14),inset_0_1px_0_rgba(255,255,255,1)] ring-slate-200/70">
             <div className="absolute inset-x-8 -bottom-5 -z-10 h-10 rounded-full bg-slate-950/12 blur-2xl" />
             <div className="absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-slate-300 to-transparent" />
             <h3 className="text-2xl font-black text-[#07111f]">
@@ -129,7 +54,7 @@ export function Comparison() {
               {oldWay.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-4 rounded-2xl bg-slate-50 p-4 text-slate-700 shadow-[0_10px_24px_rgba(15,23,42,0.06)] ring-1 ring-slate-100"
+                  className="flex gap-4 rounded-2xl bg-slate-50 p-4 text-slate-700 ring-1 shadow-[0_10px_24px_rgba(15,23,42,0.06)] ring-slate-100"
                 >
                   <span className="grid size-8 shrink-0 place-items-center rounded-full bg-red-50">
                     <XMarkIcon className="size-5 text-red-500" />
@@ -139,7 +64,7 @@ export function Comparison() {
               ))}
             </ul>
           </div>
-          <div className="relative flex h-full flex-col rounded-[2.5rem] border border-white bg-white p-8 shadow-[0_34px_90px_rgba(6,95,70,0.18),inset_0_1px_0_rgba(255,255,255,1)] ring-1 ring-emerald-200/80">
+          <div className="relative flex h-full flex-col rounded-[2.5rem] border border-white bg-white p-8 ring-1 shadow-[0_34px_90px_rgba(6,95,70,0.18),inset_0_1px_0_rgba(255,255,255,1)] ring-emerald-200/80">
             <div className="absolute inset-x-8 -bottom-5 -z-10 h-10 rounded-full bg-emerald-950/16 blur-2xl" />
             <div className="absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-[#25d366]/70 to-transparent" />
             <h3 className="text-2xl font-black text-[#07111f]">
@@ -149,7 +74,7 @@ export function Comparison() {
               {newWay.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-4 rounded-2xl bg-[#f3fff7] p-4 text-slate-800 shadow-[0_10px_24px_rgba(6,95,70,0.08)] ring-1 ring-emerald-100"
+                  className="flex gap-4 rounded-2xl bg-[#f3fff7] p-4 text-slate-800 ring-1 shadow-[0_10px_24px_rgba(6,95,70,0.08)] ring-emerald-100"
                 >
                   <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#25d366]">
                     <CheckIcon className="size-5 text-[#07111f]" />
@@ -227,41 +152,20 @@ export function ProximityBenefits() {
 
 export function SpeedSection() {
   return (
-    <section className="bg-[#07111f] py-24 text-white">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+    <section className="rx-speed-strip">
+      <div className="rx-container">
+        <span className="rx-speed-symbol" aria-hidden="true">
+          ↗
+        </span>
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#25d366]">
-            ricerca per posizione
-          </p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
-            Dalla posizione al numero, senza compilare un modulo
-          </h2>
-          <p className="mt-6 text-lg leading-8 text-slate-300">
-            Non serve inserire il numero di telefono per trovare il contatto. La posizione viene confrontata nel browser con l’elenco dei comuni: apri la pagina locale e chiama. Se la posizione non è disponibile, puoi scegliere il comune manualmente.
-          </p>
-          <p className="mt-6 rounded-2xl bg-white/10 p-5 text-xl font-black">
-            Tu condividi la posizione. ViaSOS apre il comune di riferimento.
+          <span className="rx-eyebrow">DIRETTAMENTE AL CONTATTO</span>
+          <h2>Nessun modulo tra te e il soccorso.</h2>
+          <p>
+            La posizione resta nel browser. Se non puoi condividerla, scegli il
+            comune a mano.
           </p>
         </div>
-        <div className="grid gap-3">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <div
-              key={index}
-              className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3"
-            >
-              <span className="font-bold">{['Condividi la posizione', 'Apri la pagina del comune', 'Chiama il riferimento'][index]}</span>
-              <span
-                className={
-                  index === 2
-                    ? 'rounded-full bg-[#25d366] px-3 py-1 text-xs font-black text-[#07111f]'
-                    : 'rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-slate-300'
-                }
-              >
-                {['01', '02', '03'][index]}
-              </span>
-            </div>
-          ))}
-        </div>
+        <RescueButton>Trova la mia zona</RescueButton>
       </div>
     </section>
   )
@@ -303,121 +207,11 @@ export function Services() {
 }
 
 export function WhatsAppFlow() {
-  return (
-    <section className="bg-white py-24">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
-        <div>
-          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#075e54]">
-            risposta semplice
-          </p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
-            Tutto direttamente su WhatsApp
-          </h2>
-          <p className="mt-6 text-lg leading-8 text-slate-700">
-            Nessuna applicazione da scaricare e nessuna registrazione
-            complicata. Tramite WhatsApp puoi condividere la posizione, ricevere
-            la conferma, inviare fotografie e parlare direttamente con
-            il carroattrezzi.
-          </p>
-          <a
-            href="#assistenza"
-            className="mt-8 inline-flex rounded-full bg-[#25d366] px-6 py-3.5 text-base font-black text-[#07111f] shadow-xl shadow-emerald-950/15"
-          >
-            Trova il contatto della tua zona
-          </a>
-        </div>
-        <div className="rounded-[2rem] bg-[#e9fff2] p-5">
-          <div className="rounded-[1.5rem] bg-white p-5 shadow-xl">
-            {[
-              'Comunica il punto esatto al professionista',
-              'Descrivi il veicolo e il problema',
-              'Chiedi disponibilità e preventivo',
-              'Concorda il recupero e la destinazione',
-            ].map((message) => (
-              <div
-                key={message}
-                className="mb-3 ml-auto max-w-[82%] rounded-2xl bg-[#dcf8c6] px-4 py-3 text-sm font-bold text-[#07111f]"
-              >
-                {message}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
+  return <CallPreparation />
 }
 
 export function Coverage() {
-  return (
-    <section id="copertura" className="bg-slate-50 py-24">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:px-8">
-        <div>
-          <h2 className="text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
-            Una rete di carroattrezzi in tutta Italia
-          </h2>
-          <p className="mt-6 text-lg leading-8 text-slate-700">
-            ViaSOS collabora con una rete in continua crescita composta da
-            centinaia di partner distribuiti sul territorio nazionale. La
-            ricerca viene effettuata partendo dalla posizione reale del veicolo,
-            nelle grandi città, nei comuni e nelle aree extraurbane coperte.
-          </p>
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {['Nord Italia', 'Centro Italia', 'Sud Italia', 'Isole'].map(
-              (area) => (
-                <div
-                  key={area}
-                  className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-black text-[#07111f]"
-                >
-                  {area}
-                </div>
-              ),
-            )}
-          </div>
-          <a href="/carroattrezzi/" className="mt-8 inline-flex rounded-full bg-[#07111f] px-6 py-3.5 text-base font-bold text-white">
-            Trova il carroattrezzi per il tuo comune →
-          </a>
-        </div>
-        <div className="relative h-[430px] rounded-[2rem] bg-white p-6 shadow-xl">
-          <div className="absolute inset-8 rounded-[45%_55%_50%_50%] border-2 border-dashed border-[#25d366]/50 bg-[#e9fff2]" />
-          {[
-            'left-[42%] top-[17%]',
-            'left-[36%] top-[30%]',
-            'left-[48%] top-[43%]',
-            'left-[54%] top-[58%]',
-            'left-[43%] top-[73%]',
-            'left-[63%] top-[80%]',
-            'left-[28%] top-[79%]',
-          ].map((position) => (
-            <span
-              key={position}
-              className={`absolute ${position} size-4 rounded-full bg-[#25d366] shadow-lg shadow-[#25d366]/40`}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-export function Reliability() {
-  return (
-    <section className="bg-white py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-[2.5rem] bg-[#07111f] p-8 text-center text-white sm:p-12">
-          <h2 className="text-3xl font-black tracking-tight sm:text-4xl">
-            Una tecnologia semplice per un momento complicato
-          </h2>
-          <p className="mx-auto mt-6 max-w-4xl text-lg leading-8 text-slate-300">
-            Quando sei fermo per strada vuoi arrivare velocemente al contatto utile. ViaSOS parte dalla posizione, individua il comune più vicino al punto rilevato e ti porta alla pagina con il numero da chiamare.
-          </p>
-          <p className="mt-10 text-2xl font-black text-[#ffd34d] sm:text-4xl">
-            La tua posizione. Il tuo comune. Il contatto da chiamare.
-          </p>
-        </div>
-      </div>
-    </section>
-  )
+  return <NationalCoverage />
 }
 
 export function PartnerSection() {
@@ -425,7 +219,7 @@ export function PartnerSection() {
     <section id="partner" className="bg-slate-50 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="rounded-[2.5rem] border border-slate-200 bg-white p-8 text-center shadow-xl shadow-slate-950/5 sm:p-12">
-          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#075e54]">
+          <p className="text-sm font-black tracking-[0.22em] text-[#075e54] uppercase">
             rete professionale
           </p>
           <h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
@@ -450,13 +244,28 @@ export function PartnerSection() {
 
 export function FaqSection() {
   return (
-    <section id="faq" className="bg-white py-24">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
-          Domande frequenti
-        </h2>
+    <section id="faq" className="rx-section rx-faq">
+      <RescueReveal className="rx-container">
+        <div className="rx-faq-heading">
+          <div>
+            <p className="rx-eyebrow">RISPOSTE UTILI, PRIMA DI RIPARTIRE</p>
+            <h2>
+              Domande frequenti.
+              <br />
+              <em>Facciamo chiarezza.</em>
+            </h2>
+          </div>
+          <p>
+            Posizione, recupero e costi: trova la risposta che ti serve, poi
+            parla con il professionista della tua zona.
+          </p>
+        </div>
         <FaqAccordion items={faqs} />
-      </div>
+        <div className="rx-faq-bottom">
+          <span>Hai bisogno del carroattrezzi?</span>
+          <RescueButton>Vai al contatto della tua zona</RescueButton>
+        </div>
+      </RescueReveal>
     </section>
   )
 }

@@ -1,121 +1,110 @@
 'use client'
 
-import type React from 'react'
+import {
+  ArrowRightIcon,
+  MapIcon,
+  MapPinIcon,
+  PhoneIcon,
+} from '@heroicons/react/24/outline'
 import Script from 'next/script'
+import { RescueButton, RescueReveal } from './rescue-experience'
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'dotlottie-player': React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      > & {
-        src?: string
-        background?: string
-        speed?: string
-        loop?: boolean
-        autoplay?: boolean
-      }
-    }
-  }
-}
-
-const towTrucks = [
+const journey = [
   {
-    label: 'La tua posizione',
-    status: 'punto di partenza',
-    state: 'checking',
+    title: 'La tua posizione',
+    text: 'Condividi il punto in cui è fermo il veicolo.',
+    icon: MapPinIcon,
   },
   {
-    label: 'Il tuo comune',
-    status: 'zona di riferimento',
-    state: 'unavailable',
+    title: 'Il tuo comune',
+    text: 'Apri la pagina locale della zona rilevata.',
+    icon: MapIcon,
   },
   {
-    label: 'Il contatto',
-    status: 'pronto da chiamare',
-    state: 'available',
+    title: 'Il contatto',
+    text: 'Trovi il numero. Chiami il professionista.',
+    icon: PhoneIcon,
   },
 ]
 
 export function SearchVisualization() {
   return (
-    <section className="relative overflow-hidden bg-[#07111f] py-24 text-white sm:py-28 lg:py-32">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(37,211,102,0.22),transparent_30%),radial-gradient(circle_at_84%_18%,rgba(255,211,77,0.16),transparent_28%),linear-gradient(180deg,#07111f_0%,#0b1728_100%)]" />
-      <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#25d366]/60 to-transparent" />
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
+    <section id="come-funziona" className="rx-section rx-journey">
+      <RescueReveal className="rx-container">
+        <div className="rx-journey-head">
           <div>
-            <p className="inline-flex rounded-full border border-[#25d366]/25 bg-[#25d366]/10 px-4 py-2 text-sm font-black uppercase tracking-[0.18em] text-[#8ff7b6]">
-              come funziona la ricerca
-            </p>
-            <h2 className="mt-6 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-              Dalla tua posizione al numero da chiamare.
+            <p className="rx-eyebrow">DOVE SEI → CHI CHIAMI</p>
+            <h2>
+              Il soccorso comincia
+              <br />
+              <em>dal tuo punto sulla mappa.</em>
             </h2>
-            <p className="mt-6 text-lg leading-8 text-slate-300">
-              ViaSOS individua il comune più vicino alla posizione rilevata e apre la pagina con il numero di riferimento. L’animazione illustra il percorso: la disponibilità effettiva si conferma al telefono.
-            </p>
-            <div className="mt-8 grid gap-3">
-              {towTrucks.map((truck, index) => (
-                <div
-                  key={truck.label}
-                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 shadow-lg shadow-black/10"
-                >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className={`grid size-9 place-items-center rounded-xl text-sm font-black ${
-                        truck.state === 'available'
-                          ? 'bg-[#25d366] text-[#07111f]'
-                          : truck.state === 'unavailable'
-                            ? 'bg-white/10 text-slate-300'
-                            : 'bg-[#ffd34d] text-[#07111f]'
-                      }`}
-                    >
-                      {index + 1}
-                    </span>
-                    <span className="font-black">{truck.label}</span>
-                  </div>
-                  <span
-                    className={`rounded-full px-3 py-1 text-xs font-black ${
-                      truck.state === 'available'
-                        ? 'bg-[#25d366] text-[#07111f]'
-                        : 'bg-white/10 text-slate-200'
-                    }`}
-                  >
-                    {truck.status}
-                  </span>
-                </div>
-              ))}
+          </div>
+          <p>
+            ViaSOS individua il comune più vicino alla posizione rilevata e apre
+            la pagina con il numero di riferimento. Un percorso diretto, dal
+            veicolo fermo alla chiamata.
+          </p>
+        </div>
+        <div className="rx-journey-grid">
+          <div className="rx-journey-stage">
+            <div className="rx-stage-label">
+              <span>
+                <i /> IL PERCORSO VIASOS
+              </span>
+              <span>POSIZIONE / COMUNE / CONTATTO</span>
+            </div>
+            <div className="rx-stage-grid" aria-hidden="true" />
+            <div className="rx-radar" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </div>
+            <Script
+              src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+              type="module"
+              strategy="afterInteractive"
+            />
+            <dotlottie-player
+              src="/lottie/search-flow-large.lottie"
+              background="transparent"
+              speed="1"
+              loop
+              autoplay
+              style={{
+                position: 'relative',
+                width: '100%',
+                height: '100%',
+                zIndex: 2,
+              }}
+            />
+            <div className="rx-stage-footer">
+              <MapPinIcon aria-hidden="true" />
+              <span>La tua posizione è il punto di partenza.</span>
+              <ArrowRightIcon aria-hidden="true" />
             </div>
           </div>
-
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.05] p-4 shadow-2xl shadow-black/30 backdrop-blur sm:p-6">
-            <div className="relative grid min-h-[520px] place-items-center overflow-hidden rounded-[2rem] bg-[#0b1728] p-6 sm:min-h-[620px]">
-              <Script
-                src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
-                type="module"
-                strategy="afterInteractive"
-              />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(37,211,102,0.18),transparent_40%),linear-gradient(180deg,#0b1728_0%,#07111f_100%)]" />
-              <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:56px_56px]" />
-              <dotlottie-player
-                src="/lottie/search-flow-large.lottie"
-                background="transparent"
-                speed="1"
-                loop
-                autoplay
-                style={{
-                  position: 'relative',
-                  zIndex: 10,
-                  width: 'min(100%, 620px)',
-                  height: 'min(76vw, 560px)',
-                  maxHeight: '560px',
-                }}
-              />
-            </div>
+          <div className="rx-journey-steps">
+            {journey.map((step, index) => (
+              <div key={step.title} className="rx-journey-step">
+                <div className="rx-journey-rail">
+                  <span>0{index + 1}</span>
+                  {index < 2 && <i />}
+                </div>
+                <div className="rx-step-content">
+                  <step.icon aria-hidden="true" />
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </div>
+              </div>
+            ))}
+            <RescueButton>Trova il carroattrezzi vicino</RescueButton>
+            <span className="rx-journey-note">
+              Disponibilità e tempi si confermano al telefono.
+            </span>
           </div>
         </div>
-      </div>
+      </RescueReveal>
     </section>
   )
 }
