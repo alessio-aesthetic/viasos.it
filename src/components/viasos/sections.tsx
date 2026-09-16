@@ -398,7 +398,7 @@ export function Services() {
           {services.map((service, index) => (
             <RescueReveal
               key={service.title}
-              className={`rx-service-reveal ${index < 3 ? 'rx-service-featured' : ''}`}
+              className="rx-service-reveal rx-service-featured"
             >
               <article className="rx-service-card">
                 <a
