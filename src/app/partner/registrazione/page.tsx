@@ -43,9 +43,9 @@ const initialState: FormState = {
 
 export default function PartnerRegistration() {
   const [form, setForm] = useState(initialState)
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>(
-    'idle',
-  )
+  const [status, setStatus] = useState<
+    'idle' | 'loading' | 'success' | 'error'
+  >('idle')
   const [message, setMessage] = useState('')
   const [conditionsOpen, setConditionsOpen] = useState(false)
   const [conditionsViewed, setConditionsViewed] = useState(false)
@@ -67,7 +67,9 @@ export default function PartnerRegistration() {
 
     if (!form.priorityMode) {
       setStatus('error')
-      setMessage('Scegli come vuoi ricevere le richieste prima di inviare la candidatura.')
+      setMessage(
+        'Scegli come vuoi ricevere le richieste prima di inviare la candidatura.',
+      )
       return
     }
 
@@ -105,234 +107,386 @@ export default function PartnerRegistration() {
 
   return (
     <PartnerShell>
-      <section className="mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <div className="mb-4 text-center">
-          <PartnerBadge>Registrazione partner</PartnerBadge>
-          <p className="mt-3 text-base font-semibold text-slate-600">Registrati per entrare nella rete ViaSOS e ricevere richieste compatibili con il tuo mezzo e la tua zona.</p>
-        </div>
-        <PartnerPanel className="p-5 sm:p-7">
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-2xl font-black">Dati partner</h2>
-            {status === 'success' ? <StatusPill tone="green">Richiesta inviata</StatusPill> : null}
+      <main className="vp-container vp-registration-layout">
+        <aside className="vp-registration-story">
+          <PartnerBadge>IL PROSSIMO PASSO È TUO</PartnerBadge>
+          <h1>
+            Porta il tuo mezzo.
+            <br />
+            <em>Noi portiamo il contatto.</em>
+          </h1>
+          <p>
+            Un profilo completo ci aiuta a collegare le richieste alla tua zona
+            operativa.
+          </p>
+          <ol>
+            <li>
+              <span>01</span>
+              <div>
+                <strong>La tua attività</strong>
+                <p>Contatti e credenziali personali.</p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>Il tuo territorio</strong>
+                <p>Base operativa e copertura.</p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <strong>Il tuo modo di lavorare</strong>
+                <p>Modalità richieste e condizioni.</p>
+              </div>
+            </li>
+          </ol>
+          <a href="/partner/login/" className="vp-text-link">
+            Hai già un profilo? Accedi →
+          </a>
+        </aside>
+        <div className="vp-registration-main">
+          <div className="mb-4 text-center">
+            <PartnerBadge>Registrazione partner</PartnerBadge>
+            <p className="mt-3 text-base font-semibold text-slate-600">
+              Registrati per entrare nella rete ViaSOS e ricevere richieste
+              compatibili con il tuo mezzo e la tua zona.
+            </p>
           </div>
-          <form className="grid gap-5" onSubmit={submit}>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Nome attività" required>
-                <input
-                  value={form.businessName}
-                  onChange={(event) => update('businessName', event.target.value)}
-                  className="partner-input"
-                  required
-                />
-              </Field>
-              <Field label="Nome referente" required>
-                <input
-                  value={form.contactName}
-                  onChange={(event) => update('contactName', event.target.value)}
-                  className="partner-input"
-                  required
-                />
-              </Field>
-              <Field label="WhatsApp operativo" required>
-                <input
-                  value={form.phone}
-                  onChange={(event) => update('phone', event.target.value)}
-                  className="partner-input"
-                  inputMode="tel"
-                  placeholder="+39"
-                  required
-                />
-              </Field>
-              <Field label="Email" required>
-                <input
-                  value={form.email}
-                  onChange={(event) => update('email', event.target.value)}
-                  className="partner-input"
-                  type="email"
-                  required
-                />
-              </Field>
-              <Field label="Password" required>
-                <input
-                  value={form.password}
-                  onChange={(event) => update('password', event.target.value)}
-                  className="partner-input"
-                  type="password"
-                  minLength={8}
-                  required
-                />
-              </Field>
-              <Field label="Conferma password" required>
-                <input
-                  value={form.passwordConfirm}
-                  onChange={(event) => update('passwordConfirm', event.target.value)}
-                  className="partner-input"
-                  type="password"
-                  minLength={8}
-                  required
-                />
-              </Field>
-              <Field label="Città principale" required>
-                <input
-                  value={form.city}
-                  onChange={(event) => update('city', event.target.value)}
-                  className="partner-input"
-                  required
-                />
-              </Field>
-              <Field label="Indirizzo/base operativa" required>
-                <input
-                  value={form.address}
-                  onChange={(event) => update('address', event.target.value)}
-                  className="partner-input"
-                  required
-                />
-              </Field>
-              <Field label="Raggio operativo indicativo">
-                <select
-                  value={form.coverageKm}
-                  onChange={(event) => update('coverageKm', event.target.value)}
-                  className="partner-input"
-                >
-                  <option value="20">20 km</option>
-                  <option value="30">30 km</option>
-                  <option value="50">50 km</option>
-                  <option value="80">80 km</option>
-                </select>
-              </Field>
-              <Field label="Interventi in autostrada">
-                <label className="flex h-12 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 font-bold text-slate-700">
-                  <input
-                    type="checkbox"
-                    checked={form.highwayEnabled}
-                    onChange={(event) =>
-                      update('highwayEnabled', event.target.checked)
-                    }
-                    className="size-5"
-                  />
-                  Sì, posso intervenire
-                </label>
-              </Field>
-            </div>
-            <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-[0_18px_45px_rgba(15,23,42,0.07)] sm:p-5">
-              <div className="border-b border-slate-200 pb-4">
-                <h3 className="text-xl font-black text-slate-950 sm:text-2xl">Come vuoi ricevere le richieste?</h3>
-              </div>
-              <div className="mt-4 grid gap-4 lg:grid-cols-2">
-                <label className={`cursor-pointer rounded-2xl border-2 p-5 transition duration-300 hover:-translate-y-0.5 ${form.priorityMode === 'prioritaria' ? 'border-[#20a477] bg-[#effcf6] shadow-[0_18px_36px_rgba(32,164,119,0.22)] ring-1 ring-[#9be2c5]' : 'border-emerald-200 bg-white shadow-[0_8px_22px_rgba(32,164,119,0.08)] hover:border-[#75b9aa] hover:shadow-[0_14px_30px_rgba(32,164,119,0.14)]'}`}>
-                  <span className="flex items-start gap-3">
-                    <input
-                      type="radio"
-                      name="priorityMode"
-                      value="prioritaria"
-                      checked={form.priorityMode === 'prioritaria'}
-                      onChange={() => update('priorityMode', 'prioritaria')}
-                      className="mt-1 size-5 accent-[#075e54]"
-                    />
-                    <span>
-                      <strong className="block text-lg font-black text-[#087f5b]">Via prioritaria</strong>
-                      <span className="mt-2 block text-sm font-semibold leading-6 text-slate-600">
-                        Entri tra i primi carroattrezzi contattati nella tua zona, con priorità di invio e chiamata diretta con il cliente quando prevista dal flusso di assegnazione.
-                      </span>
-                    </span>
-                  </span>
-                  <span className="mt-4 block rounded-xl bg-[#e5f8f1] p-4 text-sm font-bold leading-6 text-[#06483f]">
-                    Entro <strong>12 km</strong> e per recuperi normali, il preventivo massimo è di <strong>150 € di giorno</strong> e <strong>180 € di notte</strong>, inclusi fee ViaSOS ed eventuale IVA. Per interventi complessi o oltre 12 km sono possibili maggiorazioni concordate.
-                  </span>
-                </label>
-                <label className={`cursor-pointer rounded-2xl border-2 p-5 transition ${form.priorityMode === 'senza-priorita' ? 'border-slate-900 bg-slate-100 shadow-[0_12px_30px_rgba(15,23,42,0.1)]' : 'border-slate-200 bg-slate-50 hover:border-slate-400 hover:bg-white'}`}>
-                  <span className="flex items-start gap-3">
-                    <input
-                      type="radio"
-                      name="priorityMode"
-                      value="senza-priorita"
-                      checked={form.priorityMode === 'senza-priorita'}
-                      onChange={() => update('priorityMode', 'senza-priorita')}
-                      className="mt-1 size-5 accent-slate-900"
-                    />
-                    <span>
-                      <strong className="block text-lg font-black text-slate-950">Senza priorità</strong>
-                      <span className="mt-2 block text-sm font-semibold leading-6 text-slate-600">
-                        Ricevi richieste per formulare un preventivo dopo il primo contatto, oppure quando i carroattrezzi con priorità più alta non accettano l’intervento o il preventivo proposto.
-                      </span>
-                    </span>
-                  </span>
-                  <span className="mt-4 block rounded-xl bg-slate-100 p-4 text-sm font-bold leading-6 text-slate-700">
-                    In questa modalità puoi definire liberamente il prezzo e le condizioni del servizio in base alla situazione reale.
-                  </span>
-                </label>
-              </div>
-            </div>
-            <div className="rounded-[1.75rem] border border-slate-200 bg-[#f8fbff] p-5 sm:p-6">
-              <h3 className="text-lg font-black text-slate-950">
-                Condizioni per entrare nella rete ViaSOS
-              </h3>
-              <p className="mt-3 max-w-2xl text-sm font-semibold leading-6 text-slate-600">
-                Puoi consultare le condizioni che regolano il rapporto tra ViaSOS, il partner e il cliente prima di accettarle.
-              </p>
-              <button
-                type="button"
-                onClick={() => setConditionsOpen(true)}
-                className="mt-5 inline-flex items-center justify-center rounded-full bg-[#07111f] px-5 py-3 text-sm font-black text-white transition hover:bg-[#123456]"
-              >
-                {conditionsViewed ? 'Riapri le condizioni' : 'Consulta le condizioni'}
-              </button>
-              {conditionsViewed ? (
-                <p className="mt-3 text-sm font-black text-[#075e54]">✓ Puoi procedere con l’accettazione.</p>
+          <PartnerPanel className="p-5 sm:p-7">
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-2xl font-black">
+                Costruiamo il tuo profilo.
+              </h2>
+              {status === 'success' ? (
+                <StatusPill tone="green">Richiesta inviata</StatusPill>
               ) : null}
-              <label className="mt-6 flex cursor-pointer gap-3 rounded-2xl border border-emerald-200 bg-white p-4 text-sm font-black leading-6 text-slate-800 shadow-sm">
-                <input
-                  type="checkbox"
-                  checked={form.accepted}
-                  onChange={(event) => update('accepted', event.target.checked)}
-                  className="mt-1 size-5 shrink-0 accent-[#075e54]"
-                  required
-                />
-                <span>
-                  Accetto le condizioni partner. Confermo inoltre che i dati inseriti sono corretti e autorizzo ViaSOS a contattarmi per la verifica e l’attivazione del profilo.
-                </span>
-              </label>
             </div>
-            {conditionsOpen ? (
-              <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/35 p-0 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="partner-conditions-title">
-                <div className="max-h-[90svh] w-full max-w-3xl overflow-y-auto rounded-t-[1.5rem] bg-white p-5 shadow-2xl sm:rounded-[1.5rem] sm:p-6">
-                  <div className="sticky top-0 z-10 -mx-5 -mt-5 flex items-center justify-between border-b border-slate-200 bg-white px-5 py-4 sm:-mx-6 sm:-mt-6 sm:px-6">
-                    <div><p className="text-xs font-black uppercase tracking-[0.16em] text-[#075e54]">Informazioni partner</p><h3 id="partner-conditions-title" className="text-xl font-black text-slate-950">Condizioni partner ViaSOS</h3></div>
-                    <button type="button" onClick={() => setConditionsOpen(false)} className="rounded-full border border-slate-200 px-3 py-2 text-sm font-black text-slate-600 hover:bg-slate-100" aria-label="Chiudi condizioni">Chiudi</button>
-                  </div>
-                  <div className="grid gap-4 pt-6 text-sm font-semibold leading-6 text-slate-600">
-                    <p><strong className="text-slate-950">ViaSOS opera esclusivamente come generatore e smistatore di richieste.</strong> Non esegue il soccorso stradale e non diventa parte del rapporto tra il cliente e il carroattrezzi.</p>
-                    <p>Dal momento in cui accetti una richiesta, <strong className="text-slate-950">sei tu il responsabile dell’intervento assegnato</strong>: contatto con il cliente, prezzo, tempi, mezzo utilizzato, modalità operative, sicurezza, autorizzazioni, assicurazioni e corretta esecuzione del servizio.</p>
-                    <p>ViaSOS non risponde di danni, ritardi, mancati interventi, disservizi, contestazioni, costi, incidenti o qualsiasi altra conseguenza relativa al servizio svolto dal carroattrezzi. <strong className="text-slate-950">Ogni responsabilità resta a carico dell’operatore che prende in carico il cliente.</strong></p>
-                    <p>I dati e le dichiarazioni forniti devono essere completi e veritieri. In caso di informazioni false, disponibilità dichiarate senza fondamento o comportamenti scorretti, ViaSOS potrà sospendere il profilo, interrompere l’invio delle richieste e <strong className="text-slate-950">valutare le opportune azioni legali</strong> a tutela del cliente e della rete.</p>
-                  </div>
-                  <button type="button" onClick={() => { setConditionsViewed(true); setConditionsOpen(false) }} className="mt-5 w-full rounded-full bg-[#075e54] px-6 py-3.5 text-base font-black text-white transition hover:bg-[#06483f]">Ho letto le condizioni e voglio accettarle</button>
+            <form className="grid gap-5" onSubmit={submit}>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Nome attività" required>
+                  <input
+                    value={form.businessName}
+                    onChange={(event) =>
+                      update('businessName', event.target.value)
+                    }
+                    className="partner-input"
+                    required
+                  />
+                </Field>
+                <Field label="Nome referente" required>
+                  <input
+                    value={form.contactName}
+                    onChange={(event) =>
+                      update('contactName', event.target.value)
+                    }
+                    className="partner-input"
+                    required
+                  />
+                </Field>
+                <Field label="WhatsApp operativo" required>
+                  <input
+                    value={form.phone}
+                    onChange={(event) => update('phone', event.target.value)}
+                    className="partner-input"
+                    inputMode="tel"
+                    placeholder="+39"
+                    required
+                  />
+                </Field>
+                <Field label="Email" required>
+                  <input
+                    value={form.email}
+                    onChange={(event) => update('email', event.target.value)}
+                    className="partner-input"
+                    type="email"
+                    required
+                  />
+                </Field>
+                <Field label="Password" required>
+                  <input
+                    value={form.password}
+                    onChange={(event) => update('password', event.target.value)}
+                    className="partner-input"
+                    type="password"
+                    minLength={8}
+                    required
+                  />
+                </Field>
+                <Field label="Conferma password" required>
+                  <input
+                    value={form.passwordConfirm}
+                    onChange={(event) =>
+                      update('passwordConfirm', event.target.value)
+                    }
+                    className="partner-input"
+                    type="password"
+                    minLength={8}
+                    required
+                  />
+                </Field>
+                <Field label="Città principale" required>
+                  <input
+                    value={form.city}
+                    onChange={(event) => update('city', event.target.value)}
+                    className="partner-input"
+                    required
+                  />
+                </Field>
+                <Field label="Indirizzo/base operativa" required>
+                  <input
+                    value={form.address}
+                    onChange={(event) => update('address', event.target.value)}
+                    className="partner-input"
+                    required
+                  />
+                </Field>
+                <Field label="Raggio operativo indicativo">
+                  <select
+                    value={form.coverageKm}
+                    onChange={(event) =>
+                      update('coverageKm', event.target.value)
+                    }
+                    className="partner-input"
+                  >
+                    <option value="20">20 km</option>
+                    <option value="30">30 km</option>
+                    <option value="50">50 km</option>
+                    <option value="80">80 km</option>
+                  </select>
+                </Field>
+                <Field label="Interventi in autostrada">
+                  <label className="flex h-12 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 font-bold text-slate-700">
+                    <input
+                      type="checkbox"
+                      checked={form.highwayEnabled}
+                      onChange={(event) =>
+                        update('highwayEnabled', event.target.checked)
+                      }
+                      className="size-5"
+                    />
+                    Sì, posso intervenire
+                  </label>
+                </Field>
+              </div>
+              <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-[0_18px_45px_rgba(15,23,42,0.07)] sm:p-5">
+                <div className="border-b border-slate-200 pb-4">
+                  <h3 className="text-xl font-black text-slate-950 sm:text-2xl">
+                    Come vuoi ricevere le richieste?
+                  </h3>
+                </div>
+                <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                  <label
+                    className={`cursor-pointer rounded-2xl border-2 p-5 transition duration-300 hover:-translate-y-0.5 ${form.priorityMode === 'prioritaria' ? 'border-[#20a477] bg-[#effcf6] ring-1 shadow-[0_18px_36px_rgba(32,164,119,0.22)] ring-[#9be2c5]' : 'border-emerald-200 bg-white shadow-[0_8px_22px_rgba(32,164,119,0.08)] hover:border-[#75b9aa] hover:shadow-[0_14px_30px_rgba(32,164,119,0.14)]'}`}
+                  >
+                    <span className="flex items-start gap-3">
+                      <input
+                        type="radio"
+                        name="priorityMode"
+                        value="prioritaria"
+                        checked={form.priorityMode === 'prioritaria'}
+                        onChange={() => update('priorityMode', 'prioritaria')}
+                        className="mt-1 size-5 accent-[#075e54]"
+                      />
+                      <span>
+                        <strong className="block text-lg font-black text-[#087f5b]">
+                          Via prioritaria
+                        </strong>
+                        <span className="mt-2 block text-sm leading-6 font-semibold text-slate-600">
+                          Entri tra i primi carroattrezzi contattati nella tua
+                          zona, con priorità di invio e chiamata diretta con il
+                          cliente quando prevista dal flusso di assegnazione.
+                        </span>
+                      </span>
+                    </span>
+                    <span className="mt-4 block rounded-xl bg-[#e5f8f1] p-4 text-sm leading-6 font-bold text-[#06483f]">
+                      Entro <strong>12 km</strong> e per recuperi normali, il
+                      preventivo massimo è di <strong>150 € di giorno</strong> e{' '}
+                      <strong>180 € di notte</strong>, inclusi fee ViaSOS ed
+                      eventuale IVA. Per interventi complessi o oltre 12 km sono
+                      possibili maggiorazioni concordate.
+                    </span>
+                  </label>
+                  <label
+                    className={`cursor-pointer rounded-2xl border-2 p-5 transition ${form.priorityMode === 'senza-priorita' ? 'border-slate-900 bg-slate-100 shadow-[0_12px_30px_rgba(15,23,42,0.1)]' : 'border-slate-200 bg-slate-50 hover:border-slate-400 hover:bg-white'}`}
+                  >
+                    <span className="flex items-start gap-3">
+                      <input
+                        type="radio"
+                        name="priorityMode"
+                        value="senza-priorita"
+                        checked={form.priorityMode === 'senza-priorita'}
+                        onChange={() =>
+                          update('priorityMode', 'senza-priorita')
+                        }
+                        className="mt-1 size-5 accent-slate-900"
+                      />
+                      <span>
+                        <strong className="block text-lg font-black text-slate-950">
+                          Senza priorità
+                        </strong>
+                        <span className="mt-2 block text-sm leading-6 font-semibold text-slate-600">
+                          Ricevi richieste per formulare un preventivo dopo il
+                          primo contatto, oppure quando i carroattrezzi con
+                          priorità più alta non accettano l’intervento o il
+                          preventivo proposto.
+                        </span>
+                      </span>
+                    </span>
+                    <span className="mt-4 block rounded-xl bg-slate-100 p-4 text-sm leading-6 font-bold text-slate-700">
+                      In questa modalità puoi definire liberamente il prezzo e
+                      le condizioni del servizio in base alla situazione reale.
+                    </span>
+                  </label>
                 </div>
               </div>
-            ) : null}
-            {message ? (
-              <p
-                className={
-                  status === 'success'
-                    ? 'rounded-2xl bg-emerald-50 p-4 font-bold text-emerald-800'
-                    : 'rounded-2xl bg-red-50 p-4 font-bold text-red-800'
-                }
+              <div className="rounded-[1.75rem] border border-slate-200 bg-[#f8fbff] p-5 sm:p-6">
+                <h3 className="text-lg font-black text-slate-950">
+                  Condizioni per entrare nella rete ViaSOS
+                </h3>
+                <p className="mt-3 max-w-2xl text-sm leading-6 font-semibold text-slate-600">
+                  Puoi consultare le condizioni che regolano il rapporto tra
+                  ViaSOS, il partner e il cliente prima di accettarle.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setConditionsOpen(true)}
+                  className="mt-5 inline-flex items-center justify-center rounded-full bg-[#07111f] px-5 py-3 text-sm font-black text-white transition hover:bg-[#123456]"
+                >
+                  {conditionsViewed
+                    ? 'Riapri le condizioni'
+                    : 'Consulta le condizioni'}
+                </button>
+                {conditionsViewed ? (
+                  <p className="mt-3 text-sm font-black text-[#075e54]">
+                    ✓ Puoi procedere con l’accettazione.
+                  </p>
+                ) : null}
+                <label className="mt-6 flex cursor-pointer gap-3 rounded-2xl border border-emerald-200 bg-white p-4 text-sm leading-6 font-black text-slate-800 shadow-sm">
+                  <input
+                    type="checkbox"
+                    checked={form.accepted}
+                    onChange={(event) =>
+                      update('accepted', event.target.checked)
+                    }
+                    className="mt-1 size-5 shrink-0 accent-[#075e54]"
+                    required
+                  />
+                  <span>
+                    Accetto le condizioni partner. Confermo inoltre che i dati
+                    inseriti sono corretti e autorizzo ViaSOS a contattarmi per
+                    la verifica e l’attivazione del profilo.
+                  </span>
+                </label>
+              </div>
+              {conditionsOpen ? (
+                <div
+                  className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/35 p-0 sm:p-4"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="partner-conditions-title"
+                >
+                  <div className="max-h-[90svh] w-full max-w-3xl overflow-y-auto rounded-t-[1.5rem] bg-white p-5 shadow-2xl sm:rounded-[1.5rem] sm:p-6">
+                    <div className="sticky top-0 z-10 -mx-5 -mt-5 flex items-center justify-between border-b border-slate-200 bg-white px-5 py-4 sm:-mx-6 sm:-mt-6 sm:px-6">
+                      <div>
+                        <p className="text-xs font-black tracking-[0.16em] text-[#075e54] uppercase">
+                          Informazioni partner
+                        </p>
+                        <h3
+                          id="partner-conditions-title"
+                          className="text-xl font-black text-slate-950"
+                        >
+                          Condizioni partner ViaSOS
+                        </h3>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setConditionsOpen(false)}
+                        className="rounded-full border border-slate-200 px-3 py-2 text-sm font-black text-slate-600 hover:bg-slate-100"
+                        aria-label="Chiudi condizioni"
+                      >
+                        Chiudi
+                      </button>
+                    </div>
+                    <div className="grid gap-4 pt-6 text-sm leading-6 font-semibold text-slate-600">
+                      <p>
+                        <strong className="text-slate-950">
+                          ViaSOS opera esclusivamente come generatore e
+                          smistatore di richieste.
+                        </strong>{' '}
+                        Non esegue il soccorso stradale e non diventa parte del
+                        rapporto tra il cliente e il carroattrezzi.
+                      </p>
+                      <p>
+                        Dal momento in cui accetti una richiesta,{' '}
+                        <strong className="text-slate-950">
+                          sei tu il responsabile dell’intervento assegnato
+                        </strong>
+                        : contatto con il cliente, prezzo, tempi, mezzo
+                        utilizzato, modalità operative, sicurezza,
+                        autorizzazioni, assicurazioni e corretta esecuzione del
+                        servizio.
+                      </p>
+                      <p>
+                        ViaSOS non risponde di danni, ritardi, mancati
+                        interventi, disservizi, contestazioni, costi, incidenti
+                        o qualsiasi altra conseguenza relativa al servizio
+                        svolto dal carroattrezzi.{' '}
+                        <strong className="text-slate-950">
+                          Ogni responsabilità resta a carico dell’operatore che
+                          prende in carico il cliente.
+                        </strong>
+                      </p>
+                      <p>
+                        I dati e le dichiarazioni forniti devono essere completi
+                        e veritieri. In caso di informazioni false,
+                        disponibilità dichiarate senza fondamento o
+                        comportamenti scorretti, ViaSOS potrà sospendere il
+                        profilo, interrompere l’invio delle richieste e{' '}
+                        <strong className="text-slate-950">
+                          valutare le opportune azioni legali
+                        </strong>{' '}
+                        a tutela del cliente e della rete.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setConditionsViewed(true)
+                        setConditionsOpen(false)
+                      }}
+                      className="mt-5 w-full rounded-full bg-[#075e54] px-6 py-3.5 text-base font-black text-white transition hover:bg-[#06483f]"
+                    >
+                      Ho letto le condizioni e voglio accettarle
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+              {message ? (
+                <p
+                  className={
+                    status === 'success'
+                      ? 'rounded-2xl bg-emerald-50 p-4 font-bold text-emerald-800'
+                      : 'rounded-2xl bg-red-50 p-4 font-bold text-red-800'
+                  }
+                >
+                  {message}
+                </p>
+              ) : null}
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="rounded-full bg-[#07111f] px-6 py-4 text-base font-black text-white transition hover:bg-[#123456] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {message}
-              </p>
-            ) : null}
-            <button
-              type="submit"
-              disabled={status === 'loading'}
-              className="rounded-full bg-[#07111f] px-6 py-4 text-base font-black text-white transition hover:bg-[#123456] disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {status === 'loading'
-                ? 'Invio in corso'
-                : 'Invia candidatura partner'}
-            </button>
-          </form>
-        </PartnerPanel>
-      </section>
+                {status === 'loading'
+                  ? 'Invio in corso'
+                  : 'Invia candidatura partner'}
+              </button>
+            </form>
+          </PartnerPanel>
+        </div>
+      </main>
     </PartnerShell>
   )
 }
@@ -356,4 +510,3 @@ function Field({
     </label>
   )
 }
-

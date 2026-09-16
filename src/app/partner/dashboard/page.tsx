@@ -1,7 +1,5 @@
 'use client'
 
-import { type FormEvent, useEffect, useMemo, useState } from 'react'
-
 import {
   PartnerBadge,
   PartnerPanel,
@@ -9,592 +7,645 @@ import {
   StatusPill,
 } from '@/components/viasos/partner-shell'
 import { partnerRequest } from '@/lib/partner-api'
+import {
+  ArrowUpRightIcon,
+  CheckIcon,
+  ClockIcon,
+  PhoneIcon,
+  TruckIcon,
+} from '@heroicons/react/24/outline'
+import { useEffect, useMemo, useState, type FormEvent } from 'react'
 
-type PartnerFields = {
-  'Nome Ditta'?: string
-  'Nome Referente'?: string
-  Citta?: string
-  WhatsApp?: string
-  Attivo?: boolean
-  'Email Fatturazione'?: string
-  'Indirizzo Fatturazione'?: string
-  'Partita IVA'?: string
-  'Codice Fiscale'?: string
-  'Codice SDI'?: string
-  PEC?: string
-  'Copertura KM'?: number
-  'Abilitato Autostrada'?: boolean
-  'Latitudine Zona'?: number
-  'Longitudine Zona'?: number
-  'Commissioni Dovute'?: number
-  'Commissioni Pagate'?: number
-  'Commissioni Non Pagate'?: number
-  'Reminder Pagamento Totali'?: number
-  'Sono Disponibile Totali'?: number
-  'Disponibili Non Conclusi'?: number
-  'Percentuale Pagamenti'?: number
-  'Priorita Invio'?: number
-  'Stato Registrazione'?: string
-}
-
-type LeadFields = {
+type Partner = Record<string, string | number | boolean | undefined>
+type Lead = {
   id: string
   Nome?: string
-  'Telefono Cliente'?: string
   Citta?: string
   Servizio?: string
   Descrizione?: string
   stato_lead?: string
+  'Esito Chiamata'?: string
   'Feedback Carroattrezzi'?: string
   'Commissione Pagata'?: boolean
+  'Da Fatturare'?: boolean
+  'Importo Commissione'?: number
+  'Link Pagamento Nexi'?: string
+  'Link Pagamento Stripe'?: string
+  'Data Creazione Lead'?: string
+  Data?: string
 }
-
-type DashboardData = {
+type Data = {
   ok: boolean
-  partner: PartnerFields
-  leads: LeadFields[]
+  partner: Partner
+  leads: Lead[]
+  priority?: { share: number | null; mode: string }
+}
+const number = (p: Partner, k: string) =>
+  typeof p[k] === 'number' && Number.isFinite(p[k]) ? (p[k] as number) : null
+const text = (p: Partner, k: string) =>
+  typeof p[k] === 'string' ? (p[k] as string) : ''
+const euro = (n: number) =>
+  new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(
+    n,
+  )
+function bill(lead: Lead) {
+  return lead['Commissione Pagata']
+    ? 'paid'
+    : lead['Da Fatturare'] === true
+      ? 'due'
+      : 'none'
+}
+function paymentUrl(lead: Lead) {
+  const value = lead['Link Pagamento Nexi'] || lead['Link Pagamento Stripe']
+  if (!value) return null
+  try {
+    const u = new URL(value)
+    return u.protocol === 'https:' ? value : null
+  } catch {
+    return null
+  }
+}
+function date(lead: Lead) {
+  const v = lead['Data Creazione Lead'] || lead.Data
+  if (!v) return 'Data non disponibile'
+  const d = new Date(v)
+  return isNaN(d.getTime())
+    ? 'Data non disponibile'
+    : d.toLocaleDateString('it-IT', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      })
 }
 
 export default function PartnerDashboard() {
-  const [data, setData] = useState<DashboardData | null>(null)
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(true)
-
+  const [data, setData] = useState<Data | null>(null),
+    [error, setError] = useState(''),
+    [loading, setLoading] = useState(true)
+  const [token, setToken] = useState('')
   useEffect(() => {
-    const token = new URLSearchParams(window.location.search).get('token') || ''
-
-    if (!token) {
-      setError('Accedi con email e numero WhatsApp per aprire la dashboard.')
+    const t =
+      new URLSearchParams(location.search).get('token') ||
+      sessionStorage.getItem('viasos-partner-session') ||
+      ''
+    setToken(t)
+    if (!t) {
       setLoading(false)
       return
     }
-
-    partnerRequest<DashboardData>('viasos-partner-dashboard', { token })
-      .then((result) => {
-        setData(result)
-        setLoading(false)
+    sessionStorage.setItem('viasos-partner-session', t)
+    history.replaceState(null, '', '/partner/dashboard/')
+    partnerRequest<Data>('viasos-partner-dashboard', { token: t })
+      .then((r) => {
+        if (!r.partner || !Array.isArray(r.leads))
+          throw new Error('Dati del profilo non disponibili.')
+        setData(r)
       })
-      .catch((currentError) => {
-        setError(
-          currentError instanceof Error
-            ? currentError.message
-            : 'Dashboard non disponibile.',
-        )
-        setLoading(false)
-      })
+      .catch((e) => setError(e.message))
+      .finally(() => setLoading(false))
   }, [])
-
-  if (loading) {
+  if (!data)
     return (
       <PartnerShell>
-        <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-          <PartnerPanel>
-            <PartnerBadge>Dashboard partner</PartnerBadge>
-            <h1 className="mt-5 text-3xl font-black">
-              Caricamento dashboard
-            </h1>
-            <p className="mt-4 font-semibold text-slate-600">
-              Recupero i dati operativi del profilo partner.
-            </p>
-          </PartnerPanel>
-        </section>
-      </PartnerShell>
-    )
-  }
-
-  if (error || !data) {
-    return (
-      <PartnerShell>
-        <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-          <PartnerPanel>
-            <PartnerBadge>Dashboard partner</PartnerBadge>
-            <h1 className="mt-5 text-3xl font-black">
-              Accesso non disponibile
-            </h1>
-            <p className="mt-4 leading-7 font-semibold text-slate-700">
-              Accedi con email e numero WhatsApp per aprire la dashboard.
-            </p>
-            <p className="mt-5 rounded-2xl bg-amber-50 p-4 text-sm font-bold text-amber-800">
-              {error}
-            </p>
-            <a
-              href="/partner/login/"
-              className="mt-6 inline-flex rounded-full bg-[#07111f] px-6 py-3.5 font-black text-white"
-            >
-              Vai al login
+        <main className="vp-container vp-dashboard-gate">
+          <div className="vp-gate-symbol">
+            <TruckIcon />
+          </div>
+          <PartnerBadge>AREA OPERATIVA</PartnerBadge>
+          <h1>
+            {loading
+              ? 'Prepariamo la tua dashboard.'
+              : 'La tua attività, in un solo posto.'}
+          </h1>
+          <p>
+            {loading
+              ? 'Recupero disponibilità, chiamate e servizi del tuo profilo.'
+              : error ||
+                'Accedi per gestire la disponibilità e consultare chiamate, servizi e pagamenti.'}
+          </p>
+          {loading ? (
+            <div className="vp-loading-line" />
+          ) : (
+            <a className="vp-button" href="/partner/login/">
+              Accedi alla dashboard ↗
             </a>
-          </PartnerPanel>
-        </section>
+          )}
+        </main>
       </PartnerShell>
     )
-  }
-
-  return <DashboardContent data={data} />
+  return <Dashboard data={data} token={token} update={setData} />
 }
-
-function DashboardContent({ data }: { data: DashboardData }) {
-  const partner = data.partner
-  const status = partner['Stato Registrazione'] || 'In attesa approvazione'
-  const approved = status === 'Approvato'
-  const active = Boolean(partner.Attivo)
-  const score = useMemo(() => calculatePartnerScore(partner), [partner])
+function Dashboard({
+  data,
+  token,
+  update,
+}: {
+  data: Data
+  token: string
+  update: (d: Data) => void
+}) {
+  const p = data.partner,
+    [busy, setBusy] = useState(false),
+    [notice, setNotice] = useState(''),
+    [filter, setFilter] = useState('all'),
+    [query, setQuery] = useState(''),
+    [page, setPage] = useState(1)
   const [fiscal, setFiscal] = useState({
-    vatNumber: partner['Partita IVA'] || '',
-    taxCode: partner['Codice Fiscale'] || '',
-    sdi: partner['Codice SDI'] || '',
-    pec: partner.PEC || '',
+    vatNumber: text(p, 'Partita IVA'),
+    taxCode: text(p, 'Codice Fiscale'),
+    sdi: text(p, 'Codice Destinatario SDI'),
+    pec: text(p, 'PEC Fatturazione'),
   })
-  const [fiscalStatus, setFiscalStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [fiscalMessage, setFiscalMessage] = useState('')
-
-  async function saveFiscalData(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setFiscalStatus('loading')
-    setFiscalMessage('')
+  const [fiscalBusy, setFiscalBusy] = useState(false),
+    [fiscalMessage, setFiscalMessage] = useState('')
+  const available = p.Attivo === true && p['Pausa Operativa'] !== true
+  const taken = number(p, 'Chiamate Prese'),
+    missed = number(p, 'Chiamate Non Prese'),
+    negotiating = number(p, 'Chiamate In Trattativa')
+  const configured =
+    p['Pausa Operativa'] === true ? 0 : (data.priority?.share ?? null)
+  const first = data.leads.filter(
+    (l) =>
+      (l as Lead & { 'Prima Chiamata Diretta'?: boolean })[
+        'Prima Chiamata Diretta'
+      ],
+  ).length
+  const acceptance =
+    taken !== null && missed !== null && taken + missed > 0
+      ? Math.round((taken / (taken + missed)) * 100)
+      : null
+  const due = data.leads.filter((l) => bill(l) === 'due'),
+    paid = data.leads.filter((l) => bill(l) === 'paid')
+  const dueAmount = due.reduce(
+    (sum, l) => sum + (l['Importo Commissione'] || 0),
+    0,
+  )
+  const filtered = useMemo(
+    () =>
+      data.leads.filter(
+        (l) =>
+          (filter === 'all' || bill(l) === filter) &&
+          [
+            l.Citta,
+            l.Servizio,
+            l.Nome,
+            l.id,
+            l['Esito Chiamata'],
+            l['Feedback Carroattrezzi'],
+          ]
+            .join(' ')
+            .toLowerCase()
+            .includes(query.toLowerCase()),
+      ),
+    [data.leads, filter, query],
+  )
+  const pages = Math.max(1, Math.ceil(filtered.length / 8)),
+    currentPage = Math.min(page, pages)
+  async function changeAvailability() {
+    setBusy(true)
+    setNotice('')
     try {
-      const token = new URLSearchParams(window.location.search).get('token') || ''
-      await partnerRequest('viasos-partner-fiscal-update', {
-        token,
-        'Partita IVA': fiscal.vatNumber,
-        'Codice Fiscale': fiscal.taxCode,
-        'Codice SDI': fiscal.sdi,
-        PEC: fiscal.pec,
-      })
-      setFiscalStatus('success')
-      setFiscalMessage('Dati fiscali salvati correttamente.')
-    } catch (error) {
-      setFiscalStatus('error')
-      setFiscalMessage(error instanceof Error ? error.message : 'Non è stato possibile salvare i dati fiscali.')
+      const r = await partnerRequest<{ partner: Partner }>(
+        'viasos-partner-dashboard',
+        { token, action: 'availability', available: !available },
+      )
+      if (!r.partner) throw new Error('Stato non confermato dal sistema.')
+      update({ ...data, partner: r.partner })
+      setNotice('Disponibilità aggiornata.')
+      try {
+        const fresh = await partnerRequest<Data>('viasos-partner-dashboard', {
+          token,
+        })
+        update(fresh)
+      } catch {
+        setNotice(
+          'Disponibilità salvata. Premi Aggiorna per ricaricare le statistiche.',
+        )
+      }
+    } catch (e) {
+      setNotice(e instanceof Error ? e.message : 'Aggiornamento non riuscito.')
+    } finally {
+      setBusy(false)
     }
   }
-
+  async function saveFiscal(e: FormEvent) {
+    e.preventDefault()
+    setFiscalBusy(true)
+    setFiscalMessage('')
+    try {
+      await partnerRequest('viasos-partner-dashboard', {
+        token,
+        action: 'fiscal',
+        ...fiscal,
+      })
+      setFiscalMessage('Dati fiscali salvati.')
+    } catch (e) {
+      setFiscalMessage(
+        e instanceof Error ? e.message : 'Salvataggio non riuscito.',
+      )
+    } finally {
+      setFiscalBusy(false)
+    }
+  }
+  function logout() {
+    sessionStorage.removeItem('viasos-partner-session')
+    location.href = '/partner/login/'
+  }
   return (
     <PartnerShell>
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
-        <div className="rounded-[2rem] bg-[#07111f] p-6 text-white shadow-2xl shadow-slate-950/15 sm:p-8 lg:p-10">
-          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+      <main className="vp-container vp-dashboard">
+        <div className="vp-dash-top">
+          <div>
+            <PartnerBadge>LA TUA AREA OPERATIVA</PartnerBadge>
+            <h1>{text(p, 'Nome Ditta') || 'La tua attività'}</h1>
+            <p>
+              {text(p, 'Citta')} · {text(p, 'WhatsApp')}
+            </p>
+          </div>
+          <div className="vp-dash-top-actions">
+            <StatusPill tone={p.Attivo ? 'green' : 'yellow'}>
+              {text(p, 'Stato Registrazione') ||
+                (p.Attivo ? 'Profilo attivo' : 'In attesa di attivazione')}
+            </StatusPill>
+            <button
+              className="vp-quiet-button"
+              onClick={() => location.reload()}
+            >
+              Aggiorna
+            </button>
+            <button className="vp-quiet-button" onClick={logout}>
+              Esci ↗
+            </button>
+          </div>
+        </div>
+        <div className="vp-dash-nav">
+          <a href="#operativita">Operatività</a>
+          <a href="#servizi">Servizi e pagamenti</a>
+          <a href="#profilo">Profilo e fatturazione</a>
+          <span>DATI DEL TUO PROFILO</span>
+        </div>
+        <section id="operativita" className="vp-availability">
+          <div>
+            <span className={`vp-live-dot ${available ? 'is-live' : ''}`} />
             <div>
-              <PartnerBadge>ViaSOS Partner Command Center</PartnerBadge>
-              <h1 className="mt-6 max-w-4xl text-4xl font-black tracking-tight sm:text-5xl">
-                {partner['Nome Ditta'] || 'Profilo partner'}
-              </h1>
-              <p className="mt-4 text-lg font-semibold text-slate-300">
-                {partner.Citta || 'Città non indicata'} Â·{' '}
-                {partner.WhatsApp || 'WhatsApp non indicato'}
+              <PartnerBadge>DISPONIBILITÀ OPERATIVA</PartnerBadge>
+              <h2>{available ? 'Pronto a ricevere.' : 'Chiamate in pausa.'}</h2>
+              <p>
+                {p.Attivo
+                  ? 'Puoi mettere in pausa nuove chiamate e assegnazioni automatiche. I servizi già avviati restano attivi.'
+                  : 'Il profilo deve essere attivato da ViaSOS prima di ricevere chiamate.'}
               </p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <StatusPill tone={approved ? 'green' : 'yellow'}>
-                {status}
-              </StatusPill>
-              <StatusPill tone={active ? 'green' : 'yellow'}>
-                {active ? 'Attivo per i lead' : 'Lead non abilitati'}
-              </StatusPill>
             </div>
           </div>
-
-          <div className="mt-8 grid gap-4 lg:grid-cols-[0.82fr_1.18fr]">
-            <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-6">
-              <p className="text-sm font-black uppercase tracking-[0.18em] text-[#25d366]">
-                Punteggio partner
-              </p>
-              <div className="mt-4 flex items-end gap-3">
-                <span className="text-6xl font-black">{score.total}</span>
-                <span className="pb-2 text-xl font-black text-slate-300">
-                  /100
-                </span>
-              </div>
-              <div className="mt-5 h-3 overflow-hidden rounded-full bg-white/15">
-                <div
-                  className="h-full rounded-full bg-[#25d366]"
-                  style={{ width: `${score.total}%` }}
-                />
-              </div>
-              <p className="mt-4 text-sm leading-6 font-semibold text-slate-300">
-                Più il punteggio è alto, più il partner è affidabile: disponibilità,
-                conclusione dei servizi e pagamenti incidono sulla priorità.
-              </p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-3">
-              <ScoreTile label="Disponibilità" value={score.availability} />
-              <ScoreTile label="Completamento" value={score.completion} />
-              <ScoreTile label="Pagamenti" value={score.payment} />
-            </div>
-          </div>
+          <button
+            role="switch"
+            aria-checked={available}
+            aria-label="Disponibilità operativa"
+            className="vp-availability-switch"
+            disabled={busy || p.Attivo !== true}
+            onClick={changeAvailability}
+          >
+            <span>
+              {busy ? 'Salvataggio…' : available ? 'Disponibile' : 'In pausa'}
+            </span>
+            <i>
+              <b />
+            </i>
+          </button>
+        </section>
+        {notice && (
+          <p className="vp-message" role="status">
+            {notice}
+          </p>
+        )}
+        <div className="vp-metrics">
+          <Metric
+            icon={<CheckIcon />}
+            label="Sì, preso"
+            value={taken}
+            caption="Esiti presi della chiamata"
+          />
+          <Metric
+            icon={<PhoneIcon />}
+            label="Non preso"
+            value={missed}
+            caption="Esiti non confermati"
+          />
+          <Metric
+            icon={<ClockIcon />}
+            label="In trattativa"
+            value={negotiating}
+            caption="Esiti in trattativa"
+          />
+          <Metric
+            icon={<TruckIcon />}
+            label="Servizi nello storico"
+            value={data.leads.length}
+            caption="Tutti i servizi associati"
+          />
         </div>
-
-        {approved && !active ? (
-          <div className="mt-6 rounded-[1.5rem] border border-amber-200 bg-amber-50 p-5">
-            <h2 className="text-lg font-black text-amber-950">
-              Profilo approvato, ma non ancora attivo per i lead
-            </h2>
-            <p className="mt-2 leading-7 font-semibold text-amber-900">
-              La registrazione è approvata. Per farlo entrare davvero nel
-              dispatcher devi spuntare anche il campo Attivo in Airtable.
-            </p>
-          </div>
-        ) : null}
-
-        {!approved ? (
-          <div className="mt-6 rounded-[1.5rem] border border-amber-200 bg-amber-50 p-5">
-            <h2 className="text-lg font-black text-amber-950">
-              Profilo in verifica
-            </h2>
-            <p className="mt-2 leading-7 font-semibold text-amber-900">
-              Il profilo è stato ricevuto, ma non è ancora approvato. Non riceve
-              lead finché non viene controllato manualmente.
-            </p>
-          </div>
-        ) : null}
-
-        {approved ? (
-          <PartnerPanel>
-            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+        <div className="vp-dash-insights">
+          <section className="vp-priority">
+            <PartnerBadge>LA PRIMA CHIAMATA</PartnerBadge>
+            <div className="vp-priority-main">
               <div>
-                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
-                  Dopo l’approvazione
-                </p>
-                <h2 className="mt-2 text-2xl font-black">Completa i dati fiscali</h2>
-                <p className="mt-2 max-w-2xl text-sm font-semibold leading-6 text-slate-600">
-                  Questi dati non vengono richiesti durante la registrazione. Inseriscili ora nella tua area partner per mantenere ordinata la gestione amministrativa dei servizi conclusi.
+                <h2>
+                  La tua priorità
+                  <br />
+                  parte dagli esiti.
+                </h2>
+                <p>
+                  Ogni Sì, preso migliora il tuo indicatore di esito; ogni Non
+                  preso lo riduce. Conferma sempre il risultato reale del
+                  contatto.
                 </p>
               </div>
-              <StatusPill tone="green">Profilo approvato</StatusPill>
+              <div className="vp-priority-number">
+                <strong>
+                  {configured !== null
+                    ? Math.max(0, Math.min(100, configured))
+                    : '—'}
+                  <small>{configured !== null ? '%' : ''}</small>
+                </strong>
+                <span>QUOTA SUL NUMERO DI RIFERIMENTO</span>
+              </div>
             </div>
-            <form onSubmit={saveFiscalData} className="mt-6 grid gap-4 sm:grid-cols-2">
-              <FiscalField label="Partita IVA" value={fiscal.vatNumber} onChange={(value) => setFiscal((current) => ({ ...current, vatNumber: value }))} />
-              <FiscalField label="Codice fiscale" value={fiscal.taxCode} onChange={(value) => setFiscal((current) => ({ ...current, taxCode: value }))} />
-              <FiscalField label="Codice SDI" value={fiscal.sdi} onChange={(value) => setFiscal((current) => ({ ...current, sdi: value }))} />
-              <FiscalField label="PEC" type="email" value={fiscal.pec} onChange={(value) => setFiscal((current) => ({ ...current, pec: value }))} />
-              <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-                {fiscalMessage ? <p className={fiscalStatus === 'success' ? 'text-sm font-bold text-emerald-700' : 'text-sm font-bold text-red-700'}>{fiscalMessage}</p> : <span />}
-                <button type="submit" disabled={fiscalStatus === 'loading'} className="rounded-full bg-[#075e54] px-6 py-3.5 text-sm font-black text-white transition hover:bg-[#06483f] disabled:cursor-not-allowed disabled:opacity-60">
-                  {fiscalStatus === 'loading' ? 'Salvataggio in corso' : 'Salva dati fiscali'}
-                </button>
-              </div>
-            </form>
-          </PartnerPanel>
-        ) : null}
-
-        <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Metric label="Lead collegati" value={data.leads.length} />
-          <Metric
-            label="Sono disponibile"
-            value={partner['Sono Disponibile Totali'] || 0}
-          />
-          <Metric
-            label="Non conclusi"
-            value={partner['Disponibili Non Conclusi'] || 0}
-          />
-          <Metric
-            label="Priorità manuale"
-            value={partner['Priorita Invio'] || 'Auto'}
-          />
-        </div>
-
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
-          <Metric
-            label="Commissioni dovute"
-            value={partner['Commissioni Dovute'] || 0}
-            suffix="â‚¬"
-          />
-          <Metric
-            label="Commissioni pagate"
-            value={partner['Commissioni Pagate'] || 0}
-            suffix="â‚¬"
-          />
-          <Metric
-            label="Commissioni aperte"
-            value={partner['Commissioni Non Pagate'] || 0}
-            suffix="â‚¬"
-          />
-        </div>
-
-        <div className="mt-8">
-          <PartnerMap partner={partner} />
-        </div>
-
-        <div className="mt-8 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-          <PartnerPanel>
-            <div className="flex flex-wrap items-end justify-between gap-3">
-              <div>
-                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
-                  storico operativo
-                </p>
-                <h2 className="mt-2 text-2xl font-black">Ultimi lead</h2>
-              </div>
-              <StatusPill tone="neutral">ultimi 20 collegati</StatusPill>
+            <div className="vp-priority-track">
+              <span
+                style={{
+                  width: `${configured !== null ? Math.max(0, Math.min(100, configured)) : 0}%`,
+                }}
+              />
             </div>
-            <div className="mt-5 grid gap-3">
-              {data.leads.length ? (
-                data.leads.map((lead) => (
-                  <div
-                    key={lead.id}
-                    className="rounded-[1.25rem] border border-slate-200 bg-slate-50 p-4"
-                  >
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <p className="font-black">
-                          {lead.Servizio || 'Servizio non indicato'}
-                        </p>
-                        <p className="mt-1 text-sm font-semibold text-slate-600">
-                          {lead.Citta || 'Zona non indicata'} Â·{' '}
-                          {lead['Telefono Cliente'] || 'telefono non visibile'}
-                        </p>
-                      </div>
-                      <StatusPill
-                        tone={lead['Commissione Pagata'] ? 'green' : 'neutral'}
-                      >
-                        {lead.stato_lead || 'Stato non indicato'}
-                      </StatusPill>
-                    </div>
-                    {lead.Descrizione ? (
-                      <p className="mt-3 text-sm leading-6 text-slate-600">
-                        {lead.Descrizione}
-                      </p>
-                    ) : null}
+            <p className="vp-priority-note">
+              {configured === null
+                ? 'La percentuale di prima chiamata non è ancora disponibile per questo profilo.'
+                : 'Quota calcolata dai pesi e dai partner disponibili sul numero di riferimento. Il punteggio degli esiti è separato: non garantisce chiamate. I numeri dedicati seguono un instradamento specifico.'}
+            </p>
+            <div className="vp-priority-footer">
+              <span>
+                Esiti presi / presi + non presi{' '}
+                <b>{acceptance === null ? '—' : `${acceptance}%`}</b>
+              </span>
+              <span>
+                Prime chiamate nello storico <b>{first}</b>
+              </span>
+            </div>
+          </section>
+          <section className="vp-balance">
+            <PartnerBadge>COMMISSIONI</PartnerBadge>
+            <h2>Da pagare</h2>
+            <strong>{euro(dueAmount)}</strong>
+            <p>{due.length} servizi con commissione da saldare</p>
+            <div>
+              <span>Servizi pagati</span>
+              <b>{paid.length}</b>
+            </div>
+            <a
+              href="#servizi"
+              onClick={() => {
+                setFilter('due')
+                setPage(1)
+              }}
+              className="vp-button"
+            >
+              Vedi i servizi da pagare <ArrowUpRightIcon />
+            </a>
+            <small>
+              Le commissioni sono quelle registrate nei singoli servizi.
+              {due.some((l) => l['Importo Commissione'] === undefined) &&
+                ' Alcuni servizi attendono ancora la registrazione dell’importo e non sono inclusi nel totale.'}
+            </small>
+          </section>
+        </div>
+        <section id="servizi" className="vp-services">
+          <div className="vp-section-heading">
+            <div>
+              <PartnerBadge>DAL CONTATTO AL PAGAMENTO</PartnerBadge>
+              <h2>Tutti i tuoi servizi.</h2>
+            </div>
+            <label className="vp-search">
+              Cerca nello storico
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value)
+                  setPage(1)
+                }}
+                placeholder="Comune, servizio o riferimento"
+              />
+            </label>
+          </div>
+          <div className="vp-service-filters" aria-label="Filtra per pagamento">
+            {[
+              ['all', 'Tutti', data.leads.length],
+              ['due', 'Da pagare', due.length],
+              ['paid', 'Pagati', paid.length],
+              [
+                'none',
+                'Non da pagare',
+                data.leads.length - due.length - paid.length,
+              ],
+            ].map(([key, label, count]) => (
+              <button
+                key={key}
+                aria-pressed={filter === key}
+                onClick={() => {
+                  setFilter(String(key))
+                  setPage(1)
+                }}
+              >
+                {label}
+                <span>{count}</span>
+              </button>
+            ))}
+          </div>
+          <div className="vp-service-list">
+            {filtered.slice((currentPage - 1) * 8, currentPage * 8).map((l) => {
+              const status = bill(l),
+                url = paymentUrl(l)
+              return (
+                <article className="vp-service-row" key={l.id}>
+                  <div className="vp-service-icon">
+                    <TruckIcon />
                   </div>
-                ))
-              ) : (
-                <p className="rounded-[1.25rem] bg-slate-50 p-5 font-semibold text-slate-600">
-                  Nessun lead collegato a questo profilo.
+                  <div className="vp-service-details">
+                    <span>
+                      {date(l)} · {l.id.slice(-6).toUpperCase()}
+                    </span>
+                    <h3>
+                      {l.Servizio || 'Soccorso stradale'} ·{' '}
+                      {l.Citta || 'Comune non indicato'}
+                    </h3>
+                    <p>
+                      {l['Esito Chiamata'] ||
+                        l['Feedback Carroattrezzi'] ||
+                        l.stato_lead ||
+                        'Esito in aggiornamento'}
+                    </p>
+                  </div>
+                  <div className="vp-service-payment">
+                    <strong>
+                      {(l['Importo Commissione'] ?? 0) > 0
+                        ? euro(l['Importo Commissione']!)
+                        : '—'}
+                    </strong>
+                    <StatusPill
+                      tone={
+                        status === 'paid'
+                          ? 'green'
+                          : status === 'due'
+                            ? 'yellow'
+                            : 'neutral'
+                      }
+                    >
+                      {status === 'paid'
+                        ? 'Pagato'
+                        : status === 'due'
+                          ? 'Da pagare'
+                          : 'Non da pagare'}
+                    </StatusPill>
+                  </div>
+                  {status === 'due' && url ? (
+                    <a
+                      className="vp-pay-link"
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Paga ↗
+                    </a>
+                  ) : (
+                    <span className="vp-service-link-note">
+                      {status === 'due' ? 'Link non disponibile' : ''}
+                    </span>
+                  )}
+                  <details>
+                    <summary>Dettagli del servizio</summary>
+                    <p>{l.Descrizione || 'Nessuna descrizione aggiuntiva.'}</p>
+                  </details>
+                </article>
+              )
+            })}
+            {!filtered.length && (
+              <div className="vp-empty">
+                <TruckIcon />
+                <h3>
+                  {data.leads.length
+                    ? 'Nessun risultato per questo filtro.'
+                    : 'Il primo servizio comincia da una chiamata.'}
+                </h3>
+                <p>
+                  {data.leads.length
+                    ? 'Prova un altro comune o uno stato diverso.'
+                    : 'Quando un servizio sarà associato al tuo profilo, troverai qui esito e stato della commissione.'}
+                </p>
+              </div>
+            )}
+          </div>
+          <div className="vp-pagination">
+            <span>
+              {filtered.length} servizi · Pagina {currentPage} di {pages}
+            </span>
+            <button
+              disabled={currentPage <= 1}
+              onClick={() => setPage(currentPage - 1)}
+            >
+              ← Precedente
+            </button>
+            <button
+              disabled={currentPage >= pages}
+              onClick={() => setPage(currentPage + 1)}
+            >
+              Successiva →
+            </button>
+          </div>
+        </section>
+        <section id="profilo" className="vp-profile-grid">
+          <PartnerPanel>
+            <PartnerBadge>BASE OPERATIVA</PartnerBadge>
+            <h2>Il tuo territorio.</h2>
+            <dl>
+              <dt>Attività</dt>
+              <dd>{text(p, 'Nome Ditta') || 'Non indicata'}</dd>
+              <dt>Base</dt>
+              <dd>
+                {[text(p, 'Indirizzo Fatturazione'), text(p, 'Citta')]
+                  .filter(Boolean)
+                  .join(', ') || 'Non indicata'}
+              </dd>
+              <dt>Copertura</dt>
+              <dd>
+                {number(p, 'Copertura KM') !== null
+                  ? `${number(p, 'Copertura KM')} km`
+                  : 'Non indicata'}
+              </dd>
+              <dt>Autostrada</dt>
+              <dd>
+                {p['Abilitato Autostrada'] ? 'Abilitato' : 'Non abilitato'}
+              </dd>
+            </dl>
+            <a className="vp-text-link" href="mailto:assistenza@viasos.it">
+              Richiedi un aggiornamento del profilo ↗
+            </a>
+          </PartnerPanel>
+          <PartnerPanel>
+            <PartnerBadge>DATI DI FATTURAZIONE</PartnerBadge>
+            <h2>Contabilità in ordine.</h2>
+            <form className="vp-form vp-fiscal-form" onSubmit={saveFiscal}>
+              {[
+                ['vatNumber', 'Partita IVA'],
+                ['taxCode', 'Codice fiscale'],
+                ['sdi', 'Codice SDI'],
+                ['pec', 'PEC'],
+              ].map(([key, label]) => (
+                <label key={key}>
+                  {label}
+                  <input
+                    className="partner-input"
+                    type={key === 'pec' ? 'email' : 'text'}
+                    value={fiscal[key as keyof typeof fiscal]}
+                    onChange={(e) =>
+                      setFiscal({ ...fiscal, [key]: e.target.value })
+                    }
+                  />
+                </label>
+              ))}
+              {fiscalMessage && (
+                <p className="vp-message" role="status">
+                  {fiscalMessage}
                 </p>
               )}
-            </div>
+              <button className="vp-button" disabled={fiscalBusy}>
+                {fiscalBusy ? 'Salvataggio…' : 'Salva i dati fiscali ↗'}
+              </button>
+            </form>
           </PartnerPanel>
-
-          <div className="grid gap-6">
-            <PartnerPanel>
-              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
-                profilo
-              </p>
-              <h2 className="mt-2 text-2xl font-black">Operatività</h2>
-              <dl className="mt-5 grid gap-3 text-sm">
-                <Info label="Referente" value={partner['Nome Referente']} />
-                <Info label="Email" value={partner['Email Fatturazione']} />
-                <Info
-                  label="Base operativa"
-                  value={partner['Indirizzo Fatturazione']}
-                />
-                <Info
-                  label="Copertura"
-                  value={
-                    partner['Copertura KM']
-                      ? `${partner['Copertura KM']} km`
-                      : undefined
-                  }
-                />
-                <Info
-                  label="Autostrada"
-                  value={
-                    partner['Abilitato Autostrada']
-                      ? 'Abilitato'
-                      : 'Non abilitato'
-                  }
-                />
-              </dl>
-            </PartnerPanel>
-            <PartnerPanel>
-              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#075e54]">
-                standard ViaSOS
-              </p>
-              <h2 className="mt-2 text-2xl font-black">Regole rapide</h2>
-              <ul className="mt-5 grid gap-3 text-sm font-bold leading-6 text-slate-700">
-                <li>Rispondi ai pulsanti WhatsApp il più velocemente possibile.</li>
-                <li>Se accetti un lead, chiama subito il cliente dal tuo telefono.</li>
-                <li>La commissione viene richiesta solo sui servizi confermati.</li>
-                <li>Se non puoi intervenire, rifiuta subito per liberare il lead.</li>
-              </ul>
-            </PartnerPanel>
-          </div>
-        </div>
-      </section>
+        </section>
+      </main>
     </PartnerShell>
   )
 }
-
-function FiscalField({
-  label,
-  value,
-  onChange,
-  type = 'text',
-}: {
-  label: string
-  value: string
-  onChange: (value: string) => void
-  type?: string
-}) {
-  return (
-    <label className="grid gap-2 text-sm font-black text-slate-700">
-      {label}
-      <input
-        className="partner-input"
-        type={type}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-      />
-    </label>
-  )
-}
-
-function PartnerMap({ partner }: { partner: PartnerFields }) {
-  const lat = partner['Latitudine Zona']
-  const lng = partner['Longitudine Zona']
-  const address = [
-    partner['Indirizzo Fatturazione'],
-    partner.Citta,
-  ]
-    .filter(Boolean)
-    .join(', ')
-  const query =
-    typeof lat === 'number' && typeof lng === 'number'
-      ? `${lat},${lng}`
-      : address
-  const mapUrl = query
-    ? `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=13&output=embed`
-    : ''
-
-  return (
-    <PartnerPanel className="overflow-hidden p-0">
-      <div className="grid gap-0 lg:grid-cols-[0.78fr_1.22fr]">
-        <div className="bg-[#07111f] p-6 text-white sm:p-8">
-          <p className="text-sm font-black uppercase tracking-[0.16em] text-[#25d366]">
-            base operativa
-          </p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight">
-            Posizione del carroattrezzi
-          </h2>
-          <p className="mt-4 text-base leading-7 font-semibold text-slate-300">
-            La base operativa serve per calcolare copertura, distanza indicativa
-            e compatibilità con i lead ricevuti nella zona.
-          </p>
-          <div className="mt-6 grid gap-3 text-sm">
-            <div className="rounded-[1.25rem] bg-white/10 p-4">
-              <p className="font-black text-slate-400">Indirizzo</p>
-              <p className="mt-1 font-black">{address || 'Non indicato'}</p>
-            </div>
-            <div className="rounded-[1.25rem] bg-white/10 p-4">
-              <p className="font-black text-slate-400">Copertura</p>
-              <p className="mt-1 font-black">
-                {partner['Copertura KM']
-                  ? `${partner['Copertura KM']} km`
-                  : 'Non indicata'}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="relative min-h-[360px] bg-slate-100 lg:min-h-[430px]">
-          {mapUrl ? (
-            <iframe
-              title="Mappa base operativa carroattrezzi"
-              src={mapUrl}
-              className="absolute inset-0 size-full border-0 grayscale-[10%] saturate-[1.08]"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          ) : (
-            <div className="absolute inset-0 grid place-items-center bg-[linear-gradient(135deg,#e8f2fb,#f8fbff)] p-8 text-center">
-              <p className="max-w-md text-lg font-black text-slate-700">
-                Inserisci indirizzo o coordinate su Airtable per vedere la mappa
-                operativa.
-              </p>
-            </div>
-          )}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,transparent_0,transparent_110px,rgba(7,17,31,0.12)_111px,rgba(7,17,31,0.2)_100%)]" />
-          {mapUrl ? (
-            <div className="pointer-events-none absolute left-1/2 top-1/2 grid size-28 -translate-x-1/2 -translate-y-1/2 place-items-center">
-              <span className="absolute size-24 rounded-full border-2 border-[#25d366]/55 animate-[viasos-scan_2.6s_ease-out_infinite]" />
-              <span className="absolute size-16 rounded-full bg-[#25d366]/20 blur-md" />
-              <span className="relative grid size-11 place-items-center rounded-full bg-[#25d366] shadow-2xl shadow-emerald-950/35 ring-8 ring-white/80">
-                <span className="size-3 rounded-full bg-[#07111f]" />
-              </span>
-            </div>
-          ) : null}
-        </div>
-      </div>
-    </PartnerPanel>
-  )
-}
-
-function calculatePartnerScore(partner: PartnerFields) {
-  const available = partner['Sono Disponibile Totali'] || 0
-  const notClosed = partner['Disponibili Non Conclusi'] || 0
-  const paid = partner['Commissioni Pagate'] || 0
-  const unpaid = partner['Commissioni Non Pagate'] || 0
-  const reminders = partner['Reminder Pagamento Totali'] || 0
-  const manualPriority = partner['Priorita Invio']
-
-  const availability = Math.min(100, 55 + available * 6)
-  const completion =
-    available === 0 ? 70 : Math.max(15, Math.round(100 - (notClosed / available) * 100))
-  const paymentBase =
-    paid + unpaid === 0 ? 82 : Math.round((paid / Math.max(1, paid + unpaid)) * 100)
-  const reminderPenalty = Math.min(45, reminders * 5)
-  const payment = Math.max(20, paymentBase - reminderPenalty)
-  const priorityBonus =
-    typeof manualPriority === 'number' && manualPriority > 0
-      ? Math.max(0, 12 - manualPriority * 2)
-      : 0
-
-  const total = Math.max(
-    1,
-    Math.min(
-      100,
-      Math.round(
-        availability * 0.28 +
-          completion * 0.32 +
-          payment * 0.34 +
-          priorityBonus,
-      ),
-    ),
-  )
-
-  return { total, availability: Math.round(availability), completion, payment }
-}
-
-function ScoreTile({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-5 text-white">
-      <p className="text-sm font-black text-slate-300">{label}</p>
-      <p className="mt-3 text-3xl font-black">{value}</p>
-      <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/15">
-        <div
-          className="h-full rounded-full bg-[#25d366]"
-          style={{ width: `${value}%` }}
-        />
-      </div>
-    </div>
-  )
-}
-
 function Metric({
+  icon,
   label,
   value,
-  suffix,
+  caption,
 }: {
+  icon: React.ReactNode
   label: string
-  value: string | number
-  suffix?: string
+  value: number | null
+  caption: string
 }) {
   return (
-    <PartnerPanel className="p-5">
-      <p className="text-sm font-black text-slate-500">{label}</p>
-      <p className="mt-2 text-3xl font-black">
-        {value}
-        {suffix ? <span className="text-xl">{suffix}</span> : null}
-      </p>
-    </PartnerPanel>
+    <section className="vp-metric">
+      <div>
+        {icon}
+        <span>{label}</span>
+      </div>
+      <strong>{value ?? '—'}</strong>
+      <p>{value === null ? 'Dato non ancora disponibile' : caption}</p>
+    </section>
   )
 }
-
-function Info({ label, value }: { label: string; value?: string }) {
-  return (
-    <div className="flex justify-between gap-4 border-b border-slate-100 pb-3">
-      <dt className="font-black text-slate-500">{label}</dt>
-      <dd className="text-right font-bold text-slate-800">
-        {value || 'Non indicato'}
-      </dd>
-    </div>
-  )
-}
-

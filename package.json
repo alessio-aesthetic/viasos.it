@@ -9,7 +9,8 @@
     "verify:location": "node scripts/verify-location-flow.mjs",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "verify:partner": "node scripts/verify-partner-portal.cjs"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.1",
