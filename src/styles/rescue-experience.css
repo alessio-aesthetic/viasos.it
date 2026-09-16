@@ -2080,3 +2080,26 @@
   inset: 0;
   width: 100%;
 }
+
+/* Keep proximity images inside their reserved area at every viewport. */
+.home-page section.rx-proximity .rx-benefit-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100% !important;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 550px) {
+  .home-page
+    > section.rx-service-catalogue
+    .rx-service-reveal:not(.rx-service-featured)
+    .rx-service-card
+    > a {
+    display: grid;
+    grid-template-columns: 95px minmax(0, 1fr);
+    column-gap: 16px;
+    row-gap: 16px;
+  }
+}
