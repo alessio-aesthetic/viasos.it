@@ -1,4 +1,5 @@
 import { CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { MapPinIcon, PhoneIcon, ArrowUpRightIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 
 import { faqs, services } from '@/data/site'
@@ -28,66 +29,43 @@ const newWay = [
 
 export function Comparison() {
   return (
-    <section id="perché-viasos" className="bg-slate-50 py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-10 max-w-4xl text-center">
-          <p className="text-sm font-black tracking-[0.22em] text-[#075e54] uppercase">
-            perché funziona meglio
-          </p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-[#07111f] sm:text-4xl">
-            Una richiesta fatta bene vale più di dieci telefonate a vuoto
-          </h2>
-          <p className="mt-5 text-lg leading-8 text-slate-700">
-            ViaSOS nasce per ridurre confusione, attesa e tentativi inutili:
-            raccoglie i dati essenziali una sola volta e li prepara in modo
-            chiaro per i carroattrezzi compatibili.
-          </p>
-        </div>
-        <div className="grid gap-6 lg:grid-cols-2">
-          <div className="relative flex h-full flex-col rounded-[2.5rem] border border-white bg-white p-8 ring-1 shadow-[0_34px_90px_rgba(15,23,42,0.14),inset_0_1px_0_rgba(255,255,255,1)] ring-slate-200/70">
-            <div className="absolute inset-x-8 -bottom-5 -z-10 h-10 rounded-full bg-slate-950/12 blur-2xl" />
-            <div className="absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-slate-300 to-transparent" />
-            <h3 className="text-2xl font-black text-[#07111f]">
-              Il vecchio modo
-            </h3>
-            <ul className="mt-8 grid gap-4">
-              {oldWay.map((item) => (
-                <li
-                  key={item}
-                  className="flex gap-4 rounded-2xl bg-slate-50 p-4 text-slate-700 ring-1 shadow-[0_10px_24px_rgba(15,23,42,0.06)] ring-slate-100"
-                >
-                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-red-50">
-                    <XMarkIcon className="size-5 text-red-500" />
-                  </span>
-                  <span className="font-bold">{item}</span>
-                </li>
-              ))}
-            </ul>
+    <section id="perché-viasos" className="rx-section rx-comparison" aria-labelledby="comparison-title">
+      <div className="rx-container">
+        <RescueReveal className="rx-comparison-heading">
+          <div>
+            <span className="rx-eyebrow">MENO TENTATIVI. UNA DIREZIONE CHIARA.</span>
+            <h2 id="comparison-title">Quando sei fermo,<br /><em>ogni passaggio conta.</em></h2>
           </div>
-          <div className="relative flex h-full flex-col rounded-[2.5rem] border border-white bg-white p-8 ring-1 shadow-[0_34px_90px_rgba(6,95,70,0.18),inset_0_1px_0_rgba(255,255,255,1)] ring-emerald-200/80">
-            <div className="absolute inset-x-8 -bottom-5 -z-10 h-10 rounded-full bg-emerald-950/16 blur-2xl" />
-            <div className="absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-[#25d366]/70 to-transparent" />
-            <h3 className="text-2xl font-black text-[#07111f]">
-              Il modo ViaSOS
-            </h3>
-            <ul className="mt-8 grid gap-4">
-              {newWay.map((item) => (
-                <li
-                  key={item}
-                  className="flex gap-4 rounded-2xl bg-[#f3fff7] p-4 text-slate-800 ring-1 shadow-[0_10px_24px_rgba(6,95,70,0.08)] ring-emerald-100"
-                >
-                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#25d366]">
-                    <CheckIcon className="size-5 text-[#07111f]" />
-                  </span>
-                  <span className="font-black">{item}</span>
-                </li>
-              ))}
-            </ul>
+          <p>Dal punto in cui si trova il veicolo al contatto della zona. ViaSOS accorcia la ricerca, così puoi concentrarti sulla chiamata.</p>
+        </RescueReveal>
+        <RescueReveal className="rx-comparison-board">
+          <div className="rx-comparison-side rx-comparison-before">
+            <div className="rx-comparison-label"><span>01 / LA RICERCA TRADIZIONALE</span><span aria-hidden="true">↗ ↙ ↗</span></div>
+            <h3>Il vecchio modo</h3>
+            <p className="rx-comparison-caption">Tanti tentativi. Nessuna direzione.</p>
+            <div className="rx-route-diagram" aria-hidden="true">
+              <svg viewBox="0 0 460 110" fill="none"><path className="rx-route-lost" d="M20 75H100Q120 75 120 55V35Q120 15 140 15H190Q210 15 210 35V75Q210 95 230 95H280Q300 95 300 75V45Q300 25 320 25H360Q380 25 380 45V75H435"/><circle cx="20" cy="75" r="6"/><path d="m429 69 12 12m0-12-12 12"/></svg>
+              <span className="rx-route-note">CERCA · CHIAMA · RIPROVA</span>
+            </div>
+            <ul>{oldWay.map((item) => <li key={item}><XMarkIcon aria-hidden="true"/><span>{item}</span></li>)}</ul>
           </div>
-        </div>
-        <p className="mt-8 rounded-[2rem] bg-[#fff7d6] p-6 text-center text-2xl font-black text-[#07111f]">
-          Una sola richiesta può sostituire numerose telefonate.
-        </p>
+          <div className="rx-comparison-side rx-comparison-after">
+            <div className="rx-comparison-label"><span>02 / PARTI DAL PUNTO GIUSTO</span><MapPinIcon aria-hidden="true"/></div>
+            <h3>Il modo <span>ViaSOS</span></h3>
+            <p className="rx-comparison-caption">La tua posizione. Il contatto della zona.</p>
+            <div className="rx-route-diagram rx-route-direct" aria-hidden="true">
+              <svg viewBox="0 0 460 110" fill="none"><path className="rx-route-track" d="M25 55H435"/><path className="rx-route-flow" d="M25 55H435"/><circle cx="25" cy="55" r="9"/><circle cx="230" cy="55" r="9"/><circle cx="435" cy="55" r="9"/></svg>
+              <div className="rx-route-stops"><span>POSIZIONE</span><span>COMUNE</span><span>CONTATTO</span></div>
+            </div>
+            <ul>{newWay.map((item, index) => <li key={item} style={{ transitionDelay: `${index * 70}ms` }}><CheckIcon aria-hidden="true"/><span>{item}</span></li>)}</ul>
+            <span className="rx-comparison-corner" aria-hidden="true"><ArrowUpRightIcon/></span>
+          </div>
+        </RescueReveal>
+        <RescueReveal className="rx-comparison-action">
+          <div className="rx-comparison-action-icon"><PhoneIcon aria-hidden="true"/></div>
+          <div><h3>Meno ricerca. Più spazio alla chiamata.</h3><p>Trova il riferimento della zona e verifica disponibilità e preventivo direttamente al telefono.</p></div>
+          <RescueButton>Trova il tuo comune</RescueButton>
+        </RescueReveal>
       </div>
     </section>
   )
