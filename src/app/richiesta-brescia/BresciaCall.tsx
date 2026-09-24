@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const phone = '030 204 1794'
 const tel = '+390302041794'
@@ -47,6 +47,33 @@ const faqs = [
   ['Cosa devo dire quando chiamo?', 'Bastano il luogo in cui ti trovi, il tipo di veicolo e il problema. Se non conosci l’indirizzo, indica un punto di riferimento, l’uscita o la direzione di marcia.'],
 ]
 
+const animatedCases = [
+  ['Auto in panne', 'auto-rotta'],
+  ['Batteria scarica', 'batteria'],
+  ['Gomma danneggiata', 'gomme'],
+  ['Recupero dopo incidente', 'incidente'],
+  ['Veicolo bloccato', 'auto-bloccata'],
+  ['Carburante esaurito', 'senza-benzina'],
+]
+
+function AnimatedCases() {
+  const container = useRef<HTMLDivElement>(null)
+  const [ready, setReady] = useState(false)
+  const [animate, setAnimate] = useState(false)
+  useEffect(() => {
+    let cancelled = false
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const updateMotion = () => setAnimate(!motion.matches)
+    updateMotion()
+    motion.addEventListener('change', updateMotion)
+    const load = () => { void import('@lottiefiles/lottie-player').then(() => { if (!cancelled) setReady(true) }).catch(() => {}) }
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { load(); observer.disconnect() } }, { rootMargin: '200px' })
+    if (container.current) observer.observe(container.current)
+    return () => { cancelled = true; observer.disconnect(); motion.removeEventListener('change', updateMotion) }
+  }, [])
+  return <div className="bc-cases" ref={container}>{animatedCases.map(([name, asset]) => <div key={asset}><div className="bc-case-animation" aria-hidden="true">{ready && <lottie-player key={String(animate)} src={`/lottie/brescia-request/${asset}.json`} background="transparent" speed="1" {...(animate ? { loop: true, autoplay: true } : {})} />}</div><h3>{name}</h3><Icon name="check" /></div>)}</div>
+}
+
 export default function BresciaCall() {
   const [time, setTime] = useState('')
   useEffect(() => {
@@ -62,7 +89,7 @@ export default function BresciaCall() {
         <div className="bc-contact"><div className="bc-contact-top"><span className="bc-availability"><i /> ASSISTENZA TELEFONICA 24/7</span></div><h2 className="bc-available-title">Carroattrezzi disponibile<strong>al 100%</strong><span>in questo momento.</span></h2><div className="bc-clock"><span>ORA LOCALE</span><time suppressHydrationWarning>{time || '—:—:—'}</time></div><CallButton placement="hero" /><p className="bc-call-note">Un contatto diretto. Nessun modulo da compilare.</p><div className="bc-contact-bottom"><Icon name="shield" /><p><strong>Chiedi il preventivo. Poi decidi.</strong><span>Prezzo e tempi del mezzo si confermano al telefono.</span></p></div></div>
       </div><div className="bc-road-stripe" aria-hidden="true" /></section>
       <section className="bc-benefits bc-wrap" aria-label="Perché chiamare ViaSOS">{benefits.map((item, i) => <article key={item.title}><div className="bc-benefit-top"><Icon name={item.icon} /><span>0{i + 1}</span></div><h2>{item.title}</h2><p>{item.text}</p></article>)}</section>
-      <section className="bc-help"><div className="bc-wrap bc-help-grid"><div><p className="bc-eyebrow">DAL PROBLEMA ALLA SOLUZIONE</p><h2>Qualunque sia l’imprevisto,<br /><em>raccontacelo.</em></h2><p>Auto, moto e furgoni. Una chiamata per capire il problema e concordare il recupero più adatto.</p><a className="bc-inline-call" href={`tel:${tel}`} onClick={() => trackCall('services')}>Parla con il riferimento di Brescia <Icon name="arrow" /></a></div><div className="bc-cases">{['Auto in panne', 'Batteria scarica', 'Gomma danneggiata', 'Recupero dopo incidente', 'Veicolo bloccato', 'Traino e trasporto'].map((name, i) => <div key={name}><span>0{i + 1}</span><h3>{name}</h3><Icon name="check" /></div>)}</div></div></section>
+      <section className="bc-help"><div className="bc-wrap bc-help-grid"><div><p className="bc-eyebrow">DAL PROBLEMA ALLA SOLUZIONE</p><h2>Qualunque sia l’imprevisto,<br /><em>raccontacelo.</em></h2><p>Auto, moto e furgoni. Una chiamata per capire il problema e concordare il recupero più adatto.</p><a className="bc-inline-call" href={`tel:${tel}`} onClick={() => trackCall('services')}>Parla con il riferimento di Brescia <Icon name="arrow" /></a></div><AnimatedCases /></div></section>
       <section className="bc-wrap bc-faq"><div><p className="bc-eyebrow">PRIMA DI CHIAMARE</p><h2>Poche informazioni.<br />Tutto più chiaro.</h2><p>Il prezzo, i tempi, il punto di recupero.<br />Definisci tutto durante la chiamata.</p></div><div>{faqs.map(([q, a]) => <details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></section>
       <section className="bc-final bc-wrap"><div><p className="bc-eyebrow">BRESCIA E PROVINCIA · 24 ORE</p><h2>Fermo con il veicolo?<br /><em>Facciamo il prossimo passo.</em></h2><p>Chiama, spiega il problema e chiedi il tuo preventivo.</p></div><CallButton placement="closing" /></section>
     </main>
