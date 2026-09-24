@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/carroattrezzi-padova',
     '/richiesta-bologna',
     '/richiesta-prato',
+    '/richiesta-piacenza',
     '/privacy',
     '/cookie',
     '/termini',
