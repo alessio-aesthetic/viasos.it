@@ -12,3 +12,6 @@
 @media(prefers-reduced-motion:reduce){.bc-page *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 .bc-case-animation{width:76px;height:76px;flex:none;display:grid;place-items:center;overflow:hidden;border-radius:16px;background:#f7f8ef;border:1px solid #ffffff30}.bc-case-animation lottie-player{display:block;width:100%;height:100%}.bc-cases>div{padding:12px 0;gap:18px}.bc-cases h3{flex:1;min-width:0}.bc-cases>div>svg{flex-shrink:0}@media(max-width:760px){.bc-case-animation{width:66px;height:66px;border-radius:13px}.bc-cases>div{gap:14px;padding:10px 0}.bc-cases h3{font-size:14px}}
+
+.bc-contact .bc-available-title{font-size:clamp(18px,2.4vw,22px)!important;line-height:1.35!important;font-weight:800!important;letter-spacing:-.04em!important;margin:22px 0 20px!important}.bc-contact .bc-available-title strong{display:inline!important;font-size:inherit!important;line-height:inherit!important;margin:0!important;font-weight:inherit!important;letter-spacing:inherit!important;color:#4b9563!important}.bc-contact .bc-available-title>span{display:inline!important;font-size:inherit!important;color:inherit!important;letter-spacing:inherit!important;font-weight:inherit!important}
+@media(max-width:760px){.bc-contact .bc-available-title{font-size:19px!important;margin:15px 0!important}}
