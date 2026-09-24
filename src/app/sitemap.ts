@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/carroattrezzi-bergamo/richiesta3',
     '/carroattrezzi-padova',
     '/richiesta-bologna',
+    '/richiesta-prato',
     '/privacy',
     '/cookie',
     '/termini',
