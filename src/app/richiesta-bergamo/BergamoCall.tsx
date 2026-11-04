@@ -85,7 +85,7 @@ export default function BergamoCall() {
           <p className="mt-1 text-base font-semibold text-[#a6efb6] sm:text-lg">Così risparmi tempo e denaro.</p>
           <div className="mx-auto mt-5 grid max-w-lg grid-cols-2 divide-x divide-white/20">
             <p className="px-1 font-bold"><strong className="block text-lg sm:text-2xl">20 MINUTI</strong><span className="text-base">Arrivo stimato</span></p>
-            <p className="px-1 font-bold"><strong className="block text-lg text-[#ffd33d] sm:text-2xl">PREZZI ONESTI</strong><span className="text-base">In base ai km reali</span></p>
+            <p className="px-1 font-bold"><strong className="block text-lg text-[#ffd33d] sm:text-2xl">PREZZI BASSI ED ONESTI</strong><span className="text-base">In base ai km reali</span></p>
           </div>
         </section>
 
@@ -108,7 +108,7 @@ export default function BergamoCall() {
         <section className="rounded-2xl border border-[#d9e1d4] bg-white px-4 py-5">
           <span aria-hidden="true" className="mx-auto block h-20 w-20">{ready && <lottie-player key={String(animate)} src={locationAnimation} background="transparent" speed="1" {...(animate ? { autoplay: true, loop: true } : {})} />}</span>
           <h2 className="text-xl font-black sm:text-2xl">Più vicino. Meno strada. Meno attesa.</h2>
-          <p className="mt-1.5 text-base font-medium sm:text-lg">Chiamaci e dicci dove sei: ti inviamo il carroattrezzi più vicino disponibile. Prezzi onesti, in base ai km reali.</p>
+          <p className="mt-1.5 text-base font-medium sm:text-lg">Chiamaci e dicci dove sei: ti inviamo il carroattrezzi più vicino disponibile. Prezzi bassi e onesti, in base ai km reali.</p>
         </section>
       </main>
       <footer className="flex flex-wrap justify-center gap-x-5 gap-y-2 px-4 pb-28 pt-6 text-base sm:pb-6">
