@@ -71,9 +71,9 @@ export default function BergamoCall() {
       <main className="mx-auto max-w-4xl px-4 pt-4 sm:px-6 sm:pt-6">
         <section className="rounded-[1.75rem] border border-[#294737] bg-[#14251e] px-4 pb-5 pt-4 text-[#fffdf2] shadow-lg sm:px-8 sm:pb-7">
           <img src="/images/viasos-logo-header-cropped.webp" alt="ViaSOS" width="146" height="56" className="mx-auto mb-3 h-auto w-24 rounded-lg bg-[#fffdf2] p-1.5 sm:w-28" />
-          <h1 className="text-lg font-bold sm:text-2xl">Soccorso Stradale 24H</h1>
-          <p className="mt-2 flex items-center justify-center gap-2 text-[clamp(1.45rem,6vw,3.5rem)] font-black leading-none tracking-tight text-[#a6efb6]">
-            <span aria-hidden="true" className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#a6efb6] shadow-[0_0_14px_#a6efb6]" />
+          <h1 className="text-[clamp(1.5rem,6.3vw,3rem)] font-black leading-tight uppercase">Soccorso Stradale 24H</h1>
+          <p className="mt-2 flex items-center justify-center gap-2 text-[clamp(1.65rem,7.2vw,4rem)] font-black leading-none tracking-tight text-[#75ff98]">
+            <span aria-hidden="true" className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#75ff98] shadow-[0_0_14px_#75ff98]" />
             DISPONIBILE ORA
           </p>
           <time aria-label={time ? 'Ora di Bergamo ' + time : undefined} className="mt-1 block min-h-[1em] text-[clamp(3rem,12vw,6rem)] font-black leading-none tracking-tight tabular-nums">{time}</time>
@@ -82,7 +82,7 @@ export default function BergamoCall() {
             <span className="whitespace-nowrap text-lg font-bold sm:text-xl">{phone}</span>
           </a>
           <p className="mx-auto mt-4 max-w-md text-lg font-bold leading-snug sm:text-xl">Ti inviamo il carroattrezzi più vicino e disponibile.</p>
-          <p className="mt-1 text-base font-semibold text-[#a6efb6] sm:text-lg">Così risparmi tempo e denaro.</p>
+          <p className="mt-1 text-base font-semibold text-[#75ff98] sm:text-lg">Così risparmi tempo e denaro.</p>
           <div className="mx-auto mt-5 grid max-w-lg grid-cols-2 divide-x divide-white/20">
             <p className="px-1 font-bold"><strong className="block text-lg sm:text-2xl">20 MINUTI</strong><span className="text-base">Arrivo stimato</span></p>
             <p className="px-1 font-bold"><strong className="block text-lg text-[#ffd33d] sm:text-2xl">PREZZI BASSI ED ONESTI</strong><span className="text-base">In base ai km reali</span></p>
@@ -111,10 +111,15 @@ export default function BergamoCall() {
           <p className="mt-1.5 text-base font-medium sm:text-lg">Chiamaci e dicci dove sei: ti inviamo il carroattrezzi più vicino disponibile. Prezzi bassi e onesti, in base ai km reali.</p>
         </section>
       </main>
-      <footer className="flex flex-wrap justify-center gap-x-5 gap-y-2 px-4 pb-28 pt-6 text-base sm:pb-6">
+      <footer className="mt-8 border-t border-[#375044] bg-[#14251e] px-4 pb-28 pt-8 text-[#fffdf2] sm:pb-8">
+        <a href="/" className="inline-block rounded-lg bg-[#fffdf2] p-2"><img src="/images/viasos-logo-header-cropped.webp" alt="ViaSOS — Pagina iniziale" width="120" height="46" /></a>
+        <p className="mt-3 text-lg font-bold">Soccorso stradale a Bergamo e provincia</p>
+        <a className="mt-2 inline-block font-bold text-[#ffd33d]" href={'tel:' + tel} onClick={() => trackCall('footer')}>{phone}</a>
+        <nav aria-label="Informazioni legali" className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-white/20 pt-5">
         <a className="underline" href="/privacy/">Privacy</a>
         <a className="underline" href="/cookie/">Cookie</a>
         <a className="underline" href="/termini/">Termini</a>
+        </nav>
       </footer>
       <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#375044] bg-[#14251e] px-4 pt-2 pb-[calc(.5rem+env(safe-area-inset-bottom))] sm:hidden">
         <a href={'tel:' + tel} onClick={() => trackCall('mobile_sticky')} className="mx-auto flex min-h-12 max-w-md flex-wrap items-center justify-center gap-x-2 rounded-xl bg-[#ffd33d] px-3 py-2 text-lg font-black text-[#14251e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
