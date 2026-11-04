@@ -1,0 +1,33 @@
+.bg-call .bc-hero {
+  background: radial-gradient(ellipse at 12% 0%, #ffe2a1, transparent 65%), #f3efe2;
+}
+.bg-call .bc-contact {
+  background: #17251e;
+  border-color: #25392c;
+  color: #fffef4;
+}
+.bg-call .bc-contact-top { gap: 12px; flex-wrap: wrap; }
+.bg-call .bc-availability { color: #a6efb6; }
+.bg-call .bg-time {
+  color: #fffef4;
+  min-width: 2.7em;
+  min-height: 1em;
+  font-size: clamp(33px, 5vw, 58px);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.06em;
+  line-height: 1;
+}
+.bg-call .bc-contact .bc-available-title { font-size: clamp(25px, 3vw, 36px) !important; }
+.bg-call .bc-contact .bc-available-title strong { color: #a6efb6 !important; }
+.bg-call .bc-contact-bottom { border-color: #405449; }
+.bg-call .bc-contact-bottom strong { color: #fffef4; }
+.bg-call .bc-contact-bottom p span { color: #c8d6cc; }
+@media (max-width: 760px) {
+  .bg-call .bc-hero { padding-top: 18px; }
+  .bg-call .bc-hero-grid { gap: 18px; }
+  .bg-call .bc-intro h1 { margin: 8px 0 0; font-size: clamp(28px, 8vw, 40px); }
+  .bg-call .bc-intro .bc-price-focus { margin-top: 12px; }
+  .bg-call .bc-intro .bc-promises,
+  .bg-call .bc-intro .bc-route { display: none; }
+  .bg-call .bc-contact .bc-available-title { margin: 12px 0 !important; }
+}
