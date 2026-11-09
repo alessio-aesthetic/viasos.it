@@ -55,6 +55,7 @@ export default function RootLayout({
     >
       <body className="viasos-app bg-white text-slate-950 antialiased">
         {children}
+      <script defer src="/privacy-notice.js" />
       </body>
     </html>
   )
